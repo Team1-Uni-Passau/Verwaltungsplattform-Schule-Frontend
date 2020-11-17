@@ -23,4 +23,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 After first downloading the project, follow this instructions:
 
 1- npm install 
-2- npm startss
+2- npm starts
