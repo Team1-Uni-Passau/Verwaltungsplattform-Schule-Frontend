@@ -1,28 +1,31 @@
 import React from 'react';
 import './Homepage.css';
 import HomepagePicture from '../../assets/images/Homepage.jpg';
-import QUESTIONS from './Questions.json';
+import DATA from './static data/Data.json';
 import {eye} from 'react-icons-kit/icomoon/eye'
 import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'
 import Icon from 'react-icons-kit';
 import Modal from '../../assets/components/modal'
 import {cross} from 'react-icons-kit/icomoon/cross'
+import TeamPhoto from '../../assets/images/TeamPhoto.jpg';
+import QUESTIONS from './static data/Questions.json';
 
 export default class Homepage extends React.Component {
     
     
     constructor (props){
         super(props);
-
         this.state = {
             type: "password",
-            displayModal: false
+            displayModal: false,
+            showAnswers: []
         }
 
 
         this.changeType = this.changeType.bind(this);
         this.displayModal = this.displayModal.bind(this);
         this.undisplayModal = this.undisplayModal.bind(this);
+        this.displayAnswer = this.displayAnswer.bind(this);
 
     }
 
@@ -45,6 +48,19 @@ export default class Homepage extends React.Component {
         })
     }
 
+    displayAnswer(index){
+        let answersAlreadyDisplayed = this.state.showAnswers;
+
+        if(!answersAlreadyDisplayed.includes(index)){          //checking weather array contain the id
+            answersAlreadyDisplayed.push(index);               //adding to array because value doesnt exists
+        }else{
+            answersAlreadyDisplayed.splice(answersAlreadyDisplayed.indexOf(index), 1);  //deleting
+        }
+                this.setState({
+            showAnswers: answersAlreadyDisplayed
+        })
+    }
+
 
     render() {
         return (
@@ -55,8 +71,8 @@ export default class Homepage extends React.Component {
                         <h1 className="register-title">Konto erstellen</h1>
                         <input className="username" type="text" placeholder="Benutzername"></input>
                         <input className="username" type="text" placeholder="E-Mail Adresse eingeben"></input>
-                        <input className="username" type="text" placeholder="Passwort"></input>
-                        <input className="username" type="text" placeholder="Passwort wiederholen"></input>
+                        <input className="username" type="password" placeholder="Passwort"></input>
+                        <input className="username" type="password" placeholder="Passwort wiederholen"></input>
                         <input className="username" type="text" placeholder="Registrierungscode"></input>
                         <div className="user-type"><b style={{fontSize:"15px"}}>Ich bin ein: </b> 
                             <div className="parent-or-child">
@@ -95,37 +111,47 @@ export default class Homepage extends React.Component {
                                     </div>
                             </div>
                             <div className="school-infos">
-                                <p className="header">{QUESTIONS.Header}</p>
+                                <p className="header">{DATA.HEADER}</p>
                                 <div className="questions">
-                                    <div className="question">
-                                        <button className="show-more-button">+</button>
-                                        <div className="question-content">{QUESTIONS.first_question}</div>
-                                    </div>
-                                    <div className="question">
-                                        <button className="show-more-button">+</button>
-                                        <div className="question-content">{QUESTIONS.second_question}</div>
-                                    </div>
-                                    <div className="question">
-                                        <button className="show-more-button">+</button>
-                                        <div className="question-content">{QUESTIONS.third_question}</div>
-                                    </div>
-                                    <div className="question">
-                                        <button className="show-more-button">+</button>
-                                        <div className="question-content">{QUESTIONS.fourth_question}</div>
-                                    </div>
-                                    <div className="question">
-                                        <button className="show-more-button">+</button>
-                                        <div className="question-content">{QUESTIONS.fifth_question}</div>
-                                    </div>
-
+                                    {QUESTIONS.LIST.map((item,index) => {
+                                        return(
+                                            <div key={index} className="question">
+                                                <button className="show-more-button"  onClick={() => this.displayAnswer(index)}>+</button>
+                                                <div>
+                                                    <div className="question-content">{item}</div>
+                                                    <p className="answer" style={this.state.showAnswers.includes(index) ? void(0) : {display:'none'}} >{DATA.ABOUT_SCHOOl}</p>
+                                                </div>
+                                            </div>    
+                                        )
+                                    })}
                                 </div>
                             </div>
 
                             <div className="team-informations">
                                 <h1 className="members-title">Unser Führungsteam</h1>
+                                <div>
+                                    <img className="team-picture" src={TeamPhoto}/>
+                                    <p className="team-name">Emily Mustermann</p>
+                                </div>
+                                <div className="vertical-line"/>
+                                <div className="team-paragraph">{DATA.TEAM_PARAGRAPH}</div>
                             </div>
                 </div>
+                <div className="footer">
+                    <div className="about-school">
+                        <h4>Über diese Schule</h4>
+                        <p>{DATA.ABOUT_SCHOOl}</p>
+                    </div>
+                    <div className="follow-us">
+                        <h4>Begleiten Sie uns</h4>
+                        <p></p>
 
+                    </div>
+                    <div className="open-location">
+                        <h4>Standort öffnen</h4>
+                        <p></p>
+                    </div>
+                </div>
             </div>
         )
     }
