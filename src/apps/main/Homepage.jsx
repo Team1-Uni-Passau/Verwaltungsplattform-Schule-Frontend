@@ -1,5 +1,5 @@
 import React from 'react';
-import './Homepage.css';
+import '../../assets/stylesheets/Homepage.css';
 import HomepagePicture from '../../assets/images/Homepage.jpg';
 import DATA from './static data/Data.json';
 import {eye} from 'react-icons-kit/icomoon/eye'
@@ -9,6 +9,8 @@ import Modal from '../../assets/components/modal'
 import {cross} from 'react-icons-kit/icomoon/cross'
 import TeamPhoto from '../../assets/images/TeamPhoto.jpg';
 import QUESTIONS from './static data/Questions.json';
+import Footer from '../../assets/components/footer';
+
 
 export default class Homepage extends React.Component {
     
@@ -26,7 +28,7 @@ export default class Homepage extends React.Component {
         this.displayModal = this.displayModal.bind(this);
         this.undisplayModal = this.undisplayModal.bind(this);
         this.displayAnswer = this.displayAnswer.bind(this);
-
+        this.redirectAboutUs = this.redirectAboutUs.bind(this);
     }
 
     changeType(){
@@ -48,6 +50,10 @@ export default class Homepage extends React.Component {
         })
     }
 
+    redirectAboutUs() {
+        window.location.href = "/aboutus";
+    }
+
     displayAnswer(index){
         let answersAlreadyDisplayed = this.state.showAnswers;
 
@@ -65,6 +71,7 @@ export default class Homepage extends React.Component {
     render() {
         return (
             <div className="wrapper">
+                
                 <Modal show={this.state.displayModal} modalClosed={() => this.undisplayModal()}>
                     <Icon  className='close-modal'  onClick={this.undisplayModal} size={'100%'} icon={cross}/>
                     <div className="modal-content">
@@ -83,13 +90,18 @@ export default class Homepage extends React.Component {
                         <button className="confirm-registration">Registrieren</button>
                     </div>
                 </Modal>
+
+
+
                 <header className="top-navigation">
                         <div className="title"><b>V</b>erwaltungsplattform Schule</div>
                         <div className="buttons-top-right">
                             <button className="register-button" onClick={this.displayModal}>Registrieren</button>
-                            <button className="about-us">Über uns</button>
+                            <button className="about-us" onClick={this.redirectAboutUs}>Über uns</button>
                         </div>
                 </header>
+
+                
                 <div className="middle-panel">
                             <div className="wrapper-picture-loginBox">
                                     <div className="homepage-picture">
@@ -137,21 +149,10 @@ export default class Homepage extends React.Component {
                                 <div className="team-paragraph">{DATA.TEAM_PARAGRAPH}</div>
                             </div>
                 </div>
-                <div className="footer">
-                    <div className="about-school">
-                        <h4>Über diese Schule</h4>
-                        <p>{DATA.ABOUT_SCHOOl}</p>
-                    </div>
-                    <div className="follow-us">
-                        <h4>Begleiten Sie uns</h4>
-                        <p></p>
 
-                    </div>
-                    <div className="open-location">
-                        <h4>Standort öffnen</h4>
-                        <p></p>
-                    </div>
-                </div>
+                <Footer/>
+                
+                
             </div>
         )
     }

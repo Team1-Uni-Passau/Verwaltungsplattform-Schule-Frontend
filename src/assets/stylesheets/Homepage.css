@@ -54,7 +54,8 @@ b {
 
 .register-button:hover , .about-us:hover{
     border: 2px solid red;
-    color:red
+    color:red;
+    outline: none;
 }
 
 
