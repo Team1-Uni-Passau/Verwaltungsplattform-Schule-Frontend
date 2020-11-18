@@ -3,7 +3,6 @@ import '../../assets/stylesheets/mission.css'
 import KidsPhoto from '../../assets/images/creativity.jpg';
 import DATA from './static data/Data.json';
 import MissionPhoto from '../../assets/images/mission.jpg';
-import Footer from '../../assets/components/footer';
 
 
 export default class mission extends React.Component {
@@ -53,8 +52,6 @@ export default class mission extends React.Component {
                     </div>
                 </div>
 
-
-                <Footer/>
             </React.Fragment>
         )
     }

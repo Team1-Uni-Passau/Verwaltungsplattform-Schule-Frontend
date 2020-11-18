@@ -2,6 +2,9 @@ import React from 'react';
 import '../../assets/stylesheets/aboutus.css'
 import '../../assets/stylesheets/Homepage.css'
 import Mission from './mission';
+import Footer from '../../assets/components/footer';
+import Galerie from './galerie';
+
 
 export default class aboutUs extends React.Component {
     
@@ -10,7 +13,7 @@ export default class aboutUs extends React.Component {
         super(props);
 
         this.state = {
-            selectedTab: ""
+            selectedTab: "UNSERE MISSION"
         }
 
         this.redirectToHomepage = this.redirectToHomepage.bind(this);
@@ -43,7 +46,7 @@ export default class aboutUs extends React.Component {
                 vue = <Mission/>
                 break;
             case "GALERIE":
-                vue = <p>Not yet</p>
+                vue = <Galerie/>
                 break;
             default:
                 vue = <Mission/>
@@ -64,6 +67,8 @@ export default class aboutUs extends React.Component {
                 <div className="body-aboutus">
                     {vue}
                 </div>
+
+                <Footer/>
                 
 
             </div>

@@ -1,6 +1,6 @@
 .aboutus-wrapper{
     height: 100%;
-    position: absolute;
+    position: relative;
     width: 100%;
     overflow: auto;
     overflow-x: hidden;
