@@ -1,10 +1,10 @@
 import React from 'react';
-import '../../assets/stylesheets/aboutus.css'
-import '../../assets/stylesheets/Homepage.css'
+import '../stylesheets/aboutus.css'
+import '../stylesheets/Homepage.css'
 import Mission from './mission';
-import Footer from '../../assets/components/footer';
+import Footer from '../../../assets/components/footer';
 import Galerie from './galerie';
-
+import Story from './story';
 
 export default class aboutUs extends React.Component {
     
@@ -40,7 +40,7 @@ export default class aboutUs extends React.Component {
 
         switch (this.state.selectedTab) {
             case "UNSERE GESCHICHTE":
-                vue = <p>Not yet</p>
+                vue = <Story/>
                 break;
             case "UNSERE MISSION":
                 vue = <Mission/>

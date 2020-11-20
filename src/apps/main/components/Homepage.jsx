@@ -1,15 +1,15 @@
 import React from 'react';
-import '../../assets/stylesheets/Homepage.css';
-import HomepagePicture from '../../assets/images/Homepage.jpg';
-import DATA from './static data/Data.json';
+import '../stylesheets/Homepage.css';
+import HomepagePicture from '../../../assets/images/Homepage.jpg';
+import DATA from '../static data/Data.json';
 import {eye} from 'react-icons-kit/icomoon/eye'
 import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'
 import Icon from 'react-icons-kit';
-import Modal from '../../assets/components/modal'
+import Modal from '../../../assets/components/modal'
 import {cross} from 'react-icons-kit/icomoon/cross'
-import TeamPhoto from '../../assets/images/TeamPhoto.jpg';
-import QUESTIONS from './static data/Questions.json';
-import Footer from '../../assets/components/footer';
+import TeamPhoto from '../../../assets/images/TeamPhoto.jpg';
+import QUESTIONS from '../static data/Questions.json';
+import Footer from '../../../assets/components/footer';
 
 
 export default class Homepage extends React.Component {
@@ -128,7 +128,7 @@ export default class Homepage extends React.Component {
                                     {QUESTIONS.LIST.map((item,index) => {
                                         return(
                                             <div key={index} className="question">
-                                                <button className="show-more-button"  onClick={() => this.displayAnswer(index)}>+</button>
+                                                <button className="show-more-button"  onClick={() => this.displayAnswer(index)}>{!this.state.showAnswers.includes(index) ? "+" : "-"}</button>
                                                 <div>
                                                     <div className="question-content">{item}</div>
                                                     <p className="answer" style={this.state.showAnswers.includes(index) ? void(0) : {display:'none'}} >{DATA.ABOUT_SCHOOl}</p>

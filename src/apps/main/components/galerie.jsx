@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../assets/stylesheets/galerie.css'
-import HomepagePicture from '../../assets/images/Homepage.jpg';
+import '../stylesheets/galerie.css'
+import HomepagePicture from '../../../assets/images/Homepage.jpg';
 
 
 export default class galerie extends React.Component {
@@ -20,7 +20,7 @@ export default class galerie extends React.Component {
         return (
             <React.Fragment>
                 <div className="row">
-                        <div className="item"/>
+                        <div className="item"><img className="galerie-image" src={HomepagePicture}/></div>
                         <div className="item"/>
                         <div className="item"/>
                         <div className="item"/>

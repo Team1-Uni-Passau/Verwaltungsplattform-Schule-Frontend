@@ -1,8 +1,8 @@
 import React from 'react';
-import '../../assets/stylesheets/mission.css'
-import KidsPhoto from '../../assets/images/creativity.jpg';
-import DATA from './static data/Data.json';
-import MissionPhoto from '../../assets/images/mission.jpg';
+import '../stylesheets/mission.css'
+import KidsPhoto from '../../../assets/images/creativity.jpg';
+import DATA from '../static data/Data.json';
+import MissionPhoto from '../../../assets/images/mission.jpg';
 
 
 export default class mission extends React.Component {

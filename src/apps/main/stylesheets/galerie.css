@@ -15,4 +15,9 @@
       width: 400px;
       background-color: gray;
   }
+
+  .galerie-image{
+      height: 100%;
+      width: 100%;
+  }
   

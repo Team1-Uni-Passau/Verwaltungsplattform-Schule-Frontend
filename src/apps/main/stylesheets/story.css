@@ -1,0 +1,58 @@
+.welcome-paragraph {
+    padding: 40px;
+}
+
+.welcome {
+    font-size: 30px;
+    color: #616161;
+    font-family: sitka banner;
+    text-align: center;
+}
+
+.success-stories{
+    padding: 40px;
+}
+
+.success-stories-title{
+    font-size: 30px;
+    color: #616161;
+    font-family: sitka banner;
+}
+
+.success-stories-image{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.success-stories-image-container {
+    height: 120px;
+    width: 120px;
+    background: black;
+    border-radius: 50%;
+}
+
+.success-stories-text{
+    padding: 15px;
+    /* margin-right: 20px; */
+    height: fit-content;
+    width: 60%;
+    align-self: center;
+    margin-top: 1%;
+}
+
+
+.container {
+    display: -webkit-box;
+    vertical-align: middle;
+    /* position: absolute; */
+    height: fit-content;
+    margin-top: 50px;
+}
+
+.success-story-name {
+    color: dimgray;
+    font-weight: bold;
+    font-family: sitka banner;
+    font-size: 20px;
+}
