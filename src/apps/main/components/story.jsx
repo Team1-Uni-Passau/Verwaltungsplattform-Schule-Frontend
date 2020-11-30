@@ -34,30 +34,39 @@ export default class story extends React.Component {
                     <h4 className="success-stories-title">Success Stories:</h4>
                     <div className="container">
                         <div className="success-stories-image-container"><img className="success-stories-image" src={First_SS_IMAGE}></img></div>
-                        <div className="success-stories-text">
+                        <div className="success-stories-text-title">
                             <div className="success-story-name">Max Mustermann</div>
-                            <div >{DATA.ABOUT_SCHOOl}</div>
+                            <div className="success-stories-text">{DATA.ABOUT_SCHOOl}</div>
                         </div>
                     </div>
 
                     <div className="container">
                         <div className="success-stories-image-container"><img className="success-stories-image" src={First_SS_IMAGE}></img></div>
-                        <div className="success-stories-text">
+                        <div className="success-stories-text-title">
                             <div className="success-story-name">Max Mustermann</div>
-                            <div >{DATA.ABOUT_SCHOOl}</div>
+                            <div className="success-stories-text">{DATA.ABOUT_SCHOOl}</div>
                         </div>
                     </div>
 
                     <div className="container">
                         <div className="success-stories-image-container"><img className="success-stories-image" src={First_SS_IMAGE}></img></div>
-                        <div className="success-stories-text">
+                        <div className="success-stories-text-title">
                             <div className="success-story-name">Max Mustermann</div>
-                            <div >{DATA.ABOUT_SCHOOl}</div>
+                            <div className="success-stories-text">{DATA.ABOUT_SCHOOl}</div>
                         </div>
                     </div>
+                </div>
 
+                <div className="contact-us-container">
+                    <div className="contact-us">
+                        <div className="contact-us-title">Kontaktieren Sie uns</div>
+                        <div className="inputs-container">
+                            <input type="text" placeholder="Vorname" className="first-name"></input>
+                            <input type="text" placeholder="Nachname" className="last-name"></input>
+                            <input type="text" placeholder="E-Mail" className="e-mail"></input>
 
-
+                        </div>
+                    </div>
                 </div>
             </React.Fragment>
         )

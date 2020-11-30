@@ -10,7 +10,7 @@ import {cross} from 'react-icons-kit/icomoon/cross'
 import TeamPhoto from '../../../assets/images/TeamPhoto.jpg';
 import QUESTIONS from '../static data/Questions.json';
 import Footer from '../../../assets/components/footer';
-
+import {ic_menu} from 'react-icons-kit/md/ic_menu'
 
 export default class Homepage extends React.Component {
     
@@ -20,7 +20,8 @@ export default class Homepage extends React.Component {
         this.state = {
             type: "password",
             displayModal: false,
-            showAnswers: []
+            showAnswers: [],
+            displaySideNavigation: false
         }
 
 
@@ -29,6 +30,9 @@ export default class Homepage extends React.Component {
         this.undisplayModal = this.undisplayModal.bind(this);
         this.displayAnswer = this.displayAnswer.bind(this);
         this.redirectAboutUs = this.redirectAboutUs.bind(this);
+        this.openSideNavigation = this.openSideNavigation.bind(this);
+        this.closeSideNavigation = this.closeSideNavigation.bind(this);
+
     }
 
     changeType(){
@@ -49,6 +53,19 @@ export default class Homepage extends React.Component {
             displayModal: false
         })
     }
+
+    openSideNavigation() {
+        this.setState({
+            displaySideNavigation: true
+        })
+    }
+
+    closeSideNavigation() {
+        this.setState({
+            displaySideNavigation: false
+        })
+    }
+
 
     redirectAboutUs() {
         window.location.href = "/aboutus";
@@ -91,9 +108,18 @@ export default class Homepage extends React.Component {
                     </div>
                 </Modal>
 
+            
 
 
                 <header className="top-navigation">
+                        <div className="dropdown">
+                            <Icon className="dropbtn" size={'100%'} icon={ic_menu}/>
+                            <div className="dropdown-content">
+                                <a  onClick={this.displayModal}>Registrieren</a>
+                                <a onClick={this.redirectAboutUs}>Über uns</a>
+                            </div>
+                        </div>
+
                         <div className="title"><b>V</b>erwaltungsplattform Schule</div>
                         <div className="buttons-top-right">
                             <button className="register-button" onClick={this.displayModal}>Registrieren</button>
@@ -138,6 +164,7 @@ export default class Homepage extends React.Component {
                                     })}
                                 </div>
                             </div>
+                            
 
                             <div className="team-informations">
                                 <h1 className="members-title">Unser Führungsteam</h1>

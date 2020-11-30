@@ -72,25 +72,55 @@ b {
     width: 40%;
 }
 
-.wrapper-picture-loginBox{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-top: 100px;
-    width: 100%;
-    height: fit-content;
+@media only screen and (max-width: 1083px) {
+  .homepage-picture {
+    display: none;
+  }
+
+
+  .login-box{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    position: static !important;  
+  }
 }
 
+@media only screen and (max-width: 600px) {
+  .login-box {
+    width: 80% !important;
+  }
+}
+
+
+
+
+.wrapper-picture-loginBox{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 90px;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  height: 400px !important;
+}
+
+
+
 .login-box {
-    height: 400px;
-    width: 500px;
-    background-color: #F1F1F1;
-    right: 5%;
-    position: absolute;
-    top: 20%;
-    border-radius: 10px;
-    vertical-align: middle;
-    position: absolute;
+  height: 400px;
+  width: 500px;
+  background-color: #F1F1F1;
+  right: 5%;
+  position: absolute;
+  top: 20%;
+  border-radius: 10px;
+  vertical-align: middle;
+  position: absolute;
+  padding: 16px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .login-text {
@@ -101,7 +131,7 @@ b {
 }
 
 .username , .password{
-    width: 300px;
+    width: 65%;
     justify-self: center;
     margin: 7px;
     border: 1px solid #a9a9a9;
@@ -114,6 +144,7 @@ b {
     font-family: sans-serif;
     word-wrap: break-word;
     height: 30px;
+    min-width: 150px;
 }
 
 
@@ -134,7 +165,15 @@ b {
     font-weight: 700;
     margin-top: 10px;
     height: 35px;
-    min-width: 200px;
+}
+
+.confirm-registration{
+  min-width: 200px;
+}
+
+.login-button {
+  width: 40%;
+  min-width: fit-content;
 }
 
 .login-button{
@@ -202,8 +241,8 @@ b {
     padding: 30px;
     padding-bottom: 80px;
     position: relative;
-    top: 50px;
-    }
+    top: 65px;
+  }
 
   .question{
     display: flex;
@@ -242,7 +281,7 @@ b {
     margin-left: 10px;
     font-weight: bold;
     font-family: sitka banner;
-    height: 30px;
+    min-height: 30px;
     width: 50%;
     min-width: fit-content;
     border-radius: 4px;
@@ -255,17 +294,49 @@ b {
     display: grid;
   }
 
-  .password-icon {
-    display: inline-block; 
-    height: 15px; 
-    position: absolute; 
-    right: 0px; 
-    width: 15px; 
-    margin-top: 60px;
-    margin-right: 110px;
+
+.password-icon {
+    position: absolute;
+    left: 77%;
+    top: 60px;
+    height: 15px;
+    width: 15px;
     cursor: pointer;
-    color: gray;
+    color: gray;  
   }
+
+  @media only screen and (max-width: 505px) {
+    .password-icon {
+      display: none !important;
+    }
+
+    .forgot-password{
+      font-size: 12px;
+    }
+
+    .login-text{
+      font-size: 20px;
+    }
+
+    .login-button {
+      font-size: 10px;
+    }
+    .username , .password {
+      font-size: 11px;
+    }
+  }
+
+  @media only screen and (max-width: 637px) {
+    .buttons-top-right {
+      display: none ;
+    }
+
+    .title {
+      display: none;
+    }
+
+  }
+  
 
   .close-modal{
     display: inline-block;
@@ -395,3 +466,68 @@ b {
   font-size: 15px;
   color: black;
 }
+
+.menu-left-navigation {
+  display: none !important;
+}
+
+
+
+
+.side-navigation-small-screen {
+  z-index: 10;
+  width: 220px;
+  height: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #f0f0f0;
+  transition: all 0.5s ease-out;
+}
+
+
+.dropdown {
+  display: none !important;
+}
+
+@media screen and (max-width: 637px) {
+  .dropbtn {
+    height: 30px;
+    width: 30px;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: absolute;
+    display: inline-block !important;
+    right: 10px;
+    top: 10px;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 10px;
+    top: 40px;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  }

@@ -49,7 +49,7 @@ export default class aboutUs extends React.Component {
                 vue = <Galerie/>
                 break;
             default:
-                vue = <Mission/>
+                vue = <Story/>
             }
 
         return (
