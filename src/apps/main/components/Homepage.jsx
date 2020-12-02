@@ -32,7 +32,9 @@ export default class Homepage extends React.Component {
         this.redirectAboutUs = this.redirectAboutUs.bind(this);
         this.openSideNavigation = this.openSideNavigation.bind(this);
         this.closeSideNavigation = this.closeSideNavigation.bind(this);
-
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
     changeType(){
@@ -83,6 +85,34 @@ export default class Homepage extends React.Component {
             showAnswers: answersAlreadyDisplayed
         })
     }
+
+
+    handlePasswordChange(e) {
+        this.password = e.target.value;
+    }
+
+    handleUsernameChange(e) {
+        this.username = e.target.value;
+    }
+
+    async handleLogin() {
+        if (this.username && this.password) {
+           let response = await fetch('http://localhost:10000/login', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    username: this.username,
+                                    password: this.password
+                                })
+                            });
+            let data =  await response.text();
+            console.log(data)
+        }
+    }
+
 
 
     render() {
@@ -138,12 +168,12 @@ export default class Homepage extends React.Component {
                                     <div className="login-box">
                                         <p className="login-text">Anmelden</p>
                                         <div className="login-data-container">
-                                            <input type="text" className="username" placeholder="Benutzername"></input>
+                                            <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)}></input>
                                             <div className="password-container">
-                                                <input type={this.state.type} className="password" placeholder="Passwort"></input>
+                                                <input type={this.state.type} className="password" onChange={(e) => this.handlePasswordChange(e)} placeholder="Passwort"></input>
                                                 <Icon  className="password-icon" onClick={this.changeType} size={'100%'} icon={this.state.type == "password" ? eye : eyeBlocked}/>
                                             </div>
-                                            <button className="login-button">Einloggen</button>
+                                            <button className="login-button" onClick={this.handleLogin}>Einloggen</button>
                                             <p className="forgot-password">Password vergessen?</p>
                                         </div>
                                     </div>
