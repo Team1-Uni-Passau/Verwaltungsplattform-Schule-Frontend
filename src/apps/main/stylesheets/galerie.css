@@ -5,7 +5,7 @@
     height: 100%;
     position: relative;
     grid-template-columns: repeat(auto-fill, minmax(min(20rem,100%), 1fr) );
-    grid-gap: 150px;
+    grid-gap: 250px;
     grid-template-rows: repeat(auto-fill, 300px);
     justify-items: center;
 }
@@ -20,4 +20,16 @@
       height: 100%;
       width: 100%;
   }
+
+
+  .picture-title { 
+    height: 80%;
+    margin-top: 4%;
+    width: 80%;
+    position: relative;
+    left: 10%;
+    margin-top: 2%;
+    font-family: fantasy;
+    font-size: x-large;
+}
   

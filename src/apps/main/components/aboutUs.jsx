@@ -1,10 +1,10 @@
 import React from 'react';
 import '../stylesheets/aboutus.css'
-import '../stylesheets/Homepage.css'
 import Mission from './mission';
 import Footer from '../../../assets/components/footer';
 import Galerie from './galerie';
 import Story from './story';
+import Icon from 'react-icons-kit';
 
 export default class aboutUs extends React.Component {
     
