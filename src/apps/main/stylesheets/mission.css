@@ -43,6 +43,14 @@
     display: flex;
 }
 
+@media screen and (max-width: 695px) {
+    .educational-mission-elements {
+        display: block;
+        
+    }
+}
+  
+
 .educational-mission-elements-item {
     width: 30%;
     padding: 40px;
