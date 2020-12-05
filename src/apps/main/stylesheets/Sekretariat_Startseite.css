@@ -1,0 +1,24 @@
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 8px;
+    width: fit-content;
+    font-family: cursive;
+    position: absolute;
+    text-align: center;
+}
+
+.Ankündigung {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 8px;
+    width: fit-content;
+}
+
+.Ankündigung-Box {
+    height: 400px;
+    width: 600px;
+    background-color: gray;
+}

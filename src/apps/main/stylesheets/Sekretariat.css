@@ -1,0 +1,46 @@
+.Sekretariat-wrapper{
+    height: 100%;
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.navigation-top{
+    position: relative;
+    height: fit-content;
+    display: flex;
+    border-bottom-style: double;
+    padding-bottom: 15px;
+    border-bottom-color: gray;
+    height: 40px;
+}
+
+.navigation-top-right{
+    margin-top: 20px;
+    right: 30px;
+    position: absolute;
+    width: fit-content;
+}
+
+.navigation-top-right-item{
+    margin-right: 50px;
+    font-family: sitka banner;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: .07em;
+    display: inline-block;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.navigation-top-right-item:hover {
+    color:#FF4338;
+}
+
+.body-Sekretariat {
+    height: 100%;
+    width: 100%;
+    margin-top: 7%;
+}

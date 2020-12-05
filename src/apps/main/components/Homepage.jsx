@@ -32,7 +32,8 @@ export default class Homepage extends React.Component {
         this.redirectAboutUs = this.redirectAboutUs.bind(this);
         this.openSideNavigation = this.openSideNavigation.bind(this);
         this.closeSideNavigation = this.closeSideNavigation.bind(this);
-
+        this.displayModal2 = this.displayModal.bind(this);
+        
     }
 
     changeType(){
@@ -108,6 +109,15 @@ export default class Homepage extends React.Component {
                     </div>
                 </Modal>
 
+                <Modal show={this.state.displayModal2} modalClosed={() => this.undisplayModal()}>
+                    <Icon  className='close-modal'  onClick={this.undisplayModal} size={'100%'} icon={cross}/>
+                    <div className="modal-content">
+                        <h1 className="title">Passwort vergessen</h1>
+                        <button className="E-Mail-senden">E-Mail senden</button>
+                    </div>
+                </Modal>
+        
+
             
 
 
@@ -123,7 +133,7 @@ export default class Homepage extends React.Component {
                         <div className="title"><b>V</b>erwaltungsplattform Schule</div>
                         <div className="buttons-top-right">
                             <button className="register-button" onClick={this.displayModal}>Registrieren</button>
-                            <button className="about-us" onClick={this.redirectAboutUs}>Über uns</button>
+                            {/*<button className="about-us" onClick={this.redirectAboutUs}>Über uns</button>*/}
                         </div>
                 </header>
 
@@ -148,7 +158,7 @@ export default class Homepage extends React.Component {
                                         </div>
                                     </div>
                             </div>
-                            <div className="school-infos">
+                           {/* <div className="school-infos">
                                 <p className="header">{DATA.HEADER}</p>
                                 <div className="questions">
                                     {QUESTIONS.LIST.map((item,index) => {
@@ -174,10 +184,10 @@ export default class Homepage extends React.Component {
                                 </div>
                                 <div className="vertical-line"/>
                                 <div className="team-paragraph">{DATA.TEAM_PARAGRAPH}</div>
-                            </div>
+                                </div>*/}
                 </div>
 
-                <Footer/>
+                {/*<Footer/>*/}
                 
                 
             </div>

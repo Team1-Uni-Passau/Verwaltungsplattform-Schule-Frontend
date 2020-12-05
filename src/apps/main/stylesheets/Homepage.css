@@ -35,7 +35,7 @@ b {
     text-decoration: none;
     background-color: white;
     font-weight: bolder;
-    margin-right: 10px;
+    margin-right: 15px;
     font-size: 12px;
     letter-spacing: .07em;
     padding: 10px;
@@ -43,7 +43,7 @@ b {
     line-height: 1;
     border-radius: 4px;
     color: #1f2530;
-    width: 80%;
+    width: 100%;
     cursor: pointer;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -148,7 +148,7 @@ b {
 }
 
 
-.login-button , .confirm-registration{
+.login-button , .confirm-registration , .E-Mail-senden {
     font-size: 14px;
     background-color: #ff4338;
     color: #fff;
@@ -326,10 +326,11 @@ b {
     }
   }
 
-  @media only screen and (max-width: 637px) {
-    .buttons-top-right {
+  @media only screen and (max-width: 470px) {
+    /*.buttons-top-right {
       display: none ;
-    }
+    }*/
+  
 
     .title {
       display: none;
@@ -489,7 +490,7 @@ b {
   display: none !important;
 }
 
-@media screen and (max-width: 637px) {
+@media screen and (max-width: 0px) {
   .dropbtn {
     height: 30px;
     width: 30px;
