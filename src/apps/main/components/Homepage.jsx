@@ -1,15 +1,11 @@
 import React from 'react';
 import '../stylesheets/Homepage.css';
 import HomepagePicture from '../../../assets/images/Homepage.jpg';
-import DATA from '../static data/Data.json';
 import {eye} from 'react-icons-kit/icomoon/eye'
 import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'
 import Icon from 'react-icons-kit';
 import Modal from '../../../assets/components/modal'
 import {cross} from 'react-icons-kit/icomoon/cross'
-import TeamPhoto from '../../../assets/images/TeamPhoto.jpg';
-import QUESTIONS from '../static data/Questions.json';
-import Footer from '../../../assets/components/footer';
 import {ic_menu} from 'react-icons-kit/md/ic_menu'
 
 export default class Homepage extends React.Component {
@@ -21,22 +17,25 @@ export default class Homepage extends React.Component {
             type: "password",
             displayModal: false,
             showAnswers: [],
-            displaySideNavigation: false
+            displaySideNavigation: false,
+            usernameInvalid: false,
+            passwordInvalid: false
         }
 
 
         this.changeType = this.changeType.bind(this);
         this.displayModal = this.displayModal.bind(this);
         this.undisplayModal = this.undisplayModal.bind(this);
-        this.displayAnswer = this.displayAnswer.bind(this);
-        this.redirectAboutUs = this.redirectAboutUs.bind(this);
-        this.openSideNavigation = this.openSideNavigation.bind(this);
-        this.closeSideNavigation = this.closeSideNavigation.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.restorePassword = this.restorePassword.bind(this);
+
     }
 
+
+
+    // Method to toggle the password visibility (Text or bullets)
     changeType(){
         let type = this.state.type == "password" ? "text" : "password";
         this.setState({
@@ -44,58 +43,63 @@ export default class Homepage extends React.Component {
         })
     }
 
+
+    // Method called to display the registration Modal
     displayModal(){
         this.setState({
             displayModal: true
         })
     }
 
+    // Method to undisplay the registration Modal
     undisplayModal(){
         this.setState({
             displayModal: false
         })
     }
 
-    openSideNavigation() {
-        this.setState({
-            displaySideNavigation: true
-        })
-    }
 
-    closeSideNavigation() {
-        this.setState({
-            displaySideNavigation: false
-        })
-    }
-
-
-    redirectAboutUs() {
-        window.location.href = "/aboutus";
-    }
-
-    displayAnswer(index){
-        let answersAlreadyDisplayed = this.state.showAnswers;
-
-        if(!answersAlreadyDisplayed.includes(index)){          //checking weather array contain the id
-            answersAlreadyDisplayed.push(index);               //adding to array because value doesnt exists
-        }else{
-            answersAlreadyDisplayed.splice(answersAlreadyDisplayed.indexOf(index), 1);  //deleting
-        }
-                this.setState({
-            showAnswers: answersAlreadyDisplayed
-        })
-    }
-
-
+    // Method to get the value of the text intereted by the user in the password field in the login box
     handlePasswordChange(e) {
         this.password = e.target.value;
     }
 
+    //Method to get the value of the text entered by the user in the username field in the login box
     handleUsernameChange(e) {
         this.username = e.target.value;
     }
 
+
+    //Method to open the restore password page
+    restorePassword() {
+        window.location.href = "/forgotpassword";
+    }
+
+
+    // Method to send the login data (username and the password) to the backend as a HTTP request
     async handleLogin() {
+
+
+        if(!this.username){
+            this.setState({
+                usernameInvalid: true
+            })
+        } else {
+            this.setState({
+                usernameInvalid: false
+            })
+        }
+
+        if(!this.password){
+            this.setState({
+                passwordInvalid: true
+            })
+        } else {
+            this.setState({
+                passwordInvalid: false
+            })
+        }
+
         if (this.username && this.password) {
            let response = await fetch('http://localhost:10000/login', {
                                 method: 'POST',
@@ -109,8 +113,7 @@ export default class Homepage extends React.Component {
                                 })
                             });
             let data =  await response.text();
-            console.log(data)
-        }
+        } 
     }
 
 
@@ -138,9 +141,6 @@ export default class Homepage extends React.Component {
                     </div>
                 </Modal>
 
-            
-
-
                 <header className="top-navigation">
                         <div className="dropdown">
                             <Icon className="dropbtn" size={'100%'} icon={ic_menu}/>
@@ -153,7 +153,6 @@ export default class Homepage extends React.Component {
                         <div className="title"><b>V</b>erwaltungsplattform Schule</div>
                         <div className="buttons-top-right">
                             <button className="register-button" onClick={this.displayModal}>Registrieren</button>
-                            <button className="about-us" onClick={this.redirectAboutUs}>Über uns</button>
                         </div>
                 </header>
 
@@ -167,47 +166,25 @@ export default class Homepage extends React.Component {
                                     </div>
                                     <div className="login-box">
                                         <p className="login-text">Anmelden</p>
-                                        <div className="login-data-container">
-                                            <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)}></input>
-                                            <div className="password-container">
-                                                <input type={this.state.type} className="password" onChange={(e) => this.handlePasswordChange(e)} placeholder="Passwort"></input>
-                                                <Icon  className="password-icon" onClick={this.changeType} size={'100%'} icon={this.state.type == "password" ? eye : eyeBlocked}/>
+                                        <div className="login-data-container"  >
+                                            <div className="username-input-container" style={this.state.usernameInvalid ? {height:'70px'} : void(0)}>
+                                                <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)} style={this.state.usernameInvalid ? {borderColor:'red'} : void(0)}></input>
+                                                <p className="form-validation-username" style={this.state.usernameInvalid ? void(0) : {display:'none'}}>Benutzername is ein Pflichtfeld.</p>
                                             </div>
-                                            <button className="login-button" onClick={this.handleLogin}>Einloggen</button>
-                                            <p className="forgot-password">Password vergessen?</p>
+                                            <div className="password-container-homepage">
+                                                <input type={this.state.type} className="password" onChange={(e) => this.handlePasswordChange(e)} placeholder="Passwort" style={this.state.passwordInvalid ? {borderColor:'red'} : void(0)}></input>
+                                                <p className="form-validation-password" style={this.state.passwordInvalid ? void(0) : {display:'none'}}>Passwort is ein Pflichtfeld.</p>
+                                                {/* <Icon  className="password-icon" onClick={this.changeType} size={'100%'} icon={this.state.type == "password" ? eye : eyeBlocked}/> */}
+                                            </div>
+                                            <div style={{textAlign:'center'}}>
+                                                <button className="login-button" onClick={this.handleLogin}>Einloggen</button>
+                                                <p className="forgot-password" onClick={this.restorePassword}>Password vergessen?</p>
+                                            </div>
                                         </div>
                                     </div>
                             </div>
-                            <div className="school-infos">
-                                <p className="header">{DATA.HEADER}</p>
-                                <div className="questions">
-                                    {QUESTIONS.LIST.map((item,index) => {
-                                        return(
-                                            <div key={index} className="question">
-                                                <button className="show-more-button"  onClick={() => this.displayAnswer(index)}>{!this.state.showAnswers.includes(index) ? "+" : "-"}</button>
-                                                <div>
-                                                    <div className="question-content">{item}</div>
-                                                    <p className="answer" style={this.state.showAnswers.includes(index) ? void(0) : {display:'none'}} >{DATA.ABOUT_SCHOOl}</p>
-                                                </div>
-                                            </div>    
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                            
-
-                            <div className="team-informations">
-                                <h1 className="members-title">Unser Führungsteam</h1>
-                                <div>
-                                    <img className="team-picture" src={TeamPhoto}/>
-                                    <p className="team-name">Emily Mustermann</p>
-                                </div>
-                                <div className="vertical-line"/>
-                                <div className="team-paragraph">{DATA.TEAM_PARAGRAPH}</div>
-                            </div>
                 </div>
 
-                <Footer/>
                 
                 
             </div>

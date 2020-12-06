@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch , Route } from 'react-router-dom';
 import Homepage from './apps/main/components/Homepage';
-import Aboutus from './apps/main/components/aboutUs';
+import RestorePassword from './apps/main/components/restorePassword';
+
 
 function AppRouter() {
     return (
         <Switch>
             <Route path='/' exact component={Homepage} />
-            <Route path='/aboutus' component={Aboutus} />
+            <Route path='/forgotpassword' exact component={RestorePassword} />
 
         </Switch >
     );
