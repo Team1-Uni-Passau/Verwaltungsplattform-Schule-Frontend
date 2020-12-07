@@ -7,6 +7,8 @@ import Icon from 'react-icons-kit';
 import Modal from '../../../assets/components/modal'
 import {cross} from 'react-icons-kit/icomoon/cross'
 import {ic_menu} from 'react-icons-kit/md/ic_menu'
+import { ToastContainer, toast } from 'react-toastify';
+import '../stylesheets/ReactToastify.css';
 
 export default class Homepage extends React.Component {
     
@@ -22,7 +24,8 @@ export default class Homepage extends React.Component {
             usernameInvalid: false,
             passwordInvalid: false,
             roleCheckedInRegisterForm: '',
-            registerNameValid: true
+            userIsAlreadySaved: false,
+            registrationUnknownError: false,
         }
 
 
@@ -40,6 +43,8 @@ export default class Homepage extends React.Component {
         this.handleRegisterRepeatPasswordChange = this.handleRegisterRepeatPasswordChange.bind(this);
         this.handleRegisterUsernameChange = this.handleRegisterUsernameChange.bind(this);     
         this.handleRegister_RegisterCodeChange  = this.handleRegister_RegisterCodeChange.bind(this);
+        this.notifyOnRegistrationSuccess  = this.notifyOnRegistrationSuccess.bind(this);
+
     }
 
 
@@ -89,20 +94,27 @@ export default class Homepage extends React.Component {
     handleRegisterEmailChange(e) {
         this.registerEmail = e.target.value;
     }
+
+
     handleRegisterRepeatPasswordChange(e) {
         this.registerPassword = e.target.value;
     }
+
+
     handleRegisterPasswordChange(e) {
         this.registerRepeatPassword = e.target.value;
     }
+
 
     handleRegister_RegisterCodeChange(e) {
         this.registerCode = e.target.value;
     }
 
+
     handleRegisterUsernameChange(e) {
         this.registerName = e.target.value;
     }
+
 
     handleCheckboxChange = (TYPE) => {
         switch(TYPE){
@@ -124,44 +136,50 @@ export default class Homepage extends React.Component {
     }
 
 
-
+    notifyOnRegistrationSuccess() {
+        toast.success("Registrierung erfolgreich abgeschlossen, Sie können sich jetzt anmelden.")
+    }
 
 
 
         // Method to send the register data (username, password, repeat password, email, register code, role ) to the backend as a HTTP request
         async handleRegister() {
-
-            if(!this.registerName) {
-                this.setState({
-                    registerNameValid: false
-                })
-            } else {
-                this.setState({
-                    registerNameValid: true
-                })
-            }
-
-
-            if (this.registerName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {
-
-
-                
-               let response = await fetch('http://localhost:10000/registration', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({
-                                        registerName: this.registerName,
-                                        registerEmail: this.registerEmail,
-                                        registerPassword: this.registerPassword,
-                                        registerCode: this.registerCode,
-                                        roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
-                                    })
-                                });
-                let data =  await response.text();
+            if (this.registerName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
+                await fetch('http://localhost:10000/registration', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        registerName: this.registerName,
+                        registerEmail: this.registerEmail,
+                        registerPassword: this.registerPassword,
+                        registerCode: this.registerCode,
+                        roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
+                    })
+                }).then(response => {
+                    if(response.status === 200){
+                        this.setState({
+                            userIsAlreadySaved: false,
+                            registrationUnknownError: false
+                        })          
+                        this.undisplayModal();
+                        this.notifyOnRegistrationSuccess();  
+                    } else if (response.status === 409){
+                        this.setState({
+                            userIsAlreadySaved: true,
+                            registrationUnknownError: false
+                        })
+                    } else {
+                        this.setState({
+                            registrationUnknownError: true,
+                            userIsAlreadySaved: false,
+                        })
+                    }
+                });                    
             } 
+
         }
     
     
@@ -169,8 +187,6 @@ export default class Homepage extends React.Component {
 
     // Method to send the login data (username and the password) to the backend as a HTTP request
     async handleLogin() {
-
-
         if(!this.username){
             this.setState({
                 usernameInvalid: true
@@ -180,7 +196,6 @@ export default class Homepage extends React.Component {
                 usernameInvalid: false
             })
         }
-
         if(!this.password){
             this.setState({
                 passwordInvalid: true
@@ -190,7 +205,6 @@ export default class Homepage extends React.Component {
                 passwordInvalid: false
             })
         }
-
         if (this.username && this.password) {
            let response = await fetch('http://localhost:10000/login', {
                                 method: 'POST',
@@ -210,14 +224,22 @@ export default class Homepage extends React.Component {
 
 
     render() {
+        console.log(this.state.userIsAlreadySaved)
         return (
             <div className="wrapper">
-                
+                <ToastContainer 
+                    position="top-center"
+                    newestOnTop={false}
+                    rtl={false}
+                />
+
                 <Modal show={this.state.displayModal} modalClosed={() => this.undisplayModal()}>
                     <Icon  className='close-modal'  onClick={this.undisplayModal} size={'100%'} icon={cross}/>
                     <div className="modal-content">
                         <h1 className="register-title">Konto erstellen</h1>
-                        <input className="username" type="text" placeholder="Benutzername" style={this.state.registerNameValid ? void(0) : {borderColor:'red'}} onChange={this.handleRegisterUsernameChange}></input>
+                        <div className="email-already-in-use" style={this.state.userIsAlreadySaved? void(0):{display:'none'}}><p>Diese E-Mail addresse wird bereits verwendet</p></div>
+                        <div className="unknown-error" style={this.state.registrationUnknownError? void(0):{display:'none'}}><p>Etwas ist schiefgelaufen</p></div>
+                        <input className="username" type="text" placeholder="Benutzername" onChange={this.handleRegisterUsernameChange}></input>
                         <input className="username" type="text" placeholder="E-Mail Adresse eingeben" onChange={this.handleRegisterEmailChange}></input>
                         <input className="username" type="password" placeholder="Passwort" onChange={this.handleRegisterPasswordChange}></input>
                         <input className="username" type="password" placeholder="Passwort wiederholen" onChange={this.handleRegisterRepeatPasswordChange}></input>
@@ -231,13 +253,11 @@ export default class Homepage extends React.Component {
                         <button className="confirm-registration" onClick={this.handleRegister}>Registrieren</button>
                     </div>
                 </Modal>
-
                 <header className="top-navigation">
                         <div className="dropdown">
                             <Icon className="dropbtn" size={'100%'} icon={ic_menu}/>
                             <div className="dropdown-content">
-                                <a  onClick={this.displayModal}>Registrieren</a>
-                                <a onClick={this.redirectAboutUs}>Über uns</a>
+                                <a onClick={this.displayModal}>Registrieren</a>
                             </div>
                         </div>
 

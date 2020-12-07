@@ -562,3 +562,15 @@ b {
   color: red;
   font-size: 14px;
 }
+
+.email-already-in-use, .unknown-error {
+  background-color: #fef0f0;
+  border: 1px solid;
+  border-color: #f8bbbb;
+  text-align: center;
+  width: 80%;
+  place-self: center;
+  height: fit-content;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
