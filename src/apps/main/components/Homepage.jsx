@@ -13,13 +13,16 @@ export default class Homepage extends React.Component {
     
     constructor (props){
         super(props);
+        
         this.state = {
             type: "password",
             displayModal: false,
             showAnswers: [],
             displaySideNavigation: false,
             usernameInvalid: false,
-            passwordInvalid: false
+            passwordInvalid: false,
+            roleCheckedInRegisterForm: '',
+            registerNameValid: true
         }
 
 
@@ -30,7 +33,13 @@ export default class Homepage extends React.Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.restorePassword = this.restorePassword.bind(this);
-
+        this.handleRegister = this.handleRegister.bind(this);     
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);     
+        this.handleRegisterEmailChange = this.handleRegisterEmailChange.bind(this);
+        this.handleRegisterPasswordChange = this.handleRegisterPasswordChange.bind(this);
+        this.handleRegisterRepeatPasswordChange = this.handleRegisterRepeatPasswordChange.bind(this);
+        this.handleRegisterUsernameChange = this.handleRegisterUsernameChange.bind(this);     
+        this.handleRegister_RegisterCodeChange  = this.handleRegister_RegisterCodeChange.bind(this);
     }
 
 
@@ -74,6 +83,88 @@ export default class Homepage extends React.Component {
     restorePassword() {
         window.location.href = "/forgotpassword";
     }
+
+
+
+    handleRegisterEmailChange(e) {
+        this.registerEmail = e.target.value;
+    }
+    handleRegisterRepeatPasswordChange(e) {
+        this.registerPassword = e.target.value;
+    }
+    handleRegisterPasswordChange(e) {
+        this.registerRepeatPassword = e.target.value;
+    }
+
+    handleRegister_RegisterCodeChange(e) {
+        this.registerCode = e.target.value;
+    }
+
+    handleRegisterUsernameChange(e) {
+        this.registerName = e.target.value;
+    }
+
+    handleCheckboxChange = (TYPE) => {
+        switch(TYPE){
+            case "Eltern":
+                this.setState({
+                    roleCheckedInRegisterForm: "Eltern"
+                })
+            break;
+            case "Lernender": {
+                this.setState({
+                    roleCheckedInRegisterForm: "Lernender"
+                })
+            break;
+            }
+
+            default: '';
+        }
+
+    }
+
+
+
+
+
+
+        // Method to send the register data (username, password, repeat password, email, register code, role ) to the backend as a HTTP request
+        async handleRegister() {
+
+            if(!this.registerName) {
+                this.setState({
+                    registerNameValid: false
+                })
+            } else {
+                this.setState({
+                    registerNameValid: true
+                })
+            }
+
+
+            if (this.registerName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {
+
+
+                
+               let response = await fetch('http://localhost:10000/registration', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        registerName: this.registerName,
+                                        registerEmail: this.registerEmail,
+                                        registerPassword: this.registerPassword,
+                                        registerCode: this.registerCode,
+                                        roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
+                                    })
+                                });
+                let data =  await response.text();
+            } 
+        }
+    
+    
 
 
     // Method to send the login data (username and the password) to the backend as a HTTP request
@@ -126,18 +217,18 @@ export default class Homepage extends React.Component {
                     <Icon  className='close-modal'  onClick={this.undisplayModal} size={'100%'} icon={cross}/>
                     <div className="modal-content">
                         <h1 className="register-title">Konto erstellen</h1>
-                        <input className="username" type="text" placeholder="Benutzername"></input>
-                        <input className="username" type="text" placeholder="E-Mail Adresse eingeben"></input>
-                        <input className="username" type="password" placeholder="Passwort"></input>
-                        <input className="username" type="password" placeholder="Passwort wiederholen"></input>
-                        <input className="username" type="text" placeholder="Registrierungscode"></input>
+                        <input className="username" type="text" placeholder="Benutzername" style={this.state.registerNameValid ? void(0) : {borderColor:'red'}} onChange={this.handleRegisterUsernameChange}></input>
+                        <input className="username" type="text" placeholder="E-Mail Adresse eingeben" onChange={this.handleRegisterEmailChange}></input>
+                        <input className="username" type="password" placeholder="Passwort" onChange={this.handleRegisterPasswordChange}></input>
+                        <input className="username" type="password" placeholder="Passwort wiederholen" onChange={this.handleRegisterRepeatPasswordChange}></input>
+                        <input className="username" type="text" placeholder="Registrierungscode" onChange={this.handleRegister_RegisterCodeChange}></input>
                         <div className="user-type"><b style={{fontSize:"15px"}}>Ich bin ein: </b> 
                             <div className="parent-or-child">
-                                <div className="parent"><input type="checkbox" id="parent"></input><label htmlFor="parent">Elternteil</label></div>
-                                <div className="child"><input type="checkbox" id="child"></input><label htmlFor="child">Schüler</label></div>
+                                <div className="parent"><input type="checkbox" id="parent" checked={this.state.roleCheckedInRegisterForm === "Eltern"} onChange={() => this.handleCheckboxChange("Eltern")}></input><label htmlFor="parent">Elternteil</label></div>
+                                <div className="child"><input type="checkbox" id="child" checked={this.state.roleCheckedInRegisterForm === "Lernender"} onChange={() => this.handleCheckboxChange("Lernender")}></input><label htmlFor="child">Schüler</label></div>
                             </div>
                         </div>
-                        <button className="confirm-registration">Registrieren</button>
+                        <button className="confirm-registration" onClick={this.handleRegister}>Registrieren</button>
                     </div>
                 </Modal>
 
@@ -168,11 +259,11 @@ export default class Homepage extends React.Component {
                                         <p className="login-text">Anmelden</p>
                                         <div className="login-data-container"  >
                                             <div className="username-input-container" style={this.state.usernameInvalid ? {height:'70px'} : void(0)}>
-                                                <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)} style={this.state.usernameInvalid ? {borderColor:'red'} : void(0)}></input>
+                                                <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)} style={this.state.usernameInvalid ? {borderColor:'red',boxShadow:'none'} : void(0)}></input>
                                                 <p className="form-validation-username" style={this.state.usernameInvalid ? void(0) : {display:'none'}}>Benutzername is ein Pflichtfeld.</p>
                                             </div>
                                             <div className="password-container-homepage">
-                                                <input type={this.state.type} className="password" onChange={(e) => this.handlePasswordChange(e)} placeholder="Passwort" style={this.state.passwordInvalid ? {borderColor:'red'} : void(0)}></input>
+                                                <input type={this.state.type} className="password" onChange={(e) => this.handlePasswordChange(e)} placeholder="Passwort" style={this.state.passwordInvalid ? {borderColor:'red',boxShadow:'none'} : void(0)}></input>
                                                 <p className="form-validation-password" style={this.state.passwordInvalid ? void(0) : {display:'none'}}>Passwort is ein Pflichtfeld.</p>
                                                 {/* <Icon  className="password-icon" onClick={this.changeType} size={'100%'} icon={this.state.type == "password" ? eye : eyeBlocked}/> */}
                                             </div>

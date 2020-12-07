@@ -148,6 +148,12 @@ b {
     min-width: 150px;
 }
 
+.username:focus, .password:focus {
+  border-color: cornflowerblue;
+  outline: none ;
+  box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+}
+
 
 .login-button , .confirm-registration , .E-Mail-senden {
     font-size: 14px;
