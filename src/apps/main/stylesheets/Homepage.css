@@ -497,6 +497,7 @@ b {
   display: none !important;
 }
 
+
 @media screen and (max-width: 0px) {
   .dropbtn {
     height: 30px;
@@ -573,4 +574,24 @@ b {
   height: fit-content;
   font-size: 13px;
   margin-bottom: 10px;
+}
+
+
+.login-failed {
+  position: relative;
+  top: -15px;
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin: 0px;
+}
+
+
+@media screen and (max-width: 621px) {
+ .form-validation-username, .form-validation-password {
+   text-align: center !important;
+   right: 0px;
+   margin: 10px;
+ }
+
 }

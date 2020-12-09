@@ -26,6 +26,7 @@ export default class Homepage extends React.Component {
             roleCheckedInRegisterForm: '',
             userIsAlreadySaved: false,
             registrationUnknownError: false,
+            logginFailed: false
         }
 
 
@@ -44,9 +45,8 @@ export default class Homepage extends React.Component {
         this.handleRegisterUsernameChange = this.handleRegisterUsernameChange.bind(this);     
         this.handleRegister_RegisterCodeChange  = this.handleRegister_RegisterCodeChange.bind(this);
         this.notifyOnRegistrationSuccess  = this.notifyOnRegistrationSuccess.bind(this);
-
+        this.redirectUserToRespectiveView = this.redirectUserToRespectiveView.bind(this);
     }
-
 
 
     // Method to toggle the password visibility (Text or bullets)
@@ -140,6 +140,37 @@ export default class Homepage extends React.Component {
         toast.success("Registrierung erfolgreich abgeschlossen, Sie können sich jetzt anmelden.")
     }
 
+    redirectUserToRespectiveView(role){
+        const roles = {
+            LEHRENDE: 'Lehrender',
+            LERNENDE: 'Lernender',
+            ADMIN: 'Administrator',
+            ELTERN: 'Eltern',
+            SEKRETARIAT: 'Sekretariat'
+        }
+        console.log(role)
+            switch(role){
+                case roles.LEHRENDE:
+                    window.location.href = "/startseite/teacher";
+                    break;
+                case roles.ADMIN:
+                    window.location.href = "/startseite/admin";
+                    break;
+                case roles.ELTERN:
+                    window.location.href = "/startseite/parent";
+                    break;
+                case roles.LERNENDE:
+                    window.location.href = "/startseite/student";
+                    break;
+                case roles.SEKRETARIAT:
+                    window.location.href = "/startseite/sekretariat";
+                    break;
+                default:
+                    void(0);           
+            }
+        
+            }
+
 
 
         // Method to send the register data (username, password, repeat password, email, register code, role ) to the backend as a HTTP request
@@ -167,6 +198,7 @@ export default class Homepage extends React.Component {
                         this.undisplayModal();
                         this.notifyOnRegistrationSuccess();  
                     } else if (response.status === 409){
+                        console.log(response.text())
                         this.setState({
                             userIsAlreadySaved: true,
                             registrationUnknownError: false
@@ -206,31 +238,47 @@ export default class Homepage extends React.Component {
             })
         }
         if (this.username && this.password) {
-           let response = await fetch('http://localhost:10000/login', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    username: this.username,
-                                    password: this.password
-                                })
-                            });
-            let data =  await response.text();
+           await fetch('http://localhost:10000/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: this.username,
+                    password: this.password
+                })
+            }).then(response => response.json())
+              .then(data =>{
+                if(data.role  && data.token){
+                    localStorage.setItem("loggedIn", {
+                        username: this.username,
+                        role: data.role,
+                        token: data.token,
+                        loggedIn: true
+                    });    
+                } else {
+                    this.setState({
+                        logginFailed: true
+                    })
+                }
+
+                this.redirectUserToRespectiveView(data.role);
+            })
         } 
     }
 
 
 
     render() {
-        console.log(this.state.userIsAlreadySaved)
         return (
             <div className="wrapper">
                 <ToastContainer 
                     position="top-center"
                     newestOnTop={false}
                     rtl={false}
+                    pauseOnFocusLoss={false}
+                    pauseOnHover={false}
                 />
 
                 <Modal show={this.state.displayModal} modalClosed={() => this.undisplayModal()}>
@@ -277,7 +325,9 @@ export default class Homepage extends React.Component {
                                     </div>
                                     <div className="login-box">
                                         <p className="login-text">Anmelden</p>
-                                        <div className="login-data-container"  >
+                                        <div className="login-data-container">
+                                        <p className="login-failed" style={this.state.logginFailed && !this.state.passwordInvalid && !this.state.usernameInvalid ? void(0) : {display:'none'}}>Falsche Anmeldedaten, Versuchen Sie es erneut.</p>
+
                                             <div className="username-input-container" style={this.state.usernameInvalid ? {height:'70px'} : void(0)}>
                                                 <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)} style={this.state.usernameInvalid ? {borderColor:'red',boxShadow:'none'} : void(0)}></input>
                                                 <p className="form-validation-username" style={this.state.usernameInvalid ? void(0) : {display:'none'}}>Benutzername is ein Pflichtfeld.</p>

@@ -17,7 +17,6 @@ export default class restorePassword extends React.Component {
 
 
     handleEmailInput(){
-        console.log("nothing")
     }
 
     redirectToLogin() {
