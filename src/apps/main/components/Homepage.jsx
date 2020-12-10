@@ -163,7 +163,7 @@ export default class Homepage extends React.Component {
                     window.location.href = "/startseite/student";
                     break;
                 case roles.SEKRETARIAT:
-                    window.location.href = "/startseite/sekretariat";
+                    window.location.href = "/sekretariat/events";
                     break;
                 default:
                     void(0);           

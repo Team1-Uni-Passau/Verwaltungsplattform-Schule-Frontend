@@ -5,7 +5,10 @@ import RestorePassword from './apps/main/components/restorePassword';
 import StartseiteAdmin from './apps/admin/components/startseite';
 import StartseiteParent from './apps/parent/components/startseite';
 import StartseiteStudent from './apps/student/components/startseite';
-import StartseiteSekretariat from './apps/sekretariat/components/startseite';
+import SekretariatEvents from './apps/sekretariat/components/events';
+import SekretariatSicknotes from './apps/sekretariat/components/sicknotes';
+import SekretariatSchedule from './apps/sekretariat/components/schedule';
+
 import StartseiteTeacher from './apps/teacher/components/startseite';
 
 function AppRouter() {
@@ -17,7 +20,10 @@ function AppRouter() {
             <Route path='/startseite/admin' exact component={StartseiteAdmin}/>
             <Route path='/startseite/parent' exact component={StartseiteParent}/>
             <Route path='/startseite/student' exact component={StartseiteStudent}/>
-            <Route path='/startseite/sekretariat' exact component={StartseiteSekretariat}/>
+            <Route path='/sekretariat/events' exact component={SekretariatEvents}/>
+            <Route path='/sekretariat/sicknotes' exact component={SekretariatSicknotes}/>
+            <Route path='/sekretariat/schedule' exact component={SekretariatSchedule}/>
+
             <Route path='/startseite/teacher' exact component={StartseiteTeacher}/>
 
         </Switch >
