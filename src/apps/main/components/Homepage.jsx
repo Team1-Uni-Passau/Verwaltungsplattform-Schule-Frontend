@@ -250,6 +250,7 @@ export default class Homepage extends React.Component {
                 })
             }).then(response => response.json())
               .then(data =>{
+                  console.log(data)
                 if(data.role  && data.token){
                     localStorage.setItem("loggedIn", {
                         username: this.username,
