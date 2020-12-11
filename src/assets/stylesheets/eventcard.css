@@ -43,7 +43,7 @@
 }
 
 .custom-edit-button{
-    font-size: 14px;
+    font-size: 13px;
     background-color: #0084ff;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
@@ -59,6 +59,11 @@
     margin-top: 10px;
     height: 35px;
 }
+
+.custom-edit-button:focus {
+    outline:none;
+}
+
 
 .styles_Editext__view_container__2l2kB{
     display: block !important;

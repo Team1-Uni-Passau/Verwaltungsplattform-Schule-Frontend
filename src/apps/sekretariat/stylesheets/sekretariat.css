@@ -21,14 +21,14 @@
     overflow: auto;
 }
 
-.search-event-container {
+.search-event-container, .search-sicknote-container {
     width: 100%;
     height: fit-content;
     text-align: center;
     margin-top: 40px;
 }
 
-.search-event {
+.search-event, .search-sicknote {
     justify-self: center;
     margin: 7px;
     border: 1px solid #a9a9a9;
@@ -45,7 +45,7 @@
     width: 20%;
 }
 
-.search-event:focus {
+.search-event:focus, .search-sicknote:focus {
     border-color: cornflowerblue;
     outline: none ;
     box-shadow: 0px 0px 3px 0.3px #a9a9a9;
@@ -64,4 +64,51 @@
     margin-top: 40px;  
     margin-bottom: 200px;
 }
+
+.sicknotes-grid{
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-row-gap: 40px;
+    justify-items: center;
+    margin-top: 40px;
+    margin-bottom: 200px;
+}
   
+
+.MuiFormControl-root {
+    position: absolute !important;
+    right: 0px !important;
+    display: inline-flex !important;
+
+}
+
+.MuiFormGroup-root {
+    position: absolute !important;
+    right: 30px;
+    display: flex !important;
+
+    margin-top: 5px;
+}
+
+.MuiFormGroup-row {
+    width: max-content;
+    flex-direction: row;
+}
+
+.MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
+    background-color: #3c7fec !important;
+}
+
+.MuiSwitch-thumb {
+    background-color: #3c7fec !important;
+}
+
+
+.MuiTypography-body1 {
+    font-family: sitka banner !important;
+    color: dimgray !important;
+}
