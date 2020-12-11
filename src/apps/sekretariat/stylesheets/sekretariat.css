@@ -1,0 +1,67 @@
+.sekretariat-home{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+}
+
+.flex-right-container {
+    height: 100%;
+    width: calc(100% - 220px);
+    float: right;
+}
+
+
+.middle-panel-container {
+    height: 100%;
+    position: absolute;
+    background-color: #e9e9e9;
+    width: calc(100% - 220px);
+    overflow: auto;
+}
+
+.search-event-container {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.search-event {
+    justify-self: center;
+    margin: 7px;
+    border: 1px solid #a9a9a9;
+    line-height: 1;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    height: 30px;
+    min-width: 150px;
+    width: 20%;
+}
+
+.search-event:focus {
+    border-color: cornflowerblue;
+    outline: none ;
+    box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+  }
+  
+
+  .events-grid {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-row-gap: 40px;
+    justify-items: center;
+    margin-top: 40px;  
+    margin-bottom: 200px;
+}
+  

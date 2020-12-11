@@ -2,7 +2,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     overflow-x: hidden;
 }
 
@@ -35,7 +35,7 @@ b {
     text-decoration: none;
     background-color: white;
     font-weight: bolder;
-    margin-right: 10px;
+    margin-right: 15px;
     font-size: 12px;
     letter-spacing: .07em;
     padding: 10px;
@@ -43,7 +43,7 @@ b {
     line-height: 1;
     border-radius: 4px;
     color: #1f2530;
-    width: 80%;
+    width: 100%;
     cursor: pointer;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -53,8 +53,8 @@ b {
 }
 
 .register-button:hover , .about-us:hover{
-    border: 2px solid red;
-    color:red;
+    border: 2px solid #0084ff;
+    color:#0084ff;
     outline: none;
 }
 
@@ -109,7 +109,7 @@ b {
 
 
 .login-box {
-  height: 400px;
+  height: fit-content;
   width: 500px;
   background-color: #F1F1F1;
   right: 5%;
@@ -121,6 +121,7 @@ b {
   padding: 16px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  box-shadow: 0px 0px 3px 0.3px rgb(66 66 66);
 }
 
 .login-text {
@@ -147,10 +148,16 @@ b {
     min-width: 150px;
 }
 
+.username:focus, .password:focus {
+  border-color: cornflowerblue;
+  outline: none ;
+  box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+}
 
-.login-button , .confirm-registration{
+
+.login-button , .confirm-registration , .E-Mail-senden {
     font-size: 14px;
-    background-color: #ff4338;
+    background-color: #0084ff;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
@@ -174,11 +181,9 @@ b {
 .login-button {
   width: 40%;
   min-width: fit-content;
+  margin-top: 20px;
 }
 
-.login-button{
-  margin-top: 30px;
-}
 
 .login-button:hover , .confirm-registration:hover {
     color: black;
@@ -190,20 +195,20 @@ b {
 
 
 .login-data-container{
-    display: grid;
+    /* display: grid; */
     position: relative;
     top: 20px;
-}
+  }
 
 .forgot-password{
-    justify-self: center;
-    margin-top: 40px;
-    font-weight: 600;
-    cursor: pointer;
+  justify-self: center;
+  margin-top: 20px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .forgot-password:hover{
-    color:red;
+    color:#0084ff;
 }
 
 ::placeholder {
@@ -290,8 +295,10 @@ b {
     padding-top: 8px;
   }
 
-  .password-container{
-    display: grid;
+  .password-container-homepage{
+    width: 100%;
+    text-align: center;
+    height: 70px;
   }
 
 
@@ -326,10 +333,11 @@ b {
     }
   }
 
-  @media only screen and (max-width: 637px) {
-    .buttons-top-right {
+  @media only screen and (max-width: 470px) {
+    /*.buttons-top-right {
       display: none ;
-    }
+    }*/
+  
 
     .title {
       font-size: 14px;
@@ -455,7 +463,7 @@ b {
   background-color: #1F2530;
   width: 100%;
   height: 200px;
-  margin-top: 20%;
+  margin-top: 22%;
   display: flex;
 }
 
@@ -495,7 +503,8 @@ b {
   display: none !important;
 }
 
-@media screen and (max-width: 637px) {
+
+@media screen and (max-width: 0px) {
   .dropbtn {
     height: 30px;
     width: 30px;
@@ -537,3 +546,58 @@ b {
     display: block;
   }
   }
+
+
+  .username-input-container {
+    width: 100%;
+    text-align: center;
+  }
+
+
+.form-validation-username{ 
+  position: relative;
+  right: 55px;
+  top: -15px;
+  color: red;
+  font-size: 14px;
+}
+
+.form-validation-password { 
+  position: relative;
+  right: 70px;
+  top: -15px;
+  color: red;
+  font-size: 14px;
+}
+
+.email-already-in-use, .unknown-error {
+  background-color: #fef0f0;
+  border: 1px solid;
+  border-color: #f8bbbb;
+  text-align: center;
+  width: 80%;
+  place-self: center;
+  height: fit-content;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+
+.login-failed {
+  position: relative;
+  top: -15px;
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin: 0px;
+}
+
+
+@media screen and (max-width: 621px) {
+ .form-validation-username, .form-validation-password {
+   text-align: center !important;
+   right: 0px;
+   margin: 10px;
+ }
+
+}

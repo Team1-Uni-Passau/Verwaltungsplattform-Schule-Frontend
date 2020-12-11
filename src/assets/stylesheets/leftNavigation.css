@@ -1,0 +1,28 @@
+.left-navigation-container{
+    height: 100%;
+    position: sticky;
+    width: 220px;
+    background-color: white;
+    -webkit-box-shadow: 2px 0px 5px 0px rgb(0 0 0 / 75%);
+    box-shadow: 1px 0 3px 0.3px rgb(0 0 0 / 75%);
+    z-index: 2;
+}
+
+.left-navigation-title{
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 8px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.v{
+    font-size: 25px;
+}
+
+.left-navigation-title-container {
+    border-bottom: 1px solid;
+    border-color: darkgray;
+}
