@@ -7,6 +7,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SickNote from '../../../assets/components/sicknote';
+import {ic_search} from 'react-icons-kit/md/ic_search'
+import Icon from 'react-icons-kit';
+
+
 
 export default class events extends React.Component {
     
@@ -15,11 +19,13 @@ export default class events extends React.Component {
         super(props);
         this.state = {
             showStudents: true,
-            showTeachers: true
+            showTeachers: true,
+            searchText: '',
         }
 
         this.toggleShowStudents = this.toggleShowStudents.bind(this);
         this.toggleShowTeachers = this.toggleShowTeachers.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
 
@@ -38,17 +44,31 @@ export default class events extends React.Component {
         })
     }
 
+    handleSearch = (e) => {
+        this.setState({
+            searchText: e.target.value
+        })
+    }
+
+
+
 
     render() {
         return (
             <div className="sekretariat-home">
+         
+
                 <LeftNavigation selected="Krankmeldungen" />
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">
                     <div className="search-sicknote-container">
-                            <div>
-                                <input className="search-sicknote" placeholder="Krankmeldung suchen..."></input>
+                            <div style={{display:'flex', justifyContent:'center'}}>
+                                <div>
+                                    <Icon  className='search-icon'   size={'100%'} icon={ic_search}/>
+                                    <input className="search-sicknote" placeholder="Krankmeldung suchen..." onChange={(e) => this.handleSearch(e)}></input>
+                                </div>
+                                <div className="switch-buttons">
                                 <FormControl>
                                     <FormGroup row>
                                             <FormControlLabel
@@ -79,6 +99,8 @@ export default class events extends React.Component {
                                     </FormGroup>
                                     </FormControl>
 
+                                </div>
+
                             </div>
                             <div className="sicknotes-grid">
                                 <SickNote/>
@@ -92,7 +114,6 @@ export default class events extends React.Component {
                                 <SickNote/>
                                 <SickNote/>
                                 <SickNote/>
-
                             </div>
                         </div>
                     </div>

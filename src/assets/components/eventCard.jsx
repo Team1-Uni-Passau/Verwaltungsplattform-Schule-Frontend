@@ -63,8 +63,8 @@ export default class eventCard extends React.Component {
                             },
                             rows: 30,
                         }}
-                        editButtonContent="Modifizieren"
-                        editButtonClassName="custom-edit-button"
+                        // editButtonContent="Modifizieren"
+                        // editButtonClassName="custom-edit-button"
                         value= {this.state.text.length > this.state.MAX_LENGTH ? (
                             this.state.text.substring(0, this.state.MAX_LENGTH) + "..."             
                         )
