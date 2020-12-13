@@ -12,6 +12,8 @@ export default class leftNavigationItem extends React.Component {
         this.redirectToRespectivePage = this.redirectToRespectivePage.bind(this);
     }
 
+
+    //Method to navigate throughout the app in the secrtariat view (Redirection)
     redirectToRespectivePage() {
         switch(this.props.title){
             case "Ankündigungen":

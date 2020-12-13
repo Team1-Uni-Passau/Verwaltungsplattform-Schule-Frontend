@@ -27,18 +27,22 @@ export default class eventCard extends React.Component {
         })
     }
 
+    // Handling of showing more test in the user event
     showMore(){
         this.setState({
             MAX_LENGTH: TESTDATA.EVENTTEXT.length
         })
     }
 
+
+    // Handling of showing less test in the user event
     showLess(){
         this.setState({
             MAX_LENGTH: 500
         })
     }
 
+    // Save the new value after a user modifies a text
     onSave(input){
         this.setState({
             text: input

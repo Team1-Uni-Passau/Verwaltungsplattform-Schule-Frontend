@@ -90,32 +90,32 @@ export default class Homepage extends React.Component {
     }
 
 
-
+    //Method to get the value of the text entered by the user in the email field in the register modal
     handleRegisterEmailChange(e) {
         this.registerEmail = e.target.value;
     }
 
-
+    //Method to get the value of the text entered by the user in the password field in the register modal
     handleRegisterRepeatPasswordChange(e) {
         this.registerPassword = e.target.value;
     }
 
-
+    //Method to get the value of the text entered by the user in the repeat password field in the register modal
     handleRegisterPasswordChange(e) {
         this.registerRepeatPassword = e.target.value;
     }
 
-
+    //Method to get the value of the text entered by the user in the register field in the register modal
     handleRegister_RegisterCodeChange(e) {
         this.registerCode = e.target.value;
     }
 
-
+    //Method to get the value of the text entered by the user in the username field in the register modal
     handleRegisterUsernameChange(e) {
         this.registerName = e.target.value;
     }
 
-
+    //Method to get the value of the text entered by the user in the radio box  in the register modal
     handleCheckboxChange = (TYPE) => {
         switch(TYPE){
             case "Eltern":
@@ -136,10 +136,12 @@ export default class Homepage extends React.Component {
     }
 
 
+    // Method to display a toast when the registration is successfull 
     notifyOnRegistrationSuccess() {
         toast.success("Registrierung erfolgreich abgeschlossen, Sie können sich jetzt anmelden.")
     }
 
+    // Method to redirect the user to their respective view after they successfully log in
     redirectUserToRespectiveView(role){
         const roles = {
             LEHRENDE: 'Lehrender',
