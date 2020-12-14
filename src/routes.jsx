@@ -8,7 +8,7 @@ import StartseiteStudent from './apps/student/components/startseite';
 import SekretariatEvents from './apps/sekretariat/components/events';
 import SekretariatSicknotes from './apps/sekretariat/components/sicknotes';
 import SekretariatSchedule from './apps/sekretariat/components/schedule';
-
+import AuthentificatedRoute from './AuthentificatedRoute';
 import StartseiteTeacher from './apps/teacher/components/startseite';
 
 function AppRouter() {
@@ -20,10 +20,9 @@ function AppRouter() {
             <Route path='/startseite/admin' exact component={StartseiteAdmin}/>
             <Route path='/startseite/parent' exact component={StartseiteParent}/>
             <Route path='/startseite/student' exact component={StartseiteStudent}/>
-            <Route path='/sekretariat/events' exact component={SekretariatEvents}/>
-            <Route path='/sekretariat/sicknotes' exact component={SekretariatSicknotes}/>
-            <Route path='/sekretariat/schedule' exact component={SekretariatSchedule}/>
-
+            <AuthentificatedRoute path='/sekretariat/events'  component={SekretariatEvents}/>
+            <AuthentificatedRoute path='/sekretariat/sicknotes'  component={SekretariatSicknotes}/>
+            <AuthentificatedRoute path='/sekretariat/schedule'  component={SekretariatSchedule}/>
             <Route path='/startseite/teacher' exact component={StartseiteTeacher}/>
 
         </Switch >
