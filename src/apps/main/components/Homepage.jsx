@@ -192,6 +192,7 @@ export default class Homepage extends React.Component {
                         roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
                     })
                 }).then(response => {
+                    console.log(response.status)
                     if(response.status === 200){
                         this.setState({
                             userIsAlreadySaved: false,
