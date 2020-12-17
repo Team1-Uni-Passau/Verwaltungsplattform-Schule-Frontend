@@ -26,7 +26,8 @@ export default class Homepage extends React.Component {
             roleCheckedInRegisterForm: '',
             userIsAlreadySaved: false,
             registrationUnknownError: false,
-            logginFailed: false
+            logginFailed: false,
+            errorMessage: ''
         }
 
 
@@ -47,6 +48,7 @@ export default class Homepage extends React.Component {
         this.notifyOnRegistrationSuccess  = this.notifyOnRegistrationSuccess.bind(this);
         this.redirectUserToRespectiveView = this.redirectUserToRespectiveView.bind(this);
     }
+
 
 
     // Method to toggle the password visibility (Text or bullets)
@@ -192,24 +194,36 @@ export default class Homepage extends React.Component {
                         roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
                     })
                 }).then(response => {
-                    console.log(response.status)
                     if(response.status === 200){
                         this.setState({
                             userIsAlreadySaved: false,
-                            registrationUnknownError: false
-                        })          
+                            registrationUnknownError: false,
+                            WrongRegistrationCode: false,
+                        })                                  
                         this.undisplayModal();
                         this.notifyOnRegistrationSuccess();  
                     } else if (response.status === 409){
-                        console.log(response.text())
                         this.setState({
                             userIsAlreadySaved: true,
-                            registrationUnknownError: false
+                            registrationUnknownError: false,
+                            WrongRegistrationCode: false,
+                            errorMessage: "Diese E-Mail addresse wird bereits verwendet."
                         })
-                    } else {
+                    } else if (response.status === 422) {
+                        this.setState({
+                            WrongRegistrationCode: true,
+                            userIsAlreadySaved: false,
+                            registrationUnknownError: false,
+                            errorMessage: "Das Registrierungscode ist nicht valid, versuchen Sie es nochmal."
+                        })
+
+                    }
+                    else {
                         this.setState({
                             registrationUnknownError: true,
                             userIsAlreadySaved: false,
+                            WrongRegistrationCode: false,
+                            errorMessage: "Etwas ist schiefgelaufen."
                         })
                     }
                 });                    
@@ -253,21 +267,23 @@ export default class Homepage extends React.Component {
                 })
             }).then(response => response.json())
               .then(data =>{
-                  console.log(data)
                 if(data.role  && data.token){
-                    localStorage.setItem("loggedIn", {
+                    localStorage.setItem("loggedIn", JSON.stringify({
                         username: this.username,
                         role: data.role,
                         token: data.token,
                         loggedIn: true
-                    });    
+                    }));  
+                    this.username= '';
+                    this.password='';
                 } else {
+                    console.log(data)
                     this.setState({
-                        logginFailed: true
+                        logginFailed: true,
                     })
                 }
 
-                this.redirectUserToRespectiveView(data.role);
+               this.redirectUserToRespectiveView(data.role);
             })
         } 
     }
@@ -289,8 +305,10 @@ export default class Homepage extends React.Component {
                     <Icon  className='close-modal'  onClick={this.undisplayModal} size={'100%'} icon={cross}/>
                     <div className="modal-content">
                         <h1 className="register-title">Konto erstellen</h1>
-                        <div className="email-already-in-use" style={this.state.userIsAlreadySaved? void(0):{display:'none'}}><p>Diese E-Mail addresse wird bereits verwendet</p></div>
-                        <div className="unknown-error" style={this.state.registrationUnknownError? void(0):{display:'none'}}><p>Etwas ist schiefgelaufen</p></div>
+                        <div className="email-already-in-use" style={this.state.userIsAlreadySaved? void(0):{display:'none'}}><p>{this.state.errorMessage}</p></div>
+                        <div className="unknown-error" style={this.state.registrationUnknownError? void(0):{display:'none'}}><p>{this.state.errorMessage}</p></div>
+                        <div className="wrong-register-code" style={this.state.WrongRegistrationCode? void(0):{display:'none'}}><p>{this.state.errorMessage}</p></div>
+
                         <input className="username" type="text" placeholder="Benutzername" onChange={this.handleRegisterUsernameChange}></input>
                         <input className="username" type="text" placeholder="E-Mail Adresse eingeben" onChange={this.handleRegisterEmailChange}></input>
                         <input className="username" type="password" placeholder="Passwort" onChange={this.handleRegisterPasswordChange}></input>

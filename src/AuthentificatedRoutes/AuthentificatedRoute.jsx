@@ -5,7 +5,8 @@ import { Redirect, Route } from "react-router-dom";
     <Route
         {...rest}
         render = { props => 
-            localStorage.getItem("token") && rest.allowedRole === localStorage.getItem("role") ? (
+            JSON.parse(localStorage.getItem("loggedIn")) && JSON.parse(localStorage.getItem("loggedIn")).token && rest.allowedRole === JSON.parse(localStorage.getItem("loggedIn")).role &&
+            JSON.parse(localStorage.getItem("loggedIn")).loggedIn ? (
                 <Component {...props}/>        
             ) : (
                     <Redirect

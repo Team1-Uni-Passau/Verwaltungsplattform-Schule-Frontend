@@ -11,16 +11,27 @@ export default class TopBar extends React.Component {
         this.state = {
 
         }
+
+        this.logout = this.logout.bind(this);
     }
 
 
-
+    logout() {
+        localStorage.setItem("loggedIn", null);
+        window.location.href = "/login";
+    }
 
     render() {
         return (
             <div className="topbar-container">
                 <div className='user-options'>
-                            <Icon  className="user-options-icon" size={'100%'} icon={user}/>
+                            <div className="dropdown">
+                            <Icon  className="dropbtn" size={'100%'} icon={user}/>
+                            <div className="dropdown-content">
+                                <a className="dropdown-choice" onClick={this.logout}>Logout</a>
+                            </div>
+                            </div>
+
                 </div>
 
             </div>
