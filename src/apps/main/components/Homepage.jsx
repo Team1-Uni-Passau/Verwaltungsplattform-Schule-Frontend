@@ -27,7 +27,18 @@ export default class Homepage extends React.Component {
             userIsAlreadySaved: false,
             registrationUnknownError: false,
             logginFailed: false,
-            errorMessage: ''
+            errorMessage: '',
+
+            RegisterFirstNameInvalid: false,
+            RegisterNameInvalid: false,
+            RegisterEmailInvalid: false,
+            RegisterPasswordInvalid: false,
+            RegisterRepeatPasswordInvalid: false,
+            RegisterRegisterRegisterCodeInvalid: false,
+            PasswordRepeatInvalid: false,
+            EmailStructureInvalid: false,
+            PasswordLengthInvalid : false,
+            PasswordStructureInvalid: false,
         }
 
 
@@ -43,10 +54,17 @@ export default class Homepage extends React.Component {
         this.handleRegisterEmailChange = this.handleRegisterEmailChange.bind(this);
         this.handleRegisterPasswordChange = this.handleRegisterPasswordChange.bind(this);
         this.handleRegisterRepeatPasswordChange = this.handleRegisterRepeatPasswordChange.bind(this);
-        this.handleRegisterUsernameChange = this.handleRegisterUsernameChange.bind(this);     
+        //this.handleRegisterUsernameChange = this.handleRegisterUsernameChange.bind(this);     
         this.handleRegister_RegisterCodeChange  = this.handleRegister_RegisterCodeChange.bind(this);
         this.notifyOnRegistrationSuccess  = this.notifyOnRegistrationSuccess.bind(this);
         this.redirectUserToRespectiveView = this.redirectUserToRespectiveView.bind(this);
+
+        this.handleRegisterFirstNameChange = this.handleRegisterFirstNameChange.bind(this);
+        this.handleRegisterNameChange = this.handleRegisterNameChange.bind(this);
+        this.handleRegisterEmailChange = this.handleRegisterEmailChange.bind(this);
+        this.handleregisterPasswordChange = this.handleRegisterPasswordChange.bind(this);
+        this.handleRegisterRepeatChange = this.handleRegisterRepeatPasswordChange.bind(this);
+        this.handleRegisterRegisterCode = this.handleRegister_RegisterCodeChange.bind(this);
     }
 
 
@@ -93,17 +111,26 @@ export default class Homepage extends React.Component {
 
 
     //Method to get the value of the text entered by the user in the email field in the register modal
+    handleRegisterFirstNameChange(e) {
+        this.registerFirstName = e.target.value;
+    }
+    //Method to get the value of the text entered by the user in the email field in the register modal
+    handleRegisterNameChange(e) {
+        this.registerName = e.target.value;
+    }
+
+    //Method to get the value of the text entered by the user in the email field in the register modal
     handleRegisterEmailChange(e) {
         this.registerEmail = e.target.value;
     }
 
     //Method to get the value of the text entered by the user in the password field in the register modal
-    handleRegisterRepeatPasswordChange(e) {
+    handleRegisterPasswordChange(e) {
         this.registerPassword = e.target.value;
     }
 
     //Method to get the value of the text entered by the user in the repeat password field in the register modal
-    handleRegisterPasswordChange(e) {
+    handleRegisterRepeatPasswordChange(e) {
         this.registerRepeatPassword = e.target.value;
     }
 
@@ -112,10 +139,8 @@ export default class Homepage extends React.Component {
         this.registerCode = e.target.value;
     }
 
-    //Method to get the value of the text entered by the user in the username field in the register modal
-    handleRegisterUsernameChange(e) {
-        this.registerName = e.target.value;
-    }
+    
+
 
     //Method to get the value of the text entered by the user in the radio box  in the register modal
     handleCheckboxChange = (TYPE) => {
@@ -179,6 +204,106 @@ export default class Homepage extends React.Component {
 
         // Method to send the register data (username, password, repeat password, email, register code, role ) to the backend as a HTTP request
         async handleRegister() {
+
+            //soll Email auf Strukturelle Richtigkeit überprüfen.
+            if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.registerEmail)){
+                this.setState({
+                    EmailStructureInvalid: false
+                })
+            }else{
+                this.setState({
+                    EmailStructureInvalid : true
+                })
+            }
+            //Prüft ob das Passwort genug Zeichen Enthält
+            var val = document.getElementById('pw1').value;
+             if(val.length >= 8){
+                 this.setState({
+                     PasswordLengthInvalid: false
+                 })
+             }else{
+                 this.setState({
+                     PasswordLengthInvalid:true
+                 })
+             }
+
+            if (val.match(/\d{1,}/) && val.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && val.match(/\W/)){
+                this.setState({
+                    PasswordStructureInvalid: false
+                })
+            }else{
+                this.setState({
+                    PasswordStructureInvalid: true
+                })
+            }
+
+
+            if(!this.registerFirstName){
+                this.setState({
+                     RegisterFirstNameInvalid: true
+                })
+            } else {
+                this.setState({
+                   RegisterFirstNameInvalid: false
+                })
+            }
+
+            if(!this.registerName){
+                this.setState({
+                     RegisterNameInvalid: true
+             })
+            }else{
+                 this.setState({
+                     RegisterNameInvalid: false
+             })
+             }
+
+             if(!this.registerEmail){
+                this.setState({
+                     RegisterEmailInvalid: true
+             })
+            }else{
+                 this.setState({
+                     RegisterEmailInvalid: false
+             })
+             }
+
+             if(!this.registerPassword){
+                this.setState({
+                     RegisterPasswordInvalid: true
+             })
+            }else{
+                 this.setState({
+                     RegisterPasswordInvalid: false
+             })
+             }
+             if(!this.registerRepeatPassword){
+                this.setState({
+                     RegisterRepeatPasswordInvalid: true
+             })
+            }else{
+                 this.setState({
+                     RegisterRepeatPasswordInvalid: false
+             })
+             }
+             if(!this.registerCode){
+                this.setState({
+                     RegisterRegisterCodeInvalid: true
+             })
+            }else{
+                 this.setState({
+                     RegisterRegisterCodeInvalid: false
+             })
+             }
+             if(this.registerPassword != this.registerRepeatPassword){
+                 this.setState({
+                     PasswordRepeatInvalid: true
+                 })
+             }else{this.setState({
+                 PasswordRepeatInvalid: false
+             })
+             }
+
             if (this.registerName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
                 await fetch('http://localhost:10000/registration', {
                     method: 'POST',
@@ -309,11 +434,36 @@ export default class Homepage extends React.Component {
                         <div className="unknown-error" style={this.state.registrationUnknownError? void(0):{display:'none'}}><p>{this.state.errorMessage}</p></div>
                         <div className="wrong-register-code" style={this.state.WrongRegistrationCode? void(0):{display:'none'}}><p>{this.state.errorMessage}</p></div>
 
-                        <input className="username" type="text" placeholder="Benutzername" onChange={this.handleRegisterUsernameChange}></input>
+                        <input  className="register-input" type="text" placeholder="Vorname" onChange={(e) => this.handleRegisterFirstNameChange(e)} style={this.state.RegisterFirstNameInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.RegisterFirstNameInvalid ? void(0) : {display:'none'}}>Vorname ist ein Pflichtfeld.</p>
+
+                        <input  className="register-input" type="text" placeholder="Nachname" onChange={(e) => this.handleRegisterNameChange(e)} style={this.state.RegisterNameInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.RegisterNameInvalid ? void(0) : {display:'none'}}>Nachname ist ein Pflichtfeld.</p>
+
+                        <input  className="register-input" type="text" placeholder="E-Mail" onChange={(e) => this.handleRegisterEmailChange(e)} style={this.state.RegisterEmailInvalid || this.state.EmailStructureInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.RegisterEmailInvalid ? void(0) : {display:'none'}}>E-Mail ist ein Pflichtfeld.</p>
+
+                        <p className="form-validation-registration" style={this.state.EmailStructureInvalid &! this.state.RegisterEmailInvalid ? void(0) : {display:'none'}}>E-Mail überprüfen!</p>
+
+                        <input  className="register-input" type="text" placeholder="Passwort" id="pw1" onChange={(e) => this.handleRegisterPasswordChange(e)} style={this.state.RegisterPasswordInvalid || this.state.PasswordStructureInvalid || this.state.PasswordLengthInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.RegisterPasswordInvalid ? void(0) : {display:'none'}}>Passwort ist ein Pflichtfeld.</p>
+
+                        <p className="form-validation-registration" style={this.state.PasswordLengthInvalid &! this.state.RegisterPasswordInvalid ? void(0) : {display:'none'}}>Passwort muss mindestens 8 zeichen enthalten</p>
+                        <p className="form-validation-registration" style={this.state.PasswordStructureInvalid &! this.state.RegisterPasswordInvalid ? void(0) : {display:'none'}}>Password muss mindestens eine Zahl und ein Sonderzeichen enthalten!</p>
+
+                        <input  className="register-input" type="text" placeholder="Passwort wiederholen" onChange={(e) => this.handleRegisterRepeatPasswordChange(e)} style={this.state.RegisterRepeatPasswordInvalid || this.state.PasswordRepeatInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.RegisterRepeatPasswordInvalid ? void(0) : {display:'none'}}>Passwort wiederholen ist ein Pflichtfeld.</p>
+
+                        <p className="form-validation-registration" style={this.state.PasswordRepeatInvalid &! this.state.RegisterRepeatPasswordInvalid ? void(0) : {display:'none'}}>Passwort ist nicht identisch!</p>
+
+                        <input  className="register-input" type="text" placeholder="Registrierungscode" onChange={(e) => this.handleRegister_RegisterCodeChange(e)} style={this.state.RegisterRegisterCodeInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.RegisterRegisterCodeInvalid ? void(0) : {display:'none'}}>Registrierungscode ist ein Pflichtfeld.</p>
+
+                        {/* <input className="username" type="text" placeholder="Benutzername" onChange={this.handleRegisterUsernameChange}></input>
                         <input className="username" type="text" placeholder="E-Mail Adresse eingeben" onChange={this.handleRegisterEmailChange}></input>
                         <input className="username" type="password" placeholder="Passwort" onChange={this.handleRegisterPasswordChange}></input>
                         <input className="username" type="password" placeholder="Passwort wiederholen" onChange={this.handleRegisterRepeatPasswordChange}></input>
-                        <input className="username" type="text" placeholder="Registrierungscode" onChange={this.handleRegister_RegisterCodeChange}></input>
+                        <input className="username" type="text" placeholder="Registrierungscode" onChange={this.handleRegister_RegisterCodeChange}></input> */}
                         <div className="user-type"><b style={{fontSize:"15px"}}>Ich bin ein: </b> 
                             <div className="parent-or-child">
                                 <div className="parent"><input type="checkbox" id="parent" checked={this.state.roleCheckedInRegisterForm === "Eltern"} onChange={() => this.handleCheckboxChange("Eltern")}></input><label htmlFor="parent">Elternteil</label></div>
