@@ -1,5 +1,7 @@
+import { Modal } from 'bootstrap';
 import React from 'react';
 import '../stylesheets/restorePassword.css';
+
 
 export default class restorePassword extends React.Component {
     
@@ -7,12 +9,13 @@ export default class restorePassword extends React.Component {
     constructor (props){
         super(props);
         this.state = {
+            
         }
 
 
     this.handleEmailInput = this.handleEmailInput.bind(this);
     this.redirectToLogin = this.redirectToLogin.bind(this);
-
+  
     }
 
 
@@ -25,6 +28,8 @@ export default class restorePassword extends React.Component {
 
 
 
+
+
     render() {
         return (
             <React.Fragment>
@@ -34,12 +39,23 @@ export default class restorePassword extends React.Component {
                     <div className="input-field-container">
                         <p className="label">E-Mail Adresse</p>
                         <input type="text" className="e-mail-address" placeholder="Geben Sie Ihre E-Mail Adresse ein." onChange={(e) => this.handleEmailInput(e)}></input>
-                        <button className="send-email">E-Mail schicken</button>
+                        <button className="send-email" onClick={this.displayModal}>E-Mail schicken </button>
                     </div>
                     <div className="back-to-login"><p className="back-to-login-text" onClick={this.redirectToLogin}>ZÜRUCK ZUM LOGIN</p></div>
                 </div>
+
+              
+
             </React.Fragment>
+
+            
+
+            
         )
+        
+    
+
+        
     }
 
 
