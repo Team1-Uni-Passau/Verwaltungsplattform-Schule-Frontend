@@ -484,6 +484,9 @@ b {
 .menu-left-navigation {
   display: none !important;
 }
+.password-change{
+
+}
 
 
 
@@ -560,5 +563,6 @@ b {
   text-align: center;
   font-size: small;
   margin: 0px;
+  
 
 }
