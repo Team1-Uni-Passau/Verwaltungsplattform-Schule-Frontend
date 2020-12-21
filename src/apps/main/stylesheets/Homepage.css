@@ -131,7 +131,7 @@ b {
     font-weight: 600;
 }
 
-.username , .password{
+.username , .password, .register-input{
     width: 65%;
     justify-self: center;
     margin: 7px;
@@ -484,6 +484,9 @@ b {
 .menu-left-navigation {
   display: none !important;
 }
+.password-change{
+
+}
 
 
 
@@ -552,5 +555,14 @@ b {
    right: 0px;
    margin: 10px;
  }
+
+}
+.form-validation-registration{
+  color: red;
+  position: relative;
+  text-align: center;
+  font-size: small;
+  margin: 0px;
+  
 
 }
