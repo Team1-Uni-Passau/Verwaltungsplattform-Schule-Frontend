@@ -11,7 +11,7 @@ import { Redirect, Route } from "react-router-dom";
             ) : (
                     <Redirect
                         to = {{
-                            pathname: "/login",
+                            pathname: "/notFound",
                             state: { from: props.location}
                         }}
                     />

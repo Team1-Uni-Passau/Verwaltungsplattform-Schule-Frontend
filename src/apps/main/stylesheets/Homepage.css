@@ -566,3 +566,47 @@ b {
   
 
 }
+
+
+.not-found {
+  max-width: 100%;
+  height: auto;
+  /* margin: 0 auto; */
+  /* margin-top: 50%; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.back-to-login-404 {
+  position: absolute;
+  left: 20px;
+  top: 30px;
+  font-size: 14px;
+  background-color: #0084ff;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+  transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+  margin: 0 auto;
+  border: none;
+  text-transform: uppercase;
+  line-height: 1;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  height: 35px;
+  width: fit-content;
+}
+
+
+.back-to-login-404:hover {
+  color: black;
+}
+
+.back-to-login-404:focus{
+  outline:none;
+}
