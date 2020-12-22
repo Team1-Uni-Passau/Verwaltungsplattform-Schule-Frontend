@@ -23,6 +23,7 @@ export default class restorePassword extends React.Component {
     this.handleValidationInputChange = this.handleValidationInputChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordRepeatChange = this.handlePasswordRepeatChange.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
     }
 
 
@@ -47,15 +48,15 @@ export default class restorePassword extends React.Component {
         })
     }
 
-    handleValidationInputChange(){
+    handleValidationInputChange(e){
         this.validationKey = e.target.value;
     }
 
-    handlePasswordChange(){
+    handlePasswordChange(e){
         this.Password = e.target.value;
     }
 
-    handlePasswordRepeatChange(){
+    handlePasswordRepeatChange(e){
         this.PasswordRepeat = e.target.value;
     }
 

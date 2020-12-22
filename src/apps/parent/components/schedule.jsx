@@ -1,9 +1,7 @@
 import React from 'react';
 import LeftNavigation from '../../../assets/components/LeftNavigation';
-import '../stylesheets/sekretariat.css';
 import TopBar from '../../../assets/components/topBar';
-import Demo from './Demo';
-  
+import '../stylesheets/parents.css'
 
 export default class schedule extends React.Component {
     
@@ -13,20 +11,17 @@ export default class schedule extends React.Component {
         this.state = {
         }
     }
-    
+
+
 
 
     render() {
-
         return (
-            <div className="sekretariat-home">
-                <LeftNavigation selected="Wochenpläne" />
+            <div className="parents-home">
+                <LeftNavigation selected="Wochenplan" />
                 <div className="flex-right-container">
                     <TopBar/>
-                    <div className="middle-panel-container" style={{overflow:'hidden'}}>
-                      <div className="demo">
-                        <Demo/>
-                      </div>
+                    <div className="middle-panel-container">
                     </div>
                 </div>
             </div>

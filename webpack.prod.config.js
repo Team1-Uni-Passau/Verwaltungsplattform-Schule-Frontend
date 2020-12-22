@@ -1,15 +1,16 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'cheap-module-source-map',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
         chunkFilename: '[id].js',
-        publicPath: '/'
+        publicPath: ''
     },
     resolve: {
         extensions: ['.js', '.jsx']
@@ -35,6 +36,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
+                            modules: true,
                             localIdentName: '[name]__[local]__[hash:base64:5]'
                         }
                      },
@@ -60,14 +62,12 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        historyApiFallback: true,
-    },
     plugins: [
         new HtmlWebpackPlugin({
             template: __dirname + '/src/index.html',
             filename: 'index.html',
             inject: 'body'
-        })
+        }),
+        new webpack.optimize.UglifyJsPlugin()
     ]
 };

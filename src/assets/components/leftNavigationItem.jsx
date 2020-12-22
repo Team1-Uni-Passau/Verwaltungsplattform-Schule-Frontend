@@ -1,6 +1,14 @@
 import React from 'react';
 import '../stylesheets/leftnavigationitem.css';
 
+const roles = {
+    LEHRENDE: 'Lehrender',
+    LERNENDE: 'Lernender',
+    ADMIN: 'Administrator',
+    ELTERN: 'Eltern',
+    SEKRETARIAT: 'Sekretariat'
+}
+
 export default class leftNavigationItem extends React.Component {
     
     
@@ -15,18 +23,50 @@ export default class leftNavigationItem extends React.Component {
 
     //Method to navigate throughout the app in the secrtariat view (Redirection)
     redirectToRespectivePage() {
-        switch(this.props.title){
-            case "Ankündigungen":
-                window.location.href = "/sekretariat/events";
+        switch(JSON.parse(localStorage.getItem("loggedIn")).role){
+            case roles.SEKRETARIAT :
+                switch(this.props.title){
+                    case "Ankündigungen":
+                        window.location.href = "/sekretariat/events";
+                        break;
+                    case "Krankmeldungen":
+                        window.location.href = "/sekretariat/sicknotes";
+                        break;
+                    case "Wochenpläne":
+                        window.location.href = "/sekretariat/schedule";
+                        break; 
+                    default:
+                        void(0);      
+                }
                 break;
-            case "Krankmeldungen":
-                window.location.href = "/sekretariat/sicknotes";
+            case roles.ELTERN :
+                switch(this.props.title){
+                    case "Ankündigungen":
+                        window.location.href = "/parent/events";
+                        break;
+                    case "Krankmeldung erfassen":
+                        window.location.href = "/parent/sicknotes";
+                        break;
+                    case "Wochenplan":
+                        window.location.href = "/parent/schedule";
+                        break; 
+                    case "Noten einsehen":
+                        window.location.href = "/parent/grades";
+                        break; 
+                    case "Präsenz anzeigen":
+                        window.location.href = "/parent/presence";
+                        break; 
+                    case "Notenschema":
+                        window.location.href = "/parent/schema";
+                        break; 
+                        
+                    default:
+                        void(0);      
+                }
                 break;
-            case "Wochenpläne":
-                window.location.href = "/sekretariat/schedule";
-                break; 
             default:
                 void(0);      
+
         }
     }
     

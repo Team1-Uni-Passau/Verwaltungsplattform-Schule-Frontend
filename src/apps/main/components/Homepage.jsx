@@ -186,7 +186,7 @@ export default class Homepage extends React.Component {
                     window.location.href = "/startseite/admin";
                     break;
                 case roles.ELTERN:
-                    window.location.href = "/startseite/parent";
+                    window.location.href = "/parent/events";
                     break;
                 case roles.LERNENDE:
                     window.location.href = "/startseite/student";
@@ -474,12 +474,12 @@ export default class Homepage extends React.Component {
                     </div>
                 </Modal>
                 <header className="top-navigation">
-                        <div className="dropdown">
+                        {/* <div className="dropdown">
                             <Icon className="dropbtn" size={'100%'} icon={ic_menu}/>
                             <div className="dropdown-content">
                                 <a onClick={this.displayModal}>Registrieren</a>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="title"><b>V</b>erwaltungsplattform Schule</div>
                         <div className="buttons-top-right">
