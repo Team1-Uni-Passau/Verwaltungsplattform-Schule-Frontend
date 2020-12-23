@@ -49,6 +49,13 @@ export default class LeftNavigation extends React.Component {
                         <LeftNavigationItem img={SchemaIcon} title="Notenschema" selected = {this.props.selected === "Schema"} />                
                     </div>
             break;      
+            case roles.ADMIN:
+            items = <div className="left-navigation-items-container">
+                        <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected = {this.props.selected === "Ankündigung"}/>
+                        <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected = {this.props.selected === "Krankmeldungen"}/>
+                        <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected = {this.props.selected === "Wochenpläne"} />                
+                        </div>
+                break;
             default:
                 void(0);
 

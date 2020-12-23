@@ -183,7 +183,7 @@ export default class Homepage extends React.Component {
                     window.location.href = "/startseite/teacher";
                     break;
                 case roles.ADMIN:
-                    window.location.href = "/startseite/admin";
+                    window.location.href = "/admin/events";
                     break;
                 case roles.ELTERN:
                     window.location.href = "/parent/events";
