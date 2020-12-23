@@ -7,6 +7,7 @@ import ScheduleIcon from '../images/week-plan.png';
 import GradesIcon from '../images/grades.png';
 import PresenceIcon from '../images/presence.png';
 import SchemaIcon from '../images/schema.png';
+import AddUserIcon from '../images/users.png'
 
 
 const roles = {
@@ -53,7 +54,8 @@ export default class LeftNavigation extends React.Component {
             items = <div className="left-navigation-items-container">
                         <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected = {this.props.selected === "Ankündigung"}/>
                         <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected = {this.props.selected === "Krankmeldungen"}/>
-                        <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected = {this.props.selected === "Wochenpläne"} />                
+                        <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected = {this.props.selected === "Wochenpläne"} />   
+                        <LeftNavigationItem img={AddUserIcon} title="Nutzer Anlegen" selected = {this.props.selected === "Nutzer Anlegen"} />            
                         </div>
                 break;
             default:

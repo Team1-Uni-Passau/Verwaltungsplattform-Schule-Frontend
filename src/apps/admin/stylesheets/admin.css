@@ -193,3 +193,67 @@
     height: 40px !important;
     width: 40px !important;
 }
+
+.middle-panel{
+    width: 100%;
+    min-height: calc(100% - 50px);
+  }
+
+  .create-user-box {
+    height: fit-content;
+    width: 500px;
+    background-color: #F1F1F1;
+    right: 30%;
+    position: absolute;
+    top: 300px;
+    border-radius: 10px;
+    vertical-align: middle;
+    position: absolute;
+    padding: 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 0.3px rgb(66 66 66);
+  }
+
+.create-user-top{
+    font-size: larger;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    text-align: center;
+    position: relative;
+}
+
+.create-user-input-container{
+    top: 50px
+}
+
+.create-user-input{
+    width: 65%;
+    justify-self: center;
+    margin: 7px;
+    border: 1px solid #a9a9a9;
+    line-height: 1;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    height: 30px;
+    min-width: 450px;
+}
+.changeroll{
+    font-size: 20px;
+	padding: .6em 1.4em .5em .8em;
+    width: 15em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
+    border-radius: .5em;
+    margin-top: 10px;
+}
+
+.label-roll{
+    font-size: larger;
+    margin: 15px;
+    }
+
