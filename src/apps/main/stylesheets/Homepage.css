@@ -395,11 +395,11 @@ b {
 
 .parent-or-child{
   display: flex;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
-.parent, .child{
-  margin-left: 10px;
+.parent, .child, .techer, .sekretariat{
+  margin-left: 5px;
 }
 
 .team-informations {
