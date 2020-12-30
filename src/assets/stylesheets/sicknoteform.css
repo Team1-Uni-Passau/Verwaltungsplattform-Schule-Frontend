@@ -1,0 +1,81 @@
+.sicknote-form-container {
+    width: 60%;
+    height: 60%;
+    background-color: white;
+    position: absolute;
+    top: 45%;
+    min-height: fit-content;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+    -webkit-box-shadow: 0 0 3px 0.3px rgb(0 0 0 / 30%);
+    box-shadow: 0 0 3px 0.3px rgb(0 0 0 / 30%);
+    display: grid;
+    text-align: center;
+    /* grid-row-gap: 30px; */
+    grid-auto-rows: -webkit-max-content;
+}
+
+.sicknote-form-title {
+    margin-top: 40px;
+    font-size: 35px;
+    font-family: sitka banner;
+    font-weight: bolder;
+}
+
+
+.sicknote-form-input {
+    width: 65%;
+    justify-self: center;
+    margin: 7px;
+    border: 1px solid #a9a9a9;
+    line-height: 1;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    height: 30px;
+    min-width: 150px;
+
+}
+
+
+.sicknote-form-input:focus {
+    border-color: cornflowerblue;
+    outline: none ;
+    box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+  }
+  
+
+.submit-button-sicknote {
+    font-size: 14px;
+    background-color: #0084ff;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+    text-transform: uppercase;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    /* margin-top: 70px; */
+    height: 35px;
+    width: 150px;
+}
+
+.submit-button-sicknote:hover{
+    color: black;
+}
+
+.submit-button-sicknote:focus{
+    outline: none;
+}
+
+
