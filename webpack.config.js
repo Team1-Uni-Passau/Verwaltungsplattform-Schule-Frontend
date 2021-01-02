@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     watchOptions: {
-        ignored: /node_modules/@material-ui
+        ignored: /node_modules/
     },
     devtool: 'cheap-module-eval-source-map',
     entry: './src/index.js',
