@@ -77,7 +77,7 @@ export default class restorePassword extends React.Component {
             })
         } else {
             this.setState({
-                 passwordInvalid: false
+                 PasswordInvalid: false
             })
         }
 
@@ -87,7 +87,7 @@ export default class restorePassword extends React.Component {
             })
         } else {
             this.setState({
-                 passwordRepeatInvalid: false
+                 PasswordRepeatInvalid: false
             })
         }
         if(this.Password != this.RepeatPassword){
@@ -144,13 +144,13 @@ export default class restorePassword extends React.Component {
                     <div className="modal-content">
                         <h1 className="password-reset-head">Passwort Zurücksetzen</h1>
                         <p className="email-info">der Validation Key wurde ihnen per E-Mail zugeschickt.</p>
-                        <input className="password-restore-input" type="text" placeholder="Validation-Code-eingeben" onChange={(e) => this.handleValidationInputChange(e)}></input>
+                        <input className="password-restore-input" type="text" placeholder="Validation-Code-eingeben" onChange={(e) => this.handleValidationInputChange(e)}style={this.state.validationKeyInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
                         <p className="password-restore-text" style={this.state.validationKeyInvalid ? void(0) : {display:'none'}}>Validation Key ist ein Pflichtfeld.</p>
 
-                        <input className="password-restore-input" type="text" placeholder="Neues Passwort eingeben" onChange={(e) => this.handlePasswordChange(e)}></input>
+                        <input className="password-restore-input" type="text" placeholder="Neues Passwort eingeben" onChange={(e) => this.handlePasswordChange(e)}style={this.state.PasswordInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
                         <p className="password-restore-text" style={this.state.PasswordInvalid ? void(0) : {display:'none'}}>Password ist ein Pflichtfeld.</p>
 
-                        <input className="password-restore-input" type="text" placeholder="Neues Passwort wiederholen" onChange={(e) => this.handlePasswordRepeatChange(e)}></input>
+                        <input className="password-restore-input" type="text" placeholder="Neues Passwort wiederholen" onChange={(e) => this.handlePasswordRepeatChange(e)}style={this.state.PasswordRepeatInvalid || this.state.PasswordEqualInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
                         <p className="password-restore-text" style={this.state.PasswordRepeatInvalid ? void(0) : {display:'none'}}>Password wiederholen ist ein Pflichtfeld.</p>
                         <p className="password-restore-text" style={this.state.PasswordEqualInvalid ? void(0) : {display:'none'}}>Password ist nicht identisch.</p>
 
