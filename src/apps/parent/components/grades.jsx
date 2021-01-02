@@ -22,8 +22,8 @@ export default class grades extends React.Component {
                 <LeftNavigation selected="Noten" />
                 <div className="flex-right-container">
                     <TopBar/>
-                    <div className="grades-title">Ansicht der Noten von: Max Mustermann</div>
                     <div className="middle-panel-container">
+                        <div className="grades-title">Ansicht der Noten von: Max Mustermann</div>
                         <GradesTable/>
                     </div>
                 </div>

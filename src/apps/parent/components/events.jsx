@@ -22,7 +22,7 @@ export default class events extends React.Component {
     render() {
         return (
             <div className="parents-home">
-                <LeftNavigation selected="" />
+                <LeftNavigation selected="Ankündigung" />
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">

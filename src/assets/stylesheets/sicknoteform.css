@@ -1,6 +1,5 @@
 .sicknote-form-container {
     width: 60%;
-    height: 60%;
     background-color: white;
     position: absolute;
     top: 45%;
@@ -11,11 +10,15 @@
     border-radius: 20px;
     -webkit-box-shadow: 0 0 3px 0.3px rgb(0 0 0 / 30%);
     box-shadow: 0 0 3px 0.3px rgb(0 0 0 / 30%);
-    display: grid;
     text-align: center;
-    /* grid-row-gap: 30px; */
-    grid-auto-rows: -webkit-max-content;
 }
+
+.input-container-sicknote-form {
+    display: grid;
+    margin-top: 40px;
+    grid-auto-rows: 50px;
+}
+
 
 .sicknote-form-title {
     margin-top: 40px;
@@ -68,6 +71,8 @@
     /* margin-top: 70px; */
     height: 35px;
     width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .submit-button-sicknote:hover{

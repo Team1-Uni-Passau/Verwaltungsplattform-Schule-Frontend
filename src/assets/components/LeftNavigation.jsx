@@ -1,5 +1,5 @@
 import React from 'react';
-import '../stylesheets/LeftNavigation.css';
+import '../stylesheets/leftNavigation.css';
 import LeftNavigationItem from './leftNavigationItem';
 import EventsIcon from '../images/events-icon.png';
 import SicknessIcon from '../images/sickness-icon.png';
