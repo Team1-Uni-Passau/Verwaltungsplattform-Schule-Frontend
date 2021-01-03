@@ -35,6 +35,9 @@ export default class leftNavigationItem extends React.Component {
                     case "Wochenpläne":
                         window.location.href = "/sekretariat/schedule";
                         break;
+                    case "Klassen verwalten":
+                        window.location.href = "/sekretariat/manageclass";
+                        break;
                     default:
                         void (0);
                 }

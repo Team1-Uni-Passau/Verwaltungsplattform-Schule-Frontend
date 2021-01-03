@@ -13,6 +13,7 @@ import StartseiteStudent from './apps/student/components/startseite';
 import SekretariatEvents from './apps/sekretariat/components/events';
 import SekretariatSicknotes from './apps/sekretariat/components/sicknotes';
 import SekretariatSchedule from './apps/sekretariat/components/schedule';
+import SekretariatManageClass from './apps/sekretariat/components/ManageClass';
 import AuthentificatedRoute from './AuthentificatedRoutes/AuthentificatedRoute';
 import StartseiteTeacher from './apps/teacher/components/startseite';
 import NotFound from '../src/apps/main/components/notFound';
@@ -47,6 +48,8 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/sekretariat/events'  allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatEvents}/>
             <AuthentificatedRoute exact path='/sekretariat/sicknotes'  allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatSicknotes}/>
             <AuthentificatedRoute exact path='/sekretariat/schedule'   allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatSchedule}/>
+            <AuthentificatedRoute exact path='/sekretariat/manageclass' allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatManageClass}/>
+
             <AuthentificatedRoute exact path='/startseite/teacher' allowedRole={AllowedRoles.TEACHER} exact component={StartseiteTeacher}/>
 
             <AuthentificatedRoute exact path='/admin/events' allowedRole={AllowedRoles.ADMIN} exact component={AdminEvents}/>

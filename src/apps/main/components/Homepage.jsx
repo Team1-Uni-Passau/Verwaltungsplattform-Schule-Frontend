@@ -39,6 +39,7 @@ export default class Homepage extends React.Component {
             EmailStructureInvalid: false,
             PasswordLengthInvalid : false,
             PasswordStructureInvalid: false,
+            FamilyKeyInvalid: false,
         }
 
 
@@ -65,6 +66,7 @@ export default class Homepage extends React.Component {
         this.handleregisterPasswordChange = this.handleRegisterPasswordChange.bind(this);
         this.handleRegisterRepeatChange = this.handleRegisterRepeatPasswordChange.bind(this);
         this.handleRegisterRegisterCode = this.handleRegister_RegisterCodeChange.bind(this);
+        this.handleRegisterFamilyKeyChange = this.handleRegisterFamilyKeyChange.bind(this);
     }
 
 
@@ -137,6 +139,10 @@ export default class Homepage extends React.Component {
     //Method to get the value of the text entered by the user in the register field in the register modal
     handleRegister_RegisterCodeChange(e) {
         this.registerCode = e.target.value;
+    }
+
+    handleRegisterFamilyKeyChange(e) {
+        this.userId = e.target.value;
     }
 
     
@@ -327,6 +333,7 @@ export default class Homepage extends React.Component {
                         registerPassword: this.registerPassword,
                         registerCode: this.registerCode,
                         roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
+                        // userId: this.userId,
                     })
                 }).then(response => {
                     if(response.status === 200){
@@ -469,6 +476,7 @@ export default class Homepage extends React.Component {
                         <input  className="register-input" type="text" placeholder="Registrierungscode" onChange={(e) => this.handleRegister_RegisterCodeChange(e)} style={this.state.RegisterRegisterCodeInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
                         <p className="form-validation-registration" style={this.state.RegisterRegisterCodeInvalid ? void(0) : {display:'none'}}>Registrierungscode ist ein Pflichtfeld.</p>
 
+                        {/* <input className="register-input" type="text" placeholder="Familien ID" onChange={(e) => this.handleRegisterFamilyKeyChange(e)}></input> */}
                         {/* <input className="username" type="text" placeholder="Benutzername" onChange={this.handleRegisterUsernameChange}></input>
                         <input className="username" type="text" placeholder="E-Mail Adresse eingeben" onChange={this.handleRegisterEmailChange}></input>
                         <input className="username" type="password" placeholder="Passwort" onChange={this.handleRegisterPasswordChange}></input>
