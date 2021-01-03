@@ -24,10 +24,8 @@ export default class CreateUser extends React.Component {
                     <TopBar />
                     <div className="middle-panel">
                         <div className="create-user-box">
-                            <p className="create-user-top">Neuen Nutzer anlegen</p>
+                            <p className="create-user-top">Rolle zuweisen</p>
                             <div className="create-user-input-container">
-                                <input className="create-user-input" type="text" placeholder="Vorname"></input>
-                                <input className="create-user-input" type="text" placeholder="Nachname"></input>
                                 <input className="create-user-input" type="text" placeholder="Email"></input>
                                 <form name="terminauswahl">
                                     <label className="label-roll" id="RollenLabel">Rolle:</label>
@@ -38,6 +36,7 @@ export default class CreateUser extends React.Component {
                                         <option value="r3">Schüler</option>
                                         <option value="r4">Eltern</option>
                                     </select>
+                                    <button className="role-change-button">Bestätigen</button>
                                 </form>
                             </div>
                         </div>

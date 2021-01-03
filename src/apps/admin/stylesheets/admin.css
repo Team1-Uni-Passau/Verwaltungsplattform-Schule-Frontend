@@ -256,4 +256,24 @@
     font-size: larger;
     margin: 15px;
     }
-
+.role-change-button{
+    font-size: 14px;
+    background-color: #0084ff;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    margin: 0 auto;
+    position:relative;
+    border: none;
+    text-transform: uppercase;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 35px;
+    left: 180px;
+    top: 10px;
+    align-items: center;
+}

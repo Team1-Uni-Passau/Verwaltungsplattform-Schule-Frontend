@@ -199,7 +199,7 @@ export default class Homepage extends React.Component {
                     window.location.href = "/parent/events";
                     break;
                 case roles.LERNENDE:
-                    window.location.href = "/startseite/student";
+                    window.location.href = "/student/events";
                     break;
                 case roles.SEKRETARIAT:
                     window.location.href = "/sekretariat/events";
@@ -222,8 +222,9 @@ export default class Homepage extends React.Component {
                 })
             }else{
                 this.setState({
-                    EmailStructureInvalid : true
+                    EmailStructureInvalid:true
                 })
+                
             }
             //Prüft ob das Passwort genug Zeichen Enthält
             var val = document.getElementById('pw1').value;
@@ -314,7 +315,7 @@ export default class Homepage extends React.Component {
              })
              }
 
-            if (this.registerName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
+            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
                 await fetch('http://localhost:10000/registration', {
                     method: 'POST',
                     headers: {
@@ -322,6 +323,7 @@ export default class Homepage extends React.Component {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        registerFirstName: this.registerFirstName,
                         registerName: this.registerName,
                         registerEmail: this.registerEmail,
                         registerPassword: this.registerPassword,
