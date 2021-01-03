@@ -196,7 +196,7 @@ export default class Homepage extends React.Component {
         console.log(role)
             switch(role){
                 case roles.LEHRENDE:
-                    window.location.href = "/startseite/teacher";
+                    window.location.href = "/teacher/events";
                     break;
                 case roles.ADMIN:
                     window.location.href = "/admin/events";
