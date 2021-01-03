@@ -12,9 +12,7 @@ export default class events extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     console.log(JSON.parse(localStorage.getItem("loggedIn")))
-    // }
+
 
 
 
