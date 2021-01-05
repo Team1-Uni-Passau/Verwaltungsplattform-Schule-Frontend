@@ -11,6 +11,29 @@ export default class schedule extends React.Component {
         super(props);
         this.state = {
         }
+
+        this.getWeeklySchedule = this.getWeeklySchedule.bind(this);
+    }
+
+    componentDidMount() {
+        this.getWeeklySchedule();
+    }
+
+
+    async getWeeklySchedule() {
+        console.log(JSON.parse(localStorage.getItem("loggedIn")).token)
+        await fetch('http://localhost:10000/eltern/wochenplan/30', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+        }).then(response => response.text())
+          .then(data =>{
+              console.log(data)
+          
+        })
     }
 
 

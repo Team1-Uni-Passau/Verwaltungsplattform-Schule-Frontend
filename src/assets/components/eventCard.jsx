@@ -21,10 +21,7 @@ export default class eventCard extends React.Component {
         this.onSave = this.onSave.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({
-            text: TESTDATA.EVENTTEXT
-        })
+    componentWillMount() {
     }
 
     // Handling of showing more test in the user event
@@ -51,8 +48,10 @@ export default class eventCard extends React.Component {
 
 
     render() {
+
+        
         return (
-            <div className="event-card-container">
+            <div className="event-card-container" style={this.props.display ? void(0) : {display:'none'}}>
                 <p className="event-card-title">Ankündigung</p>
                 <div className="event-card-text">
                     <EdiText
@@ -69,14 +68,14 @@ export default class eventCard extends React.Component {
                         }}
                         // editButtonContent="Modifizieren"
                         // editButtonClassName="custom-edit-button"
-                        value= {this.state.text.length > this.state.MAX_LENGTH ? (
-                            this.state.text.substring(0, this.state.MAX_LENGTH) + "..."             
+                        value= {this.props.text.length > this.state.MAX_LENGTH ? (
+                            this.props.text.substring(0, this.state.MAX_LENGTH) + "..."             
                         )
-                        : this.state.text}
+                        : this.props.text}
                         onSave={(input) => this.onSave(input)}
                     />
-                    <div className="show-more" onClick={this.showMore} style={TESTDATA.EVENTTEXT.length >this.state.MAX_LENGTH ? void(0) : {display:'none'}}>Erweitern</div>
-                    <div className="show-more" onClick={this.showLess} style={TESTDATA.EVENTTEXT.length === this.state.MAX_LENGTH ? void(0) : {display:'none'}}>Weniger anzeigen</div>
+                    <div className="show-more" onClick={this.showMore} style={this.props.text.length >this.state.MAX_LENGTH ? void(0) : {display:'none'}}>Erweitern</div>
+                    <div className="show-more" onClick={this.showLess} style={this.props.text.length === this.state.MAX_LENGTH ? void(0) : {display:'none'}}>Weniger anzeigen</div>
                 </div>
             </div>
         )

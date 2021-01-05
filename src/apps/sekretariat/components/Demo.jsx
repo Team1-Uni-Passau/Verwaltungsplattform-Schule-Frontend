@@ -172,7 +172,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         field: [field], changes: date ? date.toDate() : new Date(displayAppointmentData[field]),
       }),
       inputVariant: 'outlined',
-      format: 'DD/MM/YYYY HH:mm',
+      format: 'HH:mm',
       onError: () => null,
     });
 
@@ -223,16 +223,10 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             <div className={classes.wrapper}>
               <LocationOn className={classes.icon} color="action" />
               <TextField
-                {...textEditorProps('location')}
+                {...textEditorProps('KlassenId')}
               />
             </div>
             <div className={classes.wrapper}>
-              <Notes className={classes.icon} color="action" />
-              <TextField
-                {...textEditorProps('notes')}
-                multiline
-                rows="6"
-              />
             </div>
           </div>
           <div className={classes.buttonGroup}>

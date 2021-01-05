@@ -21,11 +21,15 @@ export default class events extends React.Component {
             showStudents: true,
             showTeachers: true,
             searchText: '',
+            sicknotes: []
         }
 
         this.toggleShowStudents = this.toggleShowStudents.bind(this);
         this.toggleShowTeachers = this.toggleShowTeachers.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.renderSicknotes = this.renderSicknotes.bind(this);
+        this.getSicknotes = this.getSicknotes.bind(this);
+        this.isSubstringOf = this.isSubstringOf.bind(this);
     }
 
 
@@ -50,6 +54,67 @@ export default class events extends React.Component {
         })
     }
 
+    componentDidMount() {
+        this.getSicknotes();
+    }
+
+
+    async getSicknotes() {
+        await fetch('http://localhost:10000/sekretariat/krankmeldungen', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+        }).then(response => response.json())
+          .then(data =>{
+              console.log(data)
+            this.setState({
+                sicknotes: data
+            })
+        })
+    }
+
+    isSubstringOf(firstname, lastname) {
+
+        var completeName = firstname+lastname;
+        if(this.state.searchText == '') {
+            return true;
+        }
+
+        if (this.state.searchText !== null && this.state.searchText !== ''){
+            if (firstname.toLowerCase().includes(this.state.searchText.toLowerCase()) || lastname.toLowerCase().includes(this.state.searchText.toLowerCase()) || completeName.toLowerCase().includes(this.state.searchText.toLowerCase().replace(/\s/g, ''))) {
+                return true;
+            }    
+        }
+
+        return false;
+    }
+
+
+
+    renderSicknotes() {
+                return (
+                    <div className="sicknotes-grid">
+                        {this.state.sicknotes ? (
+                            this.state.sicknotes.map((user) => {
+                                return <SickNote 
+                                            key={user.lastName} 
+                                            firstname={user.firstName} 
+                                            lastname ={user.lastName} 
+                                            rolle={user.rolle}  
+                                            display = {this.isSubstringOf(user.firstName,user.lastName) ? true : false }  
+                                            showTeachers={this.state.showTeachers} 
+                                            showStudents={this.state.showStudents} 
+                                            affectedUserId = {user.affectedUserId}
+                                            sicknoteId = {user.sicknessNoteId}
+                                        />
+                            }))
+                        : void(0)};  
+                    </div>
+            )         
+    }
 
 
 
@@ -102,18 +167,8 @@ export default class events extends React.Component {
                                 </div>
 
                             </div>
-                            <div className="sicknotes-grid">
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
-                                <SickNote/>
+                            <div >
+                                {this.renderSicknotes()}
                             </div>
                         </div>
                     </div>

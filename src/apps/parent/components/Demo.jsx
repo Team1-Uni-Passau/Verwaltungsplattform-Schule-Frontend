@@ -404,7 +404,6 @@ class Demo extends React.PureComponent {
       currentDate,
       data,
     } = this.state;
-    console.log(this.state.data)
     return (
       <React.Fragment>
       <Paper>
@@ -420,12 +419,10 @@ class Demo extends React.PureComponent {
           <WeekView
             excludedDays={[0, 6]}
             startDayHour={7}
-            endDayHour={18}
+            endDayHour={14}
           />
           <EditRecurrenceMenu />
           <Appointments />
-          <AppointmentTooltip
-          />
           <Toolbar />
           <AppointmentForm
             overlayComponent={this.appointmentForm}

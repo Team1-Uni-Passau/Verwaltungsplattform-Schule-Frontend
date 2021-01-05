@@ -31,3 +31,13 @@
     font-weight: bold;
     font-size: 30px;
 }
+
+
+.Cell-dayOfMonth-44 {
+    display: none;
+}
+
+
+.Cell-dayOfWeek-43 {
+    font-size: 1.25rem !important;
+}
