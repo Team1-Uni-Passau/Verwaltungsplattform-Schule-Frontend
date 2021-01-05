@@ -256,3 +256,92 @@
     top: 10px;
     transform: translate(-50%, -50%);
 }
+
+.event-content {
+    width: 80%;
+    justify-self: center;
+    margin: 7px;
+    border: 1px solid #a9a9a9;
+    line-height: 1;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 12px;
+    word-wrap: break-word;
+    height: 200px;
+    min-width: 150px;
+    overflow: auto;
+    resize: none;
+}
+
+.event-content:focus, .create-event-role:focus, .create-event-dates-container:focus  {
+    border-color: cornflowerblue;
+    outline: none ;
+    box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+  }
+  
+.event-content::placeholder {
+    top: 15px
+}
+
+.create-event-title {
+    font-family: Sitka Banner;
+    text-align: center;
+    /* font-weight: 600; */
+    font-size: 30px;
+}
+
+.confirm-create-event {
+    font-size: 14px;
+    background-color: #0084ff;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+    text-transform: uppercase;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 35px;
+    width: 40%;
+}
+
+
+.confirm-create-event{
+min-width: fit-content;
+}
+
+.confirm-create-event:hover {
+color: black;
+}
+
+.create-event-dates-container {
+    text-align: center;
+    padding: 10px; 
+}
+
+
+.datepicker-create-event {
+    height: 30px;
+    border: 1px solid #a9a9a9;
+    color: grey;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px;
+}
+
+.create-event-role {
+    font-size: 15px;
+    padding: .6em 1.4em .5em .8em;
+    width: 15em;
+    -webkit-box-shadow: 0 1px 0 1px rgb(0 0 0 / 4%);
+    box-shadow: 0 1px 0 1px rgb(0 0 0 / 4%);
+    border-radius: .5em;
+    margin-top: 10px;
+    place-self: center;
+}

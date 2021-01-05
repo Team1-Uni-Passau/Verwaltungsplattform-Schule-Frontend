@@ -1,3 +1,4 @@
+import { TramRounded } from '@material-ui/icons';
 import React from 'react';
 import '../stylesheets/sicknote.css';
 
@@ -9,10 +10,19 @@ export default class sicknote extends React.Component {
         super(props);
 
         this.state = {
+            confirmed: null,
+            time: null
         }
 
         this.confirmSicknote = this.confirmSicknote.bind(this)
     }
+
+    componentDidMount() {
+        this.setState({
+            confirmed: this.props.confirmation
+        })
+      }
+      
 
     // Krankmeldung ID sollte geschickt werden an dem Frontend
     async confirmSicknote() {
@@ -26,9 +36,10 @@ export default class sicknote extends React.Component {
         }).then(response => response.json())
           .then(data =>{
               console.log(data)
-            this.setState({
-                sicknotes: data
-            })
+        })
+
+        this.setState({
+            confirmed: true
         })
     }
 
@@ -50,6 +61,14 @@ export default class sicknote extends React.Component {
             displaySicknote = false;
         }
 
+        var confirmed = null;
+
+        if(this.state.confirmed) {
+            confirmed = <p className="sicknote-confirmed">Bestätigt</p>
+        } else {
+          confirmed =   <button className="confirm-sicknote" onClick={this.confirmSicknote}>Bestätigen</button>;  
+        }
+
         return (
             <div className="sicknote-container" style= {displaySicknote? void(0) : {display:'none'}}>   
                 <div className="sicknote-title-container">
@@ -61,8 +80,7 @@ export default class sicknote extends React.Component {
                     <div className="sicknote-info"><b className="sicknote-bold-style">Rolle: </b> {this.props.rolle}</div>
                     <div className="sicknote-info"><b className="sicknote-bold-style">Datum: </b>{todayDate}</div>
                 </div>
-
-                <button className="confirm-sicknote" onClick={this.confirmSicknote}>Bestätigen</button>
+                {confirmed}
             </div>
         )
     }

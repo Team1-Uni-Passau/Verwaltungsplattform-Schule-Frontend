@@ -19,6 +19,7 @@ export default class eventCard extends React.Component {
         this.showMore = this.showMore.bind(this);
         this.showLess = this.showLess.bind(this);
         this.onSave = this.onSave.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
     }
 
     componentWillMount() {
@@ -46,36 +47,34 @@ export default class eventCard extends React.Component {
         })
     }
 
+    deleteEvent() {
+        if(this.props.deleteEvent) {
+            this.props.deleteEvent(this.props.id);
+        }
+    }
+
+    editEvent() {
+
+    }
+
 
     render() {
 
         
         return (
             <div className="event-card-container" style={this.props.display ? void(0) : {display:'none'}}>
-                <p className="event-card-title">Ankündigung</p>
+                <p className="event-card-title">Ankündigung für {this.props.role !== null ? this.props.role : "Alle"}</p>
                 <div className="event-card-text">
-                    <EdiText
-                        type='textarea'
-                        inputProps={{
-                            className: 'textarea',
-                            placeholder: 'Type your content here',
-                            style: {
-                            outline: 'none',
-                            minWidth: '95%',
-                            height: '150px',
-                            },
-                            rows: 30,
-                        }}
-                        // editButtonContent="Modifizieren"
-                        // editButtonClassName="custom-edit-button"
-                        value= {this.props.text.length > this.state.MAX_LENGTH ? (
+                     {this.props.text.length > this.state.MAX_LENGTH ? (
                             this.props.text.substring(0, this.state.MAX_LENGTH) + "..."             
                         )
                         : this.props.text}
-                        onSave={(input) => this.onSave(input)}
-                    />
                     <div className="show-more" onClick={this.showMore} style={this.props.text.length >this.state.MAX_LENGTH ? void(0) : {display:'none'}}>Erweitern</div>
                     <div className="show-more" onClick={this.showLess} style={this.props.text.length === this.state.MAX_LENGTH ? void(0) : {display:'none'}}>Weniger anzeigen</div>
+                    <div className="event-buttons-flex">
+                        <button className="modify-event" onClick={this.editEvent}>Bearbeiten</button>
+                        <button className="delete-event" onClick={this.deleteEvent}>Löschen</button>
+                    </div>
                 </div>
             </div>
         )

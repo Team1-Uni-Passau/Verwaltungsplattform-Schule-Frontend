@@ -21,7 +21,7 @@ export default class events extends React.Component {
             showStudents: true,
             showTeachers: true,
             searchText: '',
-            sicknotes: []
+            sicknotes: [],
         }
 
         this.toggleShowStudents = this.toggleShowStudents.bind(this);
@@ -31,7 +31,6 @@ export default class events extends React.Component {
         this.getSicknotes = this.getSicknotes.bind(this);
         this.isSubstringOf = this.isSubstringOf.bind(this);
     }
-
 
 
     toggleShowStudents() {
@@ -76,6 +75,7 @@ export default class events extends React.Component {
         })
     }
 
+
     isSubstringOf(firstname, lastname) {
 
         var completeName = firstname+lastname;
@@ -109,6 +109,7 @@ export default class events extends React.Component {
                                             showStudents={this.state.showStudents} 
                                             affectedUserId = {user.affectedUserId}
                                             sicknoteId = {user.sicknessNoteId}
+                                            confirmation = {user.confirmation}
                                         />
                             }))
                         : void(0)};  
