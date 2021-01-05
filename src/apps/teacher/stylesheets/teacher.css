@@ -1,0 +1,22 @@
+.teacher-home{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+}
+
+.flex-right-container {
+    height: 100%;
+    width: calc(100% - 220px);
+    float: right;
+}
+
+
+.middle-panel-container {
+    height: 100%;
+    position: absolute;
+    background-color: #e9e9e9;
+    width: calc(100% - 220px);
+    overflow: auto;
+}

@@ -193,3 +193,66 @@
     height: 40px !important;
     width: 40px !important;
 }
+
+.ManageClassInput{
+    width: 95%;
+    justify-self: center;
+    margin: 7px;
+    border: 1px solid #a9a9a9;
+    line-height: 1;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    height: 30px;
+    min-width: 150px;
+}
+
+.ManageClassBox{
+    height: fit-content;
+    width: 500px;
+    background-color: #F1F1F1;
+    right: 30%;
+    position: absolute;
+    top: 300px;
+    border-radius: 10px;
+    vertical-align: middle;
+    position: absolute;
+    padding: 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 0.3px rgb(66 66 66);
+}
+
+.ManageClassTop{
+    font-size: larger;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    text-align: center;
+    position: relative;
+}
+
+.ConfirmButton{
+    font-size: 14px;
+    background-color: #0084ff;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+    text-transform: uppercase;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 35px;
+    left: 50%;
+    top: 10px;
+    transform: translate(-50%, -50%);
+}

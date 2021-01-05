@@ -35,6 +35,9 @@ export default class leftNavigationItem extends React.Component {
                     case "Wochenpläne":
                         window.location.href = "/sekretariat/schedule";
                         break;
+                    case "Klassen verwalten":
+                        window.location.href = "/sekretariat/manageclass";
+                        break;
                     default:
                         void (0);
                 }
@@ -62,23 +65,41 @@ export default class leftNavigationItem extends React.Component {
                     default:
                         void (0);
                 }
-                case roles.ADMIN:
-                    switch (this.props.title) {
-                        case "Ankündigungen":
-                            window.location.href = "/admin/events";
-                            break;
-                        case "Krankmeldungen":
-                            window.location.href = "/admin/sicknotes";
-                            break;
-                        case "Wochenpläne":
-                            window.location.href = "/admin/schedule";
-                            break;
-                        case "Nutzer Anlegen":
-                            window.location.href = "/admin/createuser";
-                            break;
-                        default:
-                            void (0);
-                    }
+            case roles.ADMIN:
+                switch (this.props.title) {
+                    case "Ankündigungen":
+                        window.location.href = "/admin/events";
+                        break;
+                    case "Krankmeldungen":
+                        window.location.href = "/admin/sicknotes";
+                        break;
+                    case "Wochenpläne":
+                        window.location.href = "/admin/schedule";
+                        break;
+                    case "Nutzer Anlegen":
+                        window.location.href = "/admin/createuser";
+                        break;
+                    default:
+                        void (0);
+                }
+            case roles.LEHRENDE:
+                switch (this.props.title) {
+                    case "Ankündigungen":
+                        window.location.href = "/teacher/events";
+                        break;
+                    case "Krankmeldungen":
+                        window.location.href = "/teacher/sicknotes";
+                        break;
+                    case "Wochenpläne":
+                        window.location.href = "/teacher/schedule";
+                        break;
+                    case "Prüfungen":
+                        window.location.href = "/teacher/exams";
+                        break;
+                    case "Klassen einsehen":
+                        window.location.href = "/teacher/viewclasses";
+                        break;
+                }
                 break;
             default:
                 void (0);
