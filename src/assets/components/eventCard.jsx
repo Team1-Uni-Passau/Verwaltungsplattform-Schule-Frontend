@@ -20,6 +20,8 @@ export default class eventCard extends React.Component {
         this.showLess = this.showLess.bind(this);
         this.onSave = this.onSave.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
+        this.editEvent = this.editEvent.bind(this);
+
     }
 
     componentWillMount() {
@@ -54,6 +56,9 @@ export default class eventCard extends React.Component {
     }
 
     editEvent() {
+        if(this.props.editEvent){
+            this.props.editEvent(this.props.id);
+        }
 
     }
 
@@ -63,6 +68,7 @@ export default class eventCard extends React.Component {
         
         return (
             <div className="event-card-container" style={this.props.display ? void(0) : {display:'none'}}>
+                <p className="dates-display">Von {this.props.startDate} bis {this.props.endDate}</p>
                 <p className="event-card-title">Ankündigung für {this.props.role !== null ? this.props.role : "Alle"}</p>
                 <div className="event-card-text">
                      {this.props.text.length > this.state.MAX_LENGTH ? (

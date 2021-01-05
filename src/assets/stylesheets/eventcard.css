@@ -144,3 +144,13 @@
 .modify-event:focus , .delete-event:focus {
     outline:none;
 }
+
+.dates-display {
+    float: right;
+    font-size: 12px;
+    /* font-family: sitka-banner; */
+    font-weight: bolder;
+    color: dimgray;
+    position: relative;
+    margin-top: -10px;
+}

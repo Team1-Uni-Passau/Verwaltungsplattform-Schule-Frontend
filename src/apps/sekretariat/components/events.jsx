@@ -35,7 +35,8 @@ export default class events extends React.Component {
             newEventText: '',
             newEventSelectedRole: null,
             openDialog: false,
-            eventIdToDelete: null
+            eventIdToDelete: null,
+            eventToModify: null
         }
 
         this.displayModal = this.displayModal.bind(this);
@@ -46,6 +47,7 @@ export default class events extends React.Component {
         this.deleteEventDialog = this.deleteEventDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.confirmDeleteEvent = this.confirmDeleteEvent.bind(this);
+        this.onEditEventClick = this.onEditEventClick.bind(this);
 
     }
 
@@ -153,6 +155,7 @@ export default class events extends React.Component {
             },
         }).then(response => response.json())
           .then(data =>{
+              console.log(data)
             this.setState({
                 events: data
             })
@@ -207,6 +210,13 @@ export default class events extends React.Component {
         })
     }
 
+    onEditEventClick(id) {
+        var selectedEvent = this.state.events.filter((element) => element.idNotification == id);
+        this.setState({
+            eventToModify: selectedEvent
+        })
+    }
+
     async confirmDeleteEvent() {
 
         this.closeDialog();
@@ -221,7 +231,7 @@ export default class events extends React.Component {
         }).then(response => response.text())
           .then(data =>{
             var currentEvents = this.state.events;
-            const newEventsList = currentEvents.filter(element => element.id !== this.state.eventIdToDelete);
+            const newEventsList = currentEvents.filter(element => element.idNotification !== this.state.eventIdToDelete);
             this.setState({
                 events: newEventsList
             })
@@ -235,12 +245,15 @@ export default class events extends React.Component {
                 {this.state.events ? (
                     this.state.events.map((event) => {
                         return <EventCard 
-                                    key={event.id} 
+                                    key={event.idNotification} 
                                     text = {event.content}
-                                    id = {event.id}
-                                    role = {event.role}
+                                    id = {event.idNotification}
+                                    role = {event.rolle}
                                     display = {this.isSubstringOf(event.content) ? true : false }  
                                     deleteEvent = {(id) => this.deleteEventDialog(id)}
+                                    editEvent = {(id) => this.onEditEventClick(id)}
+                                    startDate = {event.startdate}
+                                    endDate = {event.enddate}
                                 />
                     }))
                 : void(0)};  
@@ -250,6 +263,8 @@ export default class events extends React.Component {
 
 
     render() {
+
+        console.log(this.state.eventToModify)
         return (
             <div className="sekretariat-home">
 
