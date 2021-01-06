@@ -36,19 +36,21 @@ export default class events extends React.Component {
             newEventSelectedRole: null,
             openDialog: false,
             eventIdToDelete: null,
-            eventToModify: null
+            eventToModify: null,
+            modificationStatus: false
         }
 
         this.displayModal = this.displayModal.bind(this);
         this.undisplayModal = this.undisplayModal.bind(this);
         this.fetchEvents = this.fetchEvents.bind(this);
         this.renderEvents = this.renderEvents.bind(this); 
-        this.handleCreateEvent = this.handleCreateEvent.bind(this); 
+        this.handleCreateOrEditEvent = this.handleCreateOrEditEvent.bind(this); 
         this.deleteEventDialog = this.deleteEventDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.confirmDeleteEvent = this.confirmDeleteEvent.bind(this);
         this.onEditEventClick = this.onEditEventClick.bind(this);
-
+        this.findAndReplaceById = this.findAndReplaceById.bind(this);
+        
     }
 
     componentDidMount() {
@@ -67,7 +69,9 @@ export default class events extends React.Component {
     // Method to undisplay the registration Modal
     undisplayModal(){
         this.setState({
-            displayModal: false
+            displayModal: false,
+            modificationStatus: false,
+            newEventText: ''
         })
     }
 
@@ -83,7 +87,52 @@ export default class events extends React.Component {
         })
     }
 
-    async handleCreateEvent () {
+
+    findAndReplaceById(id, event){
+         var modifiedEventList = this.state.events.map((element)=> {
+            if(element.idNotification == id){
+                element.content = event.content;
+                element.startdate = event.startdate;
+                element.enddate = event.enddate;
+                element.rolle = event.rolle;
+                return element;
+            } else {
+                return element;
+            }
+        })
+
+        return modifiedEventList;
+    }
+
+
+    async handleCreateOrEditEvent () {
+        if(this.state.modificationStatus){
+            await fetch('http://localhost:10000/sekretariat/ankuendigungen/edit/'+this.state.eventToModify[0].idNotification, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                },
+                body: JSON.stringify({
+                    userId: 26,
+                    startDate: this.state.startDate,
+                    endDate: this.state.endDate,
+                    content: this.state.newEventText,
+                    role: this.state.newEventSelectedRole,
+                    notificationId: this.state.eventToModify[0].idNotification
+
+                })
+
+            }).then(response => response.json())
+              .then(data =>{
+                var modifiedEventList = this.findAndReplaceById(data.idNotification, data);
+                this.setState({
+                    events: modifiedEventList
+                })
+            })     
+
+        } else {
             if(this.state.newEventSelectedRole == 'Alle') {
                 await fetch('http://localhost:10000/sekretariat/neueankuendigungallgemein', {
                     method: 'POST',
@@ -137,10 +186,9 @@ export default class events extends React.Component {
                 })     
 
             }
-            
+        }
 
-            this.undisplayModal();
-            
+        this.undisplayModal();            
     }
 
 
@@ -213,8 +261,15 @@ export default class events extends React.Component {
     onEditEventClick(id) {
         var selectedEvent = this.state.events.filter((element) => element.idNotification == id);
         this.setState({
-            eventToModify: selectedEvent
+            modificationStatus: true,
+            eventToModify: selectedEvent,
+            newEventText: selectedEvent[0].content,
+            newEventSelectedRole: selectedEvent[0].rolle,
+            startDate: new Date(selectedEvent[0].startdate),
+            endDate: new Date(selectedEvent[0].enddate),
         })
+
+        this.displayModal();
     }
 
     async confirmDeleteEvent() {
@@ -264,15 +319,14 @@ export default class events extends React.Component {
 
     render() {
 
-        console.log(this.state.eventToModify)
         return (
             <div className="sekretariat-home">
 
                 <Modal show={this.state.displayModal} modalClosed={() => this.undisplayModal()}>
                     <Icon  className='close-modal'  onClick={this.undisplayModal} size={'100%'} icon={cross}/>
                     <div className="modal-content">
-                        <h1 className="create-event-title">Ankündigung erstellen</h1>
-                        <textarea  className="event-content"  type="text" placeholder="Text der Ankündigung..." onChange={(e) => this.onNewEventTextChange(e)}></textarea>
+                        <h1 className="create-event-title">{this.state.modificationStatus ? "Ankündigung bearbeiten": "Ankündigung erstellen"}</h1>
+                        <textarea  className="event-content"  type="text" placeholder="Text der Ankündigung..." onChange={(e) => this.onNewEventTextChange(e)} value={this.state.modificationStatus && this.state.eventToModify ? this.state.newEventText : void(0)}></textarea>
                         <div className="create-event-dates-container">
                             <DatePicker
                                 className="datepicker-create-event" 
@@ -283,7 +337,7 @@ export default class events extends React.Component {
                                 selected={this.state.startDate}
                                 style={{height: '30px'}}
                                 onChange={(e) => this.onStartDateChange(e)}
-                                placeholderText= "Startdatum"
+                                placeholderText= {this.state.modificationStatus ? this.state.eventToModify[0].startdate : "Startdatum"}
                             />
                             <DatePicker
                                 className="datepicker-create-event" 
@@ -294,22 +348,22 @@ export default class events extends React.Component {
                                 selected={this.state.endDate}
                                 style={{height: '30px'}}
                                 onChange={(e) => this.onEndDateChange(e)}
-                                placeholderText= "Enddatum"
+                                placeholderText= {this.state.modificationStatus ? this.state.eventToModify[0].enddate : "Enddatum"}
                                 
                             />
                         </div>
                         
                         <select className="create-event-role" id="rolle" onChange = {(e) => this.onNewEventRoleChange(e)}>
-                                        <option value="--">Sichtbar für:</option>
-                                        <option value="Sekretariat">Sekretariat</option>
-                                        <option value="Lehrender">Lehrender</option>
-                                        <option value="Lernender">Lernender</option>
-                                        <option value="Eltern">Eltern</option>
+                                        <option value="--">{this.state.modificationStatus ? this.state.eventToModify[0].rolle : "Sichtbar für:"}</option>
+                                        <option value="Sekretariat" style={this.state.modificationStatus && this.state.eventToModify[0].rolle =="Sekretariat" ? {display:'none'} : void(0)}>Sekretariat</option>
+                                        <option value="Lehrender" style={this.state.modificationStatus && this.state.eventToModify[0].rolle =="Lehrender" ? {display:'none'} : void(0)}>Lehrender</option>
+                                        <option value="Lernender" style={this.state.modificationStatus && this.state.eventToModify[0].rolle =="Lernender" ? {display:'none'} : void(0)}>Lernender</option>
+                                        <option value="Eltern" style={this.state.modificationStatus && this.state.eventToModify[0].rolle =="Eltern" ? {display:'none'} : void(0)}>Eltern</option>
                                         <option value="Alle">Alle</option>
                         </select>
 
 
-                        <button className="confirm-create-event" onClick={this.handleCreateEvent}>Erstellen</button>
+                        <button className="confirm-create-event" onClick={this.handleCreateOrEditEvent}>{this.state.modificationStatus ? "Speichern": "Erstellen"}</button>
 
 
                     </div>
