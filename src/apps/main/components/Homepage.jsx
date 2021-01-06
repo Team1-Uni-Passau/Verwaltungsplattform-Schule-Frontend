@@ -414,6 +414,7 @@ export default class Homepage extends React.Component {
                         username: this.username,
                         role: data.role,
                         token: data.token,
+                        userId: data.userId,
                         loggedIn: true
                     }));  
                     this.username= '';

@@ -16,12 +16,19 @@ export default class sicknoteForm extends React.Component {
         }
 
         this.onDateChange = this.onDateChange.bind(this);
+        this.sendSicknote = this.sendSicknote.bind(this);
     }
 
     onDateChange(e) {
         this.setState({
-            startDate: e
+            date: e
         })
+    }
+
+    sendSicknote(){
+        if(this.props.sendSicknoteClicked){
+            this.props.sendSicknoteClicked(this.state.date);
+        }
     }
 
 
@@ -40,12 +47,12 @@ export default class sicknoteForm extends React.Component {
                         dateFormat='dd/MM/yyyy'
                         id='start-date'
                         autoComplete='off'
-                        selected={this.state.startDate}
+                        selected={this.state.date}
                         style={{height: '30px'}}
                         onChange={(e) => this.onDateChange(e)}
                     />
                 </div>
-                <button className="submit-button-sicknote">SENDEN</button>
+                <button className="submit-button-sicknote" onClick={this.sendSicknote}>SENDEN</button>
             </div>
         )
     }

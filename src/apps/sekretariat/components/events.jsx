@@ -146,7 +146,6 @@ export default class events extends React.Component {
                         startDate: this.state.startDate,
                         endDate: this.state.endDate,
                         content: this.state.newEventText
-    
                     })
     
                 }).then(response => response.json())

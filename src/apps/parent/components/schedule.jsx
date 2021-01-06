@@ -22,7 +22,7 @@ export default class schedule extends React.Component {
 
     async getWeeklySchedule() {
         console.log(JSON.parse(localStorage.getItem("loggedIn")).token)
-        await fetch('http://localhost:10000/eltern/wochenplan/30', {
+        await fetch('http://localhost:10000/eltern/wochenplan/32', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

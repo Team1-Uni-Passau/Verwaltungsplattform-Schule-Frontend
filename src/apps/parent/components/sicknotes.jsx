@@ -11,10 +11,27 @@ export default class events extends React.Component {
     constructor (props){
         super(props);
         this.state = {
-            showStudents: true,
-            showTeachers: true,
-            searchText: '',
+            date: null
         }
+    }
+
+
+    async createNewSicknote(date) {
+        await fetch('http://localhost:10000/eltern/krankmeldungen/neuekrankmeldung', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+            body: JSON.stringify({
+                parentId: 44,
+                date: date
+            })
+        }).then(response => response.text())
+          .then(data =>{
+              console.log(data)
+        })
     }
 
 
@@ -28,7 +45,7 @@ export default class events extends React.Component {
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">
-                        <SicknoteForm/>
+                        <SicknoteForm sendSicknoteClicked={(date) => this.createNewSicknote(date)}/>
                     </div>
                 </div>
             </div>

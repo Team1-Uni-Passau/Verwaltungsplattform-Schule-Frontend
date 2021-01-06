@@ -11,6 +11,28 @@ export default class presence extends React.Component {
         super(props);
         this.state = {
         }
+
+        this.getPresenceForStudent = this.getPresenceForStudent.bind(this);
+    }
+
+    componentDidMount() {
+        console.log(JSON.parse(localStorage.getItem("loggedIn")).userId)
+        this.getPresenceForStudent();
+    }
+
+    async getPresenceForStudent() {
+        await fetch('http://localhost:10000/eltern/praesenz/44', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+        }).then(response => response.json())
+          .then(data =>{
+              console.log(data)
+          
+        })
     }
 
 
