@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import moment from 'moment';
 import {
   Scheduler,
   Toolbar,
@@ -13,16 +14,12 @@ import {
   AppointmentForm,
   DragDropProvider,
   EditRecurrenceMenu,
+  AllDayPanel
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
@@ -33,8 +30,6 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
-
-import { appointments } from './demo-data/tasks';
 
 const containerStyles = theme => ({
   container: {
@@ -81,6 +76,28 @@ const containerStyles = theme => ({
     width: '100%',
   },
 });
+
+
+const formatDayScaleDate = (date, options) => {
+  const momentDate = moment(date);
+  const { weekday } = options;
+  return momentDate.format(weekday ? 'dddd' : 'D');
+};
+const formatTimeScaleDate = date => moment(date).format('hh:mm');
+
+
+const DayScaleCell = withStyles(styles, 'DayScaleCell')((
+  { formatDate, classes, ...restProps },
+) => (
+  <WeekView.DayScaleCell
+    {...restProps}
+    formatDate={formatDayScaleDate}
+    className={classes.dayScaleCell}
+  />
+));
+const TimeScaleLabel = (
+  { formatDate, ...restProps },
+) => <WeekView.TimeScaleLabel {...restProps} formatDate={formatTimeScaleDate} />;
 
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
@@ -282,7 +299,7 @@ class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: appointments,
+      data: [],
       currentDate: '2018-06-27',
       confirmationVisible: false,
       editingFormVisible: false,
@@ -335,7 +352,105 @@ class Demo extends React.PureComponent {
     });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if(this.props.appointments !== prevProps.appointments){
+      var appointments = [];
+      this.props.appointments.map((element) => {
+     
+          switch(element.day){
+              case "Montag":
+                if(element.hour >= 10){
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-25T'+element.hour+':00',
+                    endDate: '2018-06-25T'+element.hour+':45',                    
+                  }
+                } else {
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-25T'+'0'+element.hour+':00',
+                    endDate: '2018-06-25T'+'0'+element.hour+':45',                    
+                }
+                }
+                  break;
+              case "Dienstag":
+                if(element.hour >= 10){
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-26T'+element.hour+':00',
+                    endDate: '2018-06-26T'+element.hour+':45',                    
+                  }
+                } else {
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-26T'+'0'+element.hour+':00',
+                    endDate: '2018-06-26T'+'0'+element.hour+':45',                    
+                }
+                }
+                    break;
+              case "Mittwoch":
+                if(element.hour >= 10){
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-27T'+element.hour+':00',
+                    endDate: '2018-06-27T'+element.hour+':45',                    
+                  }
+                } else {
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-27T'+'0'+element.hour+':00',
+                    endDate: '2018-06-27T'+'0'+element.hour+':45',                    
+                }
+                }
+                break;
+              case "Donnerstag":
+                if(element.hour >= 10){
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-28T'+element.hour+':00',
+                    endDate: '2018-06-28T'+element.hour+':45',                    
+                  }
+                } else {
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-28T'+'0'+element.hour+':00',
+                    endDate: '2018-06-28T'+'0'+element.hour+':45',                    
+                }
+                }
+                break;
+              case "Freitag":
+                if(element.hour >= 10){
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-29T'+element.hour+':00',
+                    endDate: '2018-06-29T'+element.hour+':45',                    
+                  }
+                } else {
+                  var appointment = {
+                    title:element.subject,
+                    priorityId: 2,
+                    startDate: '2018-06-29T'+'0'+element.hour+':00',
+                    endDate: '2018-06-29T'+'0'+element.hour+':45',                    
+                }
+                }
+                break;  
+          }
+          appointments.push(appointment);
+      })  
+    this.setState({
+      data: appointments
+    })
+
+    }
     this.appointmentForm.update();
   }
 
@@ -406,31 +521,33 @@ class Demo extends React.PureComponent {
     } = this.state;
     return (
       <React.Fragment>
-      <Paper>
-        <Scheduler
-          data={this.state.data}
-        >
+          <Paper>
+              <Scheduler
+                data={this.state.data}
+              >
 
-          <ViewState
-            currentDate={currentDate}
-          />
-          <EditingState
-          />
-          <WeekView
-            excludedDays={[0, 6]}
-            startDayHour={7}
-            endDayHour={14}
-          />
-          <EditRecurrenceMenu />
-          <Appointments />
-          <Toolbar />
-          <AppointmentForm
-            overlayComponent={this.appointmentForm}
-          />
-        </Scheduler>
+                  <ViewState
+                    currentDate={currentDate}
+                  />
+                  <EditingState
+                  />
+                  <WeekView
+                    excludedDays={[0, 6]}
+                    startDayHour={0.5}
+                    endDayHour={12}
+                    dayScaleCellComponent={DayScaleCell}
+                    timeScaleLabelComponent={TimeScaleLabel}
+                  />
+                  <EditRecurrenceMenu />
+                  <Appointments />
+                  <Toolbar />
+                  <AppointmentForm
+                    overlayComponent={this.appointmentForm}
+                  />
 
-
-      </Paper>
+                  
+              </Scheduler>
+          </Paper>
       </React.Fragment>
     );
   }

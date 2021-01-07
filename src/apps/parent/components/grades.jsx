@@ -19,7 +19,7 @@ export default class grades extends React.Component {
     }
 
     async getGradesForStudent() {
-        await fetch('http://localhost:10000/eltern/noten/44', {
+        await fetch('http://localhost:10000/eltern/noten/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

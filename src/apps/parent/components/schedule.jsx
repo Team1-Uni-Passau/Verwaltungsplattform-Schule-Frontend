@@ -10,18 +10,19 @@ export default class schedule extends React.Component {
     constructor (props){
         super(props);
         this.state = {
+            scheduleData: [],
+            appointments: []
         }
 
         this.getWeeklySchedule = this.getWeeklySchedule.bind(this);
     }
 
-    componentDidMount() {
+     componentWillMount() {
         this.getWeeklySchedule();
     }
 
 
     async getWeeklySchedule() {
-        console.log(JSON.parse(localStorage.getItem("loggedIn")).token)
         await fetch('http://localhost:10000/eltern/wochenplan/32', {
             method: 'GET',
             headers: {
@@ -29,10 +30,11 @@ export default class schedule extends React.Component {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
             },
-        }).then(response => response.text())
+        }).then(response => response.json())
           .then(data =>{
-              console.log(data)
-          
+            this.setState({
+                scheduleData: data
+            })
         })
     }
 
@@ -40,6 +42,7 @@ export default class schedule extends React.Component {
 
 
     render() {
+
         return (
             <div className="parents-home">
                 <LeftNavigation selected="Wochenplan" />
@@ -47,7 +50,7 @@ export default class schedule extends React.Component {
                     <TopBar/>
                     <div className="middle-panel-container">
                         <div className="demo">
-                            <Demo/>
+                            <Demo appointments={this.state.scheduleData}/>
                         </div>
                     </div>
                 </div>
