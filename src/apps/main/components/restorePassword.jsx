@@ -100,24 +100,24 @@ export default class restorePassword extends React.Component {
         }
 
        
-        // //Übertragung der geänderten Daten an das Backend, vermutlich nicht korrekt.
-        // if (this.validationKeyInvalid && this.PasswordInvalid && this.PasswordRepeatInvalid  !== 0) {       
-        //     await fetch('http://localhost:10000/', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             validationKey: this.validationKey,
-        //             Password: this.Password,
-        //             PasswordRepeat: this.PasswordRepeat,
+        //Übertragung der geänderten Daten an das Backend, vermutlich nicht korrekt.
+        if (this.validationKeyInvalid && this.PasswordInvalid && this.PasswordRepeatInvalid  !== 0) {       
+            await fetch('http://localhost:10000/restorePassword', {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    validationKey: this.validationKey,
+                    Password: this.Password,
+                    PasswordRepeat: this.PasswordRepeat,
                     
-        //         })
-        //     })
+                })
+            })
                 
                                 
-        // } 
+        } 
 
     }
         

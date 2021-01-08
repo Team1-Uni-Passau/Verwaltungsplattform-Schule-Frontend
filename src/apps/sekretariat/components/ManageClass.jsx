@@ -16,6 +16,7 @@ export default class events extends React.Component {
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleNutzerIDChange = this.handleNutzerIDChange.bind(this);
+        this.handleEmailChange =this.handleEmailChange.bind(this);
 
     }
 
@@ -32,6 +33,9 @@ export default class events extends React.Component {
     handleNutzerIDChange(e) {
         this.NutzerID = e.target.value;
     }
+    handleEmailChange(e){
+        this.eMail = e.target.value;
+    }
 
 
 
@@ -44,18 +48,19 @@ export default class events extends React.Component {
                 <LeftNavigation selected="Klassen verwalten" />
                 <div className="flex-right-container">
                     <TopBar />
-                    <div className="middle-panel-container">
+                    
                         
                         <div className="ManageClassBox">
                         <p className="ManageClassTop">Klasse Zuweisen</p>
                             
-                            <input className="ManageClassInput" type="text" placeholder="Name" onChange={(e) => this.handleNameChange(e)}></input>
-                            <input className="ManageClassInput" type="text" placeholder="Vorname" onChange={(e) => this.handleFirstNameChange(e)}></input>
+                            {/* <input className="ManageClassInput" type="text" placeholder="Name" onChange={(e) => this.handleNameChange(e)}></input>
+                            <input className="ManageClassInput" type="text" placeholder="Vorname" onChange={(e) => this.handleFirstNameChange(e)}></input> */}
                             <input className="ManageClassInput" type="text" placeholder="Nutzer ID" onChange={(e) => this.handleNutzerIDChange(e)}></input>
+                            {/* <input className="ManageClassInput" type="text" placeholder="E-mail" onChange={(e) => this.handleEmailChange(e)}></input> */}
                             <input className="ManageClassInput" type="text" placeholder="Klasse" onChange={(e) => this.handleClassChange(e)}></input>
                             <button className="ConfirmButton">Bestätigen</button>
 
-                        </div>
+                        
                     </div>
                 </div>
             </div>

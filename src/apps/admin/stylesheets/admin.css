@@ -244,12 +244,13 @@
     min-width: 450px;
 }
 .changeroll{
-    font-size: 20px;
-	padding: .6em 1.4em .5em .8em;
-    width: 15em;
+    font-size: 17px;
+	padding: .4em 1em .3em .4em;
+    width: 450px;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
-    border-radius: .5em;
+    border-radius: 5px;
     margin-top: 10px;
+    margin-left: 5px;
 }
 
 .label-roll{
@@ -257,3 +258,39 @@
     margin: 15px;
     }
 
+.confirm-button{
+    font-size: 14px;
+    background-color: #0084ff;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+    text-transform: uppercase;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 20px;
+    height: 35px;
+    
+    left: 40%;
+}
+.change-roll-mail{
+    width: 50%;
+    justify-self: center;
+    margin: 7px;
+    border: 1px solid #a9a9a9;
+    line-height: 1;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    height: 30px;
+    min-width: 450px;
+}
