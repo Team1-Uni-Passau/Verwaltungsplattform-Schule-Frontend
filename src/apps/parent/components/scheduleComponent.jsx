@@ -14,7 +14,8 @@ import {
   AppointmentForm,
   DragDropProvider,
   EditRecurrenceMenu,
-  AllDayPanel
+  AllDayPanel,
+  LocaleSwitcher,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -78,6 +79,7 @@ const containerStyles = theme => ({
 });
 
 
+
 const formatDayScaleDate = (date, options) => {
   const momentDate = moment(date);
   const { weekday } = options;
@@ -85,19 +87,6 @@ const formatDayScaleDate = (date, options) => {
 };
 const formatTimeScaleDate = date => moment(date).format('hh:mm');
 
-
-const DayScaleCell = withStyles(styles, 'DayScaleCell')((
-  { formatDate, classes, ...restProps },
-) => (
-  <WeekView.DayScaleCell
-    {...restProps}
-    formatDate={formatDayScaleDate}
-    className={classes.dayScaleCell}
-  />
-));
-const TimeScaleLabel = (
-  { formatDate, ...restProps },
-) => <WeekView.TimeScaleLabel {...restProps} formatDate={formatTimeScaleDate} />;
 
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
@@ -312,13 +301,8 @@ class Demo extends React.PureComponent {
       isNewAppointment: false,
     };
 
-    this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
-    this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
-    this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(this);
+    this.getWeeklySchedule = this.getWeeklySchedule.bind(this);
 
-    this.commitChanges = this.commitChanges.bind(this);
-    this.onEditingAppointmentChange = this.onEditingAppointmentChange.bind(this);
-    this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
         editingFormVisible,
@@ -352,178 +336,104 @@ class Demo extends React.PureComponent {
     });
   }
 
-  componentDidUpdate(prevProps) {
-    if(this.props.appointments !== prevProps.appointments){
-      var appointments = [];
-      this.props.appointments.map((element) => {
-     
-          switch(element.day){
-              case "Montag":
-                if(element.hour >= 10){
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-25T'+element.hour+':00',
-                    endDate: '2018-06-25T'+element.hour+':45',                    
-                  }
-                } else {
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-25T'+'0'+element.hour+':00',
-                    endDate: '2018-06-25T'+'0'+element.hour+':45',                    
-                }
-                }
-                  break;
-              case "Dienstag":
-                if(element.hour >= 10){
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-26T'+element.hour+':00',
-                    endDate: '2018-06-26T'+element.hour+':45',                    
-                  }
-                } else {
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-26T'+'0'+element.hour+':00',
-                    endDate: '2018-06-26T'+'0'+element.hour+':45',                    
-                }
-                }
-                    break;
-              case "Mittwoch":
-                if(element.hour >= 10){
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-27T'+element.hour+':00',
-                    endDate: '2018-06-27T'+element.hour+':45',                    
-                  }
-                } else {
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-27T'+'0'+element.hour+':00',
-                    endDate: '2018-06-27T'+'0'+element.hour+':45',                    
-                }
-                }
-                break;
-              case "Donnerstag":
-                if(element.hour >= 10){
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-28T'+element.hour+':00',
-                    endDate: '2018-06-28T'+element.hour+':45',                    
-                  }
-                } else {
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-28T'+'0'+element.hour+':00',
-                    endDate: '2018-06-28T'+'0'+element.hour+':45',                    
-                }
-                }
-                break;
-              case "Freitag":
-                if(element.hour >= 10){
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-29T'+element.hour+':00',
-                    endDate: '2018-06-29T'+element.hour+':45',                    
-                  }
-                } else {
-                  var appointment = {
-                    title:element.subject,
-                    priorityId: 2,
-                    startDate: '2018-06-29T'+'0'+element.hour+':00',
-                    endDate: '2018-06-29T'+'0'+element.hour+':45',                    
-                }
-                }
-                break;  
-          }
-          appointments.push(appointment);
-      })  
-    this.setState({
-      data: appointments
-    })
+  componentWillMount() {
+    this.getWeeklySchedule();
+}
 
-    }
+
+async getWeeklySchedule() {
+    await fetch('http://localhost:10000/eltern/wochenplan/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+        },
+    }).then(response => response.json())
+      .then(data =>{
+        this.setState({
+            data: data
+        })
+    })
+}
+
+
+
+  formatScheduleData(data) {
+    var appointments = [];
+    data.map((element) => {
+        switch(element.day){
+            case "Montag":
+              var appointment = {
+                title:element.subject,
+                priorityId: 2,
+                startDate: '2018-06-25T'+element.startTime.substring(0,5),
+                endDate: '2018-06-25T'+element.endTime.substring(0,5),                    
+              }
+              break;
+            
+
+            case "Dienstag":
+              var appointment = {
+                title:element.subject,
+                priorityId: 2,
+                startDate: '2018-06-26T'+element.startTime.substring(0,5),
+                endDate: '2018-06-26T'+element.endTime.substring(0,5),                    
+              }
+              break;
+            
+          case "Mittwoch":
+            var appointment = {
+              title:element.subject,
+              priorityId: 2,
+              startDate: '2018-06-27T'+element.startTime.substring(0,5),
+              endDate: '2018-06-27T'+element.endTime.substring(0,5),                    
+            }
+            break;
+          case "Donnerstag":
+            var appointment = {
+              title:element.subject,
+              priorityId: 2,
+              startDate: '2018-06-28T'+element.startTime.substring(0,5),
+              endDate: '2018-06-28T'+element.endTime.substring(0,5),                    
+            }            
+          break;
+            case "Freitag":
+              var appointment = {
+                title:element.subject,
+                priorityId: 2,
+                startDate: '2018-06-29T'+element.startTime.substring(0,5),
+                endDate: '2018-06-29T'+element.endTime.substring(0,5),                    
+              }
+              break;
+            
+      }
+        appointments.push(appointment);
+    })  
+    return appointments;
+  }
+
+
+
+  componentDidUpdate() {
     this.appointmentForm.update();
   }
 
-  onEditingAppointmentChange(editingAppointment) {
-    this.setState({ editingAppointment });
-  }
-
-  onAddedAppointmentChange(addedAppointment) {
-    this.setState({ addedAppointment });
-    const { editingAppointment } = this.state;
-    if (editingAppointment !== undefined) {
-      this.setState({
-        previousAppointment: editingAppointment,
-      });
-    }
-    this.setState({ editingAppointment: undefined, isNewAppointment: true });
-  }
-
-  setDeletedAppointmentId(id) {
-    this.setState({ deletedAppointmentId: id });
-  }
-
-  toggleEditingFormVisibility() {
-    const { editingFormVisible } = this.state;
-    this.setState({
-      editingFormVisible: !editingFormVisible,
-    });
-  }
-
-  toggleConfirmationVisible() {
-    const { confirmationVisible } = this.state;
-    this.setState({ confirmationVisible: !confirmationVisible });
-  }
-
-  commitDeletedAppointment() {
-    this.setState((state) => {
-      const { data, deletedAppointmentId } = state;
-      const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-
-      return { data: nextData, deletedAppointmentId: null };
-    });
-    this.toggleConfirmationVisible();
-  }
-
-  commitChanges({ added, changed, deleted }) {
-    this.setState((state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-      }
-      if (changed) {
-        data = data.map(appointment => (
-          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-      }
-      if (deleted !== undefined) {
-        this.setDeletedAppointmentId(deleted);
-        this.toggleConfirmationVisible();
-      }
-      return { data, addedAppointment: {} };
-    });
-  }
 
   render() {
     const {
       currentDate,
       data,
     } = this.state;
+
+    var scheduleData = this.formatScheduleData(this.state.data);
+
     return (
       <React.Fragment>
           <Paper>
+
               <Scheduler
-                data={this.state.data}
+                data={scheduleData}
               >
 
                   <ViewState
@@ -533,10 +443,8 @@ class Demo extends React.PureComponent {
                   />
                   <WeekView
                     excludedDays={[0, 6]}
-                    startDayHour={0.5}
-                    endDayHour={12}
-                    dayScaleCellComponent={DayScaleCell}
-                    timeScaleLabelComponent={TimeScaleLabel}
+                    startDayHour={7.5}
+                    endDayHour={18}
                   />
                   <EditRecurrenceMenu />
                   <Appointments />
@@ -544,8 +452,8 @@ class Demo extends React.PureComponent {
                   <AppointmentForm
                     overlayComponent={this.appointmentForm}
                   />
+              
 
-                  
               </Scheduler>
           </Paper>
       </React.Fragment>

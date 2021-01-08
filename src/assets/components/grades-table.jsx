@@ -1,191 +1,66 @@
 import React from 'react';
 import '../stylesheets/grades-table.css';
 
-export default function GradesTable() {
+export default class GradesTable extends React.Component {
 
-  return (
-      <table className="styled-table">
-        <thead>
-            <tr>
-                <th>Fach</th>
-                <th>Lehrer</th>
-                <th>Note</th>
-                <th>Prüfungstyp</th>
-                <th>Datum</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-            <tr>
-                <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
+    constructor(props){
+        super(props);
+
+        this.state = {
+            grades: []
+        }
+
+        this.getGradesForStudent = this.getGradesForStudent.bind(this);
+
+    }
+
+    componentDidMount() {
+        this.getGradesForStudent();
+    }
+
+    async getGradesForStudent() {
+        await fetch('http://localhost:10000/eltern/noten/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+        }).then(response => response.json())
+          .then(data =>{
+            this.setState({
+                grades: data
+            })
+            
+        })
+    }
 
 
-            <tr className="active-row">
-            <td>Mathematik</td>
-                <td>John Doe</td>
-                <td>1.0</td>
-                <td>Schriftlich</td>
-                <td>10.10.2020</td>
-            </tr>
-        </tbody>
-      </table>
-  );
+
+
+    render () {
+        return (
+            <table className="styled-table">
+              <thead>
+                  <tr>
+                      <th>Fach</th>
+                      <th>Note</th>
+                      <th>Prüfungstyp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {this.state.grades.map((element,index) => {
+                    return(
+                        <tr key={index}>
+                            <td>{element.subject}</td>
+                            <td>{element.grade}</td>
+                            <td>{element.type}</td>
+                        </tr>
+                    )
+                  })}
+              </tbody>
+            </table>
+        );
+      
+    }
 }

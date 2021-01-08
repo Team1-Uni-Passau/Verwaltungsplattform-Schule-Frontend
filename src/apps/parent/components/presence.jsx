@@ -12,31 +12,7 @@ export default class presence extends React.Component {
         this.state = {
         }
 
-        this.getPresenceForStudent = this.getPresenceForStudent.bind(this);
     }
-
-    componentDidMount() {
-        console.log(JSON.parse(localStorage.getItem("loggedIn")).userId)
-        this.getPresenceForStudent();
-    }
-
-    async getPresenceForStudent() {
-        await fetch('http://localhost:10000/eltern/praesenz/44', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-            },
-        }).then(response => response.json())
-          .then(data =>{
-              console.log(data)
-          
-        })
-    }
-
-
-
 
     render() {
         return (
@@ -45,7 +21,7 @@ export default class presence extends React.Component {
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">
-                        <div className="grades-title">Ansicht der letzten 30 Präsenz Einträge Max Mustermann</div>
+                        <div className="grades-title">Ansicht der letzten Präsenz Einträge Max Mustermann</div>
                         <PresenceTable/>
                     </div>
                 </div>

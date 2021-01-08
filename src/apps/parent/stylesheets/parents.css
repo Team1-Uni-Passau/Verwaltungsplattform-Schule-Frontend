@@ -23,14 +23,17 @@
 
 .grades-title {
     background-color: #e8e8e8;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     margin: 0 auto;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 80px;
     font-family: sitka-banner;
     font-weight: bold;
-    font-size: 30px;
-}
+    font-size: 25px;
+    color: dimgray;
+    text-decoration: underline;}
 
 
 .Cell-dayOfMonth-44 {

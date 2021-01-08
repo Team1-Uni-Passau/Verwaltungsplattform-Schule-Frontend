@@ -11,26 +11,6 @@ export default class grades extends React.Component {
         super(props);
         this.state = {
         }
-        this.getGradesForStudent = this.getGradesForStudent.bind(this);
-    }
-
-    componentDidMount() {
-        this.getGradesForStudent();
-    }
-
-    async getGradesForStudent() {
-        await fetch('http://localhost:10000/eltern/noten/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-            },
-        }).then(response => response.json())
-          .then(data =>{
-              console.log(data)
-          
-        })
     }
 
     render() {

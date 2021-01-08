@@ -65,6 +65,7 @@ export default class leftNavigationItem extends React.Component {
                     default:
                         void (0);
                 }
+                break;
             case roles.ADMIN:
                 switch (this.props.title) {
                     case "Ankündigungen":
@@ -82,6 +83,7 @@ export default class leftNavigationItem extends React.Component {
                     default:
                         void (0);
                 }
+                break;
             case roles.LEHRENDE:
                 switch (this.props.title) {
                     case "Ankündigungen":
@@ -100,9 +102,9 @@ export default class leftNavigationItem extends React.Component {
                         window.location.href = "/teacher/viewclasses";
                         break;
                 }
-                break;
-            default:
-                void (0);
+                    default:
+                        void (0);
+                        break;
 
         }
     }
