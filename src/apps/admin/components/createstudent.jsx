@@ -14,8 +14,9 @@ export default class CreateUser extends React.Component {
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleeMailChange = this.handleeMailChange.bind(this);
-    this.handleClassChange = this.handleClassChange.bind(this);
+    this.handleclassChange = this.handleclassChange.bind(this);
     this.confirm = this.confirm.bind(this);
+    // this.handlepasswordChange = this.handlepasswordChange.bind(this);
         
     }
     
@@ -31,25 +32,31 @@ export default class CreateUser extends React.Component {
         this.email = e.target.value;
     }
 
-    handleClassChange(e){
+    handleclassChange(e){
         this.class = e.target.value;
     }
 
+    // handlepasswordChange(e){
+    //     this.password = e.target.value;
+    // }
+
     async confirm(){
         
-        await fetch('http://localhost:10000/registration', {
+        
+
+        await fetch('http://localhost:10000/sekretariat/neuerlernender', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        registerFirstName: this.name,
-                        registerName: this.firstname,
-                        registerEmail: this.email,
-                        registerPassword: "!Schule1996",
-                        registerCode: "200",
-                        roleCheckedInRegisterForm: "Lernender",
+                        lastName: this.name,
+                        firstName: this.firstname,
+                        email: this.email,
+                        password: '!Schule123',
+                        classId: this.class,
+                        
               
             })
     })
@@ -70,10 +77,11 @@ export default class CreateUser extends React.Component {
                                 <input className="create-user-input" type="text" placeholder="Vorname" onChange={(e) => this.handleFirstNameChange(e)}></input>
                                 <input className="create-user-input" type="text" placeholder="Nachname"onChange={(e) => this.handleNameChange(e)}></input>
                                 <input className="create-user-input" type="text" placeholder="E-Mail"onChange={(e) => this.handleeMailChange(e)}></input>
-                                <input className="create-user-input" type="text" placeholder="Klasse"onChange={(e) => this.ClassChange(e)}></input>
+                                <input className="create-user-input" type="text" placeholder="Klasse"onChange={(e) => this.handleclassChange(e)}></input>
+                                {/* <input className="create-user-input" type="text" placeholder="Password"onChange={(e) => this.handlepasswordChange(e)}></input> */}
                                 
                                 <p>Das Passwort ist :   !Schule123</p>
-                                <button className="confirm-button">Bestätigen</button>
+                                <button className="confirm-button" onClick={this.confirm}>Bestätigen</button>
                                 
                             </div>
                         </div>

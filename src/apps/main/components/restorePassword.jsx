@@ -24,6 +24,7 @@ export default class restorePassword extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordRepeatChange = this.handlePasswordRepeatChange.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.sendMail = this.sendMail.bind(this);
     }
 
 
@@ -120,6 +121,22 @@ export default class restorePassword extends React.Component {
         } 
 
     }
+    
+    async sendMail(){
+         
+        await fetch('http://localhost:10000/restorePassword', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            email: this.email,
+                
+            })
+        })
+        this.displayModal();
+    }
         
     render() {
         return (
@@ -131,7 +148,7 @@ export default class restorePassword extends React.Component {
                     <div className="input-field-container">
                         <p className="label">E-Mail Adresse</p>
                         <input type="text" className="e-mail-address" placeholder="Geben Sie Ihre E-Mail Adresse ein." onChange={(e) => this.handleEmailInput(e)}></input>
-                        <button className="send-email"onClick={this.displayModal}>E-Mail schicken </button>
+                        <button className="send-email"onClick={this.sendMail}>E-Mail schicken </button>
                     </div>
                     
 

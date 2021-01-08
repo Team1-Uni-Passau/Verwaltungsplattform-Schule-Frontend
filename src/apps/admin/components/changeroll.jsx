@@ -35,7 +35,22 @@ export default class CreateUser extends React.Component {
             })
     })
 }
-
+// async confirm(){
+//     var x = document.getElementById('rolle').value
+//     await fetch('http://localhost:10000/admin/changerole', {
+        
+//         method: 'PUT',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json',
+//         },
+        
+//         body: JSON.stringify({
+//             eMail: this.eMail,
+//             newRole: x,
+//         })
+// })
+// }
 
 
     render() {

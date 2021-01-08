@@ -17,6 +17,7 @@ export default class events extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleNutzerIDChange = this.handleNutzerIDChange.bind(this);
         this.handleEmailChange =this.handleEmailChange.bind(this);
+        this.confirm = this.confirm.bind(this);
 
     }
 
@@ -37,7 +38,25 @@ export default class events extends React.Component {
         this.eMail = e.target.value;
     }
 
+    async confirm(){
+        
+        
 
+        await fetch('http://localhost:10000/sekretariat/klassenliste/keineklasse/klassehinzufuegen', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        studentId: this.NutzerID,
+                        classId: this.class,
+                       
+                        
+              
+            })
+    })
+}
 
 
 
@@ -58,7 +77,7 @@ export default class events extends React.Component {
                             <input className="ManageClassInput" type="text" placeholder="Nutzer ID" onChange={(e) => this.handleNutzerIDChange(e)}></input>
                             {/* <input className="ManageClassInput" type="text" placeholder="E-mail" onChange={(e) => this.handleEmailChange(e)}></input> */}
                             <input className="ManageClassInput" type="text" placeholder="Klasse" onChange={(e) => this.handleClassChange(e)}></input>
-                            <button className="ConfirmButton">Bestätigen</button>
+                            <button className="ConfirmButton" onClick={this.confirm}>Bestätigen</button>
 
                         
                     </div>
