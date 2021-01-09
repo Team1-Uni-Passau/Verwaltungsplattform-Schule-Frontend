@@ -14,6 +14,7 @@ import SekretariatEvents from './apps/sekretariat/components/events';
 import SekretariatSicknotes from './apps/sekretariat/components/sicknotes';
 import SekretariatSchedule from './apps/sekretariat/components/schedule';
 import SekretariatManageClass from './apps/sekretariat/components/ManageClass';
+import SekretariatChangeRoll from './apps/sekretariat/components/changeroll';
 import AuthentificatedRoute from './AuthentificatedRoutes/AuthentificatedRoute';
 // import StartseiteTeacher from './apps/teacher/components/startseite';
 import NotFound from '../src/apps/main/components/notFound';
@@ -21,7 +22,8 @@ import NotFound from '../src/apps/main/components/notFound';
 import AdminEvents from './apps/admin/components/events';
 import AdminSchedule from './apps/admin/components/schedule';
 import AdminSicknotes from './apps/admin/components/sicknotes';
-import AdminCreateUser from './apps/admin/components/createuser';
+import AdminChangeRoll from './apps/admin/components/changeroll';
+import AdminCreateStudent from './apps/admin/components/createstudent';
 
 import TeacherEvents from './apps/teacher/components/events';
 import TeacherExams from './apps/teacher/components/exams';
@@ -55,6 +57,7 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/sekretariat/sicknotes'  allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatSicknotes}/>
             <AuthentificatedRoute exact path='/sekretariat/schedule'   allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatSchedule}/>
             <AuthentificatedRoute exact path='/sekretariat/manageclass' allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatManageClass}/>
+            <AuthentificatedRoute exact path='/sekretariat/changeroll'  allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatChangeRoll}/>
 
             <AuthentificatedRoute exact path='/teacher/events' allowedRole={AllowedRoles.TEACHER} exact component={TeacherEvents}/>
             <AuthentificatedRoute exact path='/teacher/exams' allowedRole={AllowedRoles.TEACHER} exact component={TeacherExams}/>
@@ -65,7 +68,8 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/admin/events' allowedRole={AllowedRoles.ADMIN} exact component={AdminEvents}/>
             <AuthentificatedRoute exact path='/admin/schedule' allowedRole={AllowedRoles.ADMIN} exact component={AdminSchedule}/>
             <AuthentificatedRoute exact path='/admin/sicknotes' allowedRole={AllowedRoles.ADMIN} exact component={AdminSicknotes}/>
-            <AuthentificatedRoute exact path='/admin/createuser' allowedRole={AllowedRoles.ADMIN} exact component={AdminCreateUser}/>
+            <AuthentificatedRoute exact path='/admin/changeroll' allowedRole={AllowedRoles.ADMIN} exact component={AdminChangeRoll}/>
+            <AuthentificatedRoute exact path='/admin/createstudent' allowedRole={AllowedRoles.ADMIN} exact component={AdminCreateStudent}/>
             
 
             <Route  component={NotFound}/>

@@ -328,6 +328,7 @@ export default class Homepage extends React.Component {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        registerFirstName: this.registerName,
                         registerName: this.registerName,
                         registerEmail: this.registerEmail,
                         registerPassword: this.registerPassword,
@@ -487,7 +488,7 @@ export default class Homepage extends React.Component {
                             <div className="parent-or-child">
                                 <div className="parent"><input type="checkbox" id="parent" checked={this.state.roleCheckedInRegisterForm === "Eltern"} onChange={() => this.handleCheckboxChange("Eltern")}></input><label htmlFor="parent">Elternteil</label></div>
                                 <div className="child"><input type="checkbox" id="child" checked={this.state.roleCheckedInRegisterForm === "Lernender"} onChange={() => this.handleCheckboxChange("Lernender")}></input><label htmlFor="child">Schüler</label></div>
-                                <div className="sekretariat"><input type="checkbox" id="sekretariat" checked={this.state.roleCheckedInRegisterForm === "Sekretariat"} onChange={() => this.handleCheckboxChange("Sekretariat")}></input><label htmlFor="sekretariat">Sekretaria</label></div>
+                                <div className="sekretariat"><input type="checkbox" id="sekretariat" checked={this.state.roleCheckedInRegisterForm === "Sekretariat"} onChange={() => this.handleCheckboxChange("Sekretariat")}></input><label htmlFor="sekretariat">Sekretariat</label></div>
                                 <div className="teacher"><input type="checkbox" id="lehrer" checked={this.state.roleCheckedInRegisterForm === "Lehrer"} onChange={() => this.handleCheckboxChange("Lehrer")}></input><label htmlFor="lehrer">Lehrer</label></div>
                             </div>
                         </div>

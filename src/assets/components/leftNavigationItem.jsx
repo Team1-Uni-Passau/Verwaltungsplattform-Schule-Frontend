@@ -38,6 +38,9 @@ export default class leftNavigationItem extends React.Component {
                     case "Klassen verwalten":
                         window.location.href = "/sekretariat/manageclass";
                         break;
+                    case "Rolle ändern":
+                        window.location.href = "/sekretariat/changeroll";
+                        break;
                     default:
                         void (0);
                 }
@@ -77,8 +80,11 @@ export default class leftNavigationItem extends React.Component {
                     case "Wochenpläne":
                         window.location.href = "/admin/schedule";
                         break;
-                    case "Nutzer Anlegen":
-                        window.location.href = "/admin/createuser";
+                    case "Rolle zuweisen":
+                        window.location.href = "/admin/changeroll";
+                        break;
+                    case "Schüler Anlegen":
+                        window.location.href = "/admin/createstudent";
                         break;
                     default:
                         void (0);
