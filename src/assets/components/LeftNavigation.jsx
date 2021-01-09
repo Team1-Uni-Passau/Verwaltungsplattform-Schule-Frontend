@@ -68,6 +68,16 @@ export default class LeftNavigation extends React.Component {
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
                     <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
                     <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />
+            case roles.LERNENDE:
+                items = <div className="left-navigation-items-container">
+                    <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
+                    <LeftNavigationItem img={ScheduleIcon} title="Wochenplan" selected={this.props.selected === "Wochenplan"} />
+                    <LeftNavigationItem img={GradesIcon} title="Noten einsehen" selected={this.props.selected === "Noten"} />
+                    <LeftNavigationItem img={PresenceIcon} title="Präsenz anzeigen" selected={this.props.selected === "Anwesenheit"} />
+                    <LeftNavigationItem img={SchemaIcon} title="Notenschema" selected={this.props.selected === "Schema"} />
+                </div>
+                break;
+           
                 </div>
                 break;
             default:

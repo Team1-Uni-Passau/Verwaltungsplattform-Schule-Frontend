@@ -28,6 +28,11 @@ import TeacherExams from './apps/teacher/components/exams';
 import TeacherSchedule from './apps/teacher/components/schedule';
 import TeacherSicknotes from './apps/teacher/components/sicknotes';
 import TeacherViewClasses from './apps/teacher/components/viewclasses';
+import StudentEvents from './apps/student/components/events';
+import StudentGrades from './apps/student/components/grades';
+import StudentPresence from './apps/student/components/presence';
+import StudentSchedule from './apps/student/components/schedule';
+import StudentSchema from './apps/student/components/schema';
 
 const AllowedRoles = {
     TEACHER: 'Lehrender',
@@ -66,8 +71,12 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/admin/schedule' allowedRole={AllowedRoles.ADMIN} exact component={AdminSchedule}/>
             <AuthentificatedRoute exact path='/admin/sicknotes' allowedRole={AllowedRoles.ADMIN} exact component={AdminSicknotes}/>
             <AuthentificatedRoute exact path='/admin/createuser' allowedRole={AllowedRoles.ADMIN} exact component={AdminCreateUser}/>
-            
 
+            <AuthentificatedRoute exact path='/student/events' allowedRole={AllowedRoles.STUDENT} exact component={StudentEvents}/>
+            <AuthentificatedRoute exact path='/student/grades' allowedRole={AllowedRoles.STUDENT} exact component={StudentGrades}/>
+            <AuthentificatedRoute exact path='/student/presence' allowedRole={AllowedRoles.STUDENT} exact component={StudentPresence}/>
+            <AuthentificatedRoute exact path='/student/schedule' allowedRole={AllowedRoles.STUDENT} exact component={StudentSchedule}/>
+            <AuthentificatedRoute exact path='/student/schema' allowedRole={AllowedRoles.STUDENT} exact component={StudentSchema}/>
             <Route  component={NotFound}/>
 
         </Switch >
