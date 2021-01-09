@@ -40,7 +40,8 @@ export default class LeftNavigation extends React.Component {
                     <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
                     <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen"} />
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
-                    <LeftNavigationItem title="Klassen verwalten" selected={this.props.selected === "Klassen verwalten"} />
+                    <LeftNavigationItem img={ClassroomIcon} title="Klassen verwalten" selected={this.props.selected === "Klassen verwalten"} />
+                    <LeftNavigationItem img={AddUserIcon} title="Rolle ändern" selected={this.props.selected === "Rolle ändern"} />
                 </div>
                 break;
             case roles.ELTERN:
@@ -58,7 +59,9 @@ export default class LeftNavigation extends React.Component {
                     <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
                     <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen"} />
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
-                    <LeftNavigationItem img={AddUserIcon} title="Nutzer Anlegen" selected={this.props.selected === "Nutzer Anlegen"} />
+                    <LeftNavigationItem img={AddUserIcon} title="Rolle zuweisen" selected={this.props.selected === "Rolle zuweisen"} />
+                    <LeftNavigationItem img={AddUserIcon} title="Schüler Anlegen" selected={this.props.selected === "Schüler Anlegen"} />
+                    
                 </div>
                 break;
             case roles.LEHRENDE:
