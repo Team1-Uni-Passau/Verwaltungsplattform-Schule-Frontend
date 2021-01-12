@@ -193,8 +193,8 @@ export default class Homepage extends React.Component {
             ELTERN: 'Eltern',
             SEKRETARIAT: 'Sekretariat'
         }
-
-        switch(role){
+        console.log(role)
+            switch(role){
                 case roles.LEHRENDE:
                     window.location.href = "/teacher/events";
                     break;
@@ -205,7 +205,7 @@ export default class Homepage extends React.Component {
                     window.location.href = "/parent/events";
                     break;
                 case roles.LERNENDE:
-                    window.location.href = "/startseite/student";
+                    window.location.href = "/student/events";
                     break;
                 case roles.SEKRETARIAT:
                     window.location.href = "/sekretariat/events";
@@ -228,8 +228,9 @@ export default class Homepage extends React.Component {
                 })
             }else{
                 this.setState({
-                    EmailStructureInvalid : true
+                    EmailStructureInvalid:true
                 })
+                
             }
             //Prüft ob das Passwort genug Zeichen Enthält
             var val = document.getElementById('pw1').value;
@@ -320,7 +321,7 @@ export default class Homepage extends React.Component {
              })
              }
 
-            if (this.registerName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
+            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
                 await fetch('http://localhost:10000/registration', {
                     method: 'POST',
                     headers: {
@@ -328,7 +329,7 @@ export default class Homepage extends React.Component {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        registerFirstName: this.registerName,
+                        registerFirstName: this.registerFirstName,
                         registerName: this.registerName,
                         registerEmail: this.registerEmail,
                         registerPassword: this.registerPassword,
@@ -488,7 +489,7 @@ export default class Homepage extends React.Component {
                             <div className="parent-or-child">
                                 <div className="parent"><input type="checkbox" id="parent" checked={this.state.roleCheckedInRegisterForm === "Eltern"} onChange={() => this.handleCheckboxChange("Eltern")}></input><label htmlFor="parent">Elternteil</label></div>
                                 <div className="child"><input type="checkbox" id="child" checked={this.state.roleCheckedInRegisterForm === "Lernender"} onChange={() => this.handleCheckboxChange("Lernender")}></input><label htmlFor="child">Schüler</label></div>
-                                <div className="sekretariat"><input type="checkbox" id="sekretariat" checked={this.state.roleCheckedInRegisterForm === "Sekretariat"} onChange={() => this.handleCheckboxChange("Sekretariat")}></input><label htmlFor="sekretariat">Sekretariat</label></div>
+                                <div className="sekretariat"><input type="checkbox" id="sekretariat" checked={this.state.roleCheckedInRegisterForm === "Sekretariat"} onChange={() => this.handleCheckboxChange("Sekretariat")}></input><label htmlFor="sekretariat">Sekretaria</label></div>
                                 <div className="teacher"><input type="checkbox" id="lehrer" checked={this.state.roleCheckedInRegisterForm === "Lehrer"} onChange={() => this.handleCheckboxChange("Lehrer")}></input><label htmlFor="lehrer">Lehrer</label></div>
                             </div>
                         </div>

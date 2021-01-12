@@ -13,6 +13,8 @@ export default class restorePassword extends React.Component {
             PasswordInvalid: false,
             PasswordRepeatInvalid: false,
             PasswordEqualInvalid: false,
+            EmailStructureInvalid: false,
+            EmailInvalid: false,
         }
 
 
@@ -24,11 +26,13 @@ export default class restorePassword extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordRepeatChange = this.handlePasswordRepeatChange.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.sendMail = this.sendMail.bind(this);
+    this.handleSendMail = this.handleSendMail.bind(this);
     }
 
 
-    handleEmailInput(){
+    handleEmailInput(e){
+        this.email = e.target.value;
+        
     }
 
     redirectToLogin() {
@@ -104,7 +108,7 @@ export default class restorePassword extends React.Component {
         //Übertragung der geänderten Daten an das Backend, vermutlich nicht korrekt.
         if (this.validationKeyInvalid && this.PasswordInvalid && this.PasswordRepeatInvalid  !== 0) {       
             await fetch('http://localhost:10000/restorePassword', {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -121,21 +125,44 @@ export default class restorePassword extends React.Component {
         } 
 
     }
-    
-    async sendMail(){
-         
-        await fetch('http://localhost:10000/restorePassword', {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            email: this.email,
-                
+
+    async handleSendMail(){
+        var val = document.getElementById('email').value;
+        if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){
+            this.setState({
+                EmailStructureInvalid: false
             })
-        })
-        this.displayModal();
+        }else{
+            this.setState({
+                EmailStructureInvalid: true
+            })
+        }
+        if(!this.email){
+            this.setState({
+                 EmailInvalid: true
+         })
+        }else{
+             this.setState({
+                 EmailInvalid: false
+         })
+         }
+         if (this.EmailInvalid && this.EmailStructureInvalid  !== 0) {       
+                await fetch('http://localhost:10000/restorePassword', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: this.email,
+                        
+                    })
+                })
+                this.displayModal();
+                
+                
+                                    
+            } 
     }
         
     render() {
@@ -147,8 +174,9 @@ export default class restorePassword extends React.Component {
                     <div className="alert-message">Keine Sorgen! Geben Sie Ihre E-Mail Adresse ein und wir unterstützen sie, Ihre Passwort wiederherzustellen.</div>
                     <div className="input-field-container">
                         <p className="label">E-Mail Adresse</p>
-                        <input type="text" className="e-mail-address" placeholder="Geben Sie Ihre E-Mail Adresse ein." onChange={(e) => this.handleEmailInput(e)}></input>
-                        <button className="send-email"onClick={this.sendMail}>E-Mail schicken </button>
+                        <input id="email" type="text" className="e-mail-address" placeholder="Geben Sie Ihre E-Mail Adresse ein." onChange={(e) => this.handleEmailInput(e)}></input>
+                        <p className="password-restore-text" style={this.state.EmailStructureInvalid ? void(0) : {display:'none'}}>Bitte Email überprüfen!</p>
+                        <button className="send-email"onClick={this.handleSendMail}>E-Mail schicken </button>
                     </div>
                     
 
