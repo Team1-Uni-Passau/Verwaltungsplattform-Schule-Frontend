@@ -1,0 +1,35 @@
+.left-navigation-item-container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-bottom: 1px solid;
+    border-color: darkgray;
+    z-index: 10;
+    height: 60px;
+    width: 10px;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.left-navigation-item-container:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.left-navigation-item-image {
+    height: 30px;
+    width: 30px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.left-navigation-item-title{
+    margin-left: 15px;
+    vertical-align: middle;
+    /* line-height: 60px; */
+    margin-top: 20px;
+    color: gray;
+    /* height: fit-content; */
+    font-size: 17px;
+    font-family: sitka banner;
+}

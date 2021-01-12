@@ -1,0 +1,46 @@
+.parents-home{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+}
+
+.flex-right-container {
+    height: 100%;
+    width: calc(100% - 220px);
+    float: right;
+}
+
+
+.middle-panel-container {
+    height: 100%;
+    position: absolute;
+    background-color: #e9e9e9;
+    width: calc(100% - 220px);
+    overflow: auto;
+}
+
+.grades-title {
+    background-color: #e8e8e8;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 80px;
+    font-family: sitka-banner;
+    font-weight: bold;
+    font-size: 25px;
+    color: dimgray;
+    text-decoration: underline;}
+
+
+.Cell-dayOfMonth-44 {
+    display: none;
+}
+
+
+.Cell-dayOfWeek-43 {
+    font-size: 1.25rem !important;
+}

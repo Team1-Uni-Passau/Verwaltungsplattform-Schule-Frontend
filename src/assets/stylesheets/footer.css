@@ -1,0 +1,17 @@
+.footer {
+    bottom: 0px;
+    position: relative;
+    background-color: #1F2530;
+    width: 100%;
+    height: 200px;
+    margin-top: 20%;
+    display: flex;
+  }
+  
+  .about-school, .follow-us, .open-location {
+    color: white;
+    width: 33%;
+    font-family: sitka banner;
+    margin-left: 15px;
+  }
+  
