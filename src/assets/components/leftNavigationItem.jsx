@@ -62,31 +62,14 @@ export default class leftNavigationItem extends React.Component {
                     case "Präsenz anzeigen":
                         window.location.href = "/parent/presence";
                         break;
-                    default:
-                        void (0);
-                }
-                break;
-            case roles.ADMIN:
-                switch (this.props.title) {
-                    case "Ankündigungen":
-                        window.location.href = "/admin/events";
-                        break;
-                    case "Krankmeldungen":
-                        window.location.href = "/admin/sicknotes";
-                        break;
-                    case "Wochenpläne":
-                        window.location.href = "/admin/schedule";
-                        break;
-                    case "Rolle zuweisen":
-                        window.location.href = "/admin/changeroll";
-                        break;
-                    case "Schüler Anlegen":
-                        window.location.href = "/admin/createstudent";
+                    case "Notenschema":
+                        window.location.href = "/parent/schema";
                         break;
                     default:
                         void (0);
                 }
                 break;
+
             case roles.LEHRENDE:
                 switch (this.props.title) {
                     case "Ankündigungen":
@@ -105,10 +88,54 @@ export default class leftNavigationItem extends React.Component {
                         window.location.href = "/teacher/viewclasses";
                         break;
                 }
+            default:
+                void (0);
+                break;
+            case roles.ADMIN:
+                switch (this.props.title) {
+                    case "Ankündigungen":
+                        window.location.href = "/admin/events";
+                        break;
+                    case "Krankmeldungen":
+                        window.location.href = "/admin/sicknotes";
+                        break;
+                    case "Wochenpläne":
+                        window.location.href = "/admin/schedule";
+                        break;
+                    case "Rolle ändern":
+                        window.location.href = "/admin/changeroll";
+                        break;
+                    case "Schüler Anlegen":
+                        window.location.href = "/admin/createstudent";
+                        break;
+                    case "Klassen verwalten":
+                        window.location.href = "/admin/manageclass";
+                        break;
                     default:
                         void (0);
-                        break;
+                }
 
+           
+                case roles.LERNENDE:
+                    switch (this.props.title) {
+                        case "Ankündigungen":
+                            window.location.href = "/student/events";
+                            break;
+                        case "Wochenplan":
+                            window.location.href = "/student/schedule";
+                            break;
+                        case "Noten einsehen":
+                            window.location.href = "/student/grades";
+                            break;
+                        // case "Präsenz anzeigen":
+                        //     window.location.href = "/student/presence";
+                        //     break;
+                        case "Notenschema":
+                            window.location.href = "/student/schema";
+                            break;
+                        default:
+                            void (0);
+                    }
         }
     }
 
