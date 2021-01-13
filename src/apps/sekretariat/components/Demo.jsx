@@ -33,6 +33,8 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
+import Grid from '@material-ui/core/Grid';
+import Room from '@material-ui/icons/Room';
 
 import { appointments } from './demo-data/tasks';
 
@@ -81,6 +83,9 @@ const containerStyles = theme => ({
     width: '100%',
   },
 });
+
+
+
 
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
@@ -276,7 +281,7 @@ class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: appointments,
+      data: [],
       currentDate: '2018-06-27',
       confirmationVisible: false,
       editingFormVisible: false,
@@ -328,8 +333,75 @@ class Demo extends React.PureComponent {
       };
     });
   }
+  
 
-  componentDidUpdate() {
+  formatScheduleData(data) {
+    var appointments = [];
+    data.map((element, index) => {
+        switch(element.day){
+            case "Montag":
+              var appointment = {
+                title:element.subject,
+                startDate: '2018-06-25T'+element.startTime.substring(0,5),
+                endDate: '2018-06-25T'+element.endTime.substring(0,5),        
+                id: index,
+              }
+              break;
+            
+
+            case "Dienstag":
+              var appointment = {
+                title:element.subject,
+                priorityId: 2,
+                startDate: '2018-06-26T'+element.startTime.substring(0,5),
+                endDate: '2018-06-26T'+element.endTime.substring(0,5),  
+                id: index                             
+              }
+              break;
+            
+          case "Mittwoch":
+            var appointment = {
+              title:element.subject,
+              priorityId: 2,
+              startDate: '2018-06-27T'+element.startTime.substring(0,5),
+              endDate: '2018-06-27T'+element.endTime.substring(0,5),           
+              id: index                    
+            }
+            break;
+          case "Donnerstag":
+            var appointment = {
+              title:element.subject,
+              priorityId: 2,
+              startDate: '2018-06-28T'+element.startTime.substring(0,5),
+              endDate: '2018-06-28T'+element.endTime.substring(0,5),     
+              id: index                          
+            }            
+          break;
+            case "Freitag":
+              var appointment = {
+                title:element.subject,
+                priorityId: 2,
+                startDate: '2018-06-29T'+element.startTime.substring(0,5),
+                endDate: '2018-06-29T'+element.endTime.substring(0,5),        
+                id: index                       
+              }
+              break;
+            
+      }
+        appointments.push(appointment);
+    })  
+    return appointments;
+  }
+
+
+
+  componentDidUpdate(prevProps) {
+    if ( this.props.wochenplan !== prevProps.wochenplan && this.props.wochenplan.length > 0 ) {
+      this.setState({
+        data: this.props.wochenplan
+      })
+    }
+
     this.appointmentForm.update();
   }
 
@@ -396,9 +468,7 @@ class Demo extends React.PureComponent {
   render() {
     const {
       currentDate,
-      data,
       confirmationVisible,
-      editingFormVisible,
       startDayHour,
     } = this.state;
     const { classes } = this.props;
@@ -407,39 +477,32 @@ class Demo extends React.PureComponent {
       <React.Fragment>
       <Paper>
         <Scheduler
-          data={data}
+          data={this.state.data.length > 0 ? this.formatScheduleData(this.state.data) : void(0)}
           height={660}
         >
 
           <ViewState
             currentDate={currentDate}
           />
+
           <EditingState
             onCommitChanges={this.commitChanges}
             onEditingAppointmentChange={this.onEditingAppointmentChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
           <WeekView
-            name="work-week"
-            displayName="Work Week"
             excludedDays={[0, 6]}
-            startDayHour={7}
+            startDayHour={7.5}
             endDayHour={18}
           />
-          <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip
-            showOpenButton
             showCloseButton
             showDeleteButton
           />
-          <Toolbar />
           <AppointmentForm
             overlayComponent={this.appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={this.toggleEditingFormVisibility}
           />
-          <DragDropProvider />
         </Scheduler>
 
         <Dialog
