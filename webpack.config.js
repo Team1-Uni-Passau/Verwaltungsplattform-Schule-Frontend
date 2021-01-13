@@ -3,13 +3,16 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    watchOptions: {
+        ignored: /node_modules/
+    },
     devtool: 'cheap-module-eval-source-map',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
         chunkFilename: '[id].js',
-        publicPath: ''
+        publicPath: '/'
     },
     resolve: {
         extensions: ['.js', '.jsx']
@@ -59,6 +62,9 @@ module.exports = {
                 loader: 'url-loader?limit=8000&name=images/[name].[ext]'
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({

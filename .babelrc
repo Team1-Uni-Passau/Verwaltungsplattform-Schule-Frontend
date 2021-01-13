@@ -12,6 +12,10 @@
         "react"
     ],
     "plugins": [
-        "syntax-dynamic-import"
+        "syntax-dynamic-import",
+        ["transform-runtime", {
+            "regenerator": true
+        }]
+      
     ]
 }

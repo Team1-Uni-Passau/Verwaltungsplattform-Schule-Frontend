@@ -1,0 +1,156 @@
+.event-card-container {
+    width: 80%;
+    background-color: white;
+    min-width: 50%;
+    padding: 20px;
+    height: fit-content;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 0px 5px 0px rgb(0 0 0 / 75%);
+    box-shadow: 0px 0 4px 0.3px rgb(0 0 0 / 40%);
+    text-align: -webkit-center;
+}
+
+.event-card-title {
+    font-family: sitka banner;
+    font-size: 20px;
+    width: fit-content;
+    color: dimgray;
+}
+
+
+
+.event-card-text{
+    font-family: sitka banner;
+    color: #757575;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.textarea {
+    resize: none;
+    font-family: sitka banner;
+    color: #757575;
+    font-size: 17px;
+}
+
+.styles_Editext__editing_container__3yvUv{
+    display: contents !important;
+    align-items: center !important;
+}
+
+.styles_Editext__buttons_after_aligned__1nlcG{
+    justify-content: center !important;
+}
+
+.custom-edit-button{
+    font-size: 13px;
+    background-color: #0084ff;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 35px;
+}
+
+.custom-edit-button:hover {
+    color:black;
+}
+
+
+.custom-edit-button:focus {
+    outline:none;
+}
+
+
+
+.show-more {
+    width: fit-content;
+    height: fit-content;
+    color: #3131ff;
+    cursor: pointer;
+    float: right;
+}
+
+.create-event {
+    height: 80px;
+    width: 80px;
+    right: 30px;
+    bottom: 30px;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #3c7fec;
+    border: none;
+    cursor: pointer;
+    font-size: 50px;
+    color: white;
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+
+.create-event:hover{
+    background-color: #2d5ead;
+    transform: scale(1.05);
+}
+
+.create-event:focus{
+    outline: none;
+}
+
+.event-buttons-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    place-content: center;
+    position: relative;
+}
+
+.modify-event, .delete-event {
+    font-size: 14px;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    transition: color .2s,background-color .2s,outline .2s,opacity .2s;
+    position: relative;
+    border: none;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    margin: 10px;
+    height: 35px;
+    top: 20px;
+}
+
+.modify-event {
+    background-color:  #0084ff;
+}
+
+.delete-event {
+    background-color:  #d44242;
+}
+
+.modify-event:hover , .delete-event:hover {
+    color: black;
+}
+
+.modify-event:focus , .delete-event:focus {
+    outline:none;
+}
+
+.dates-display {
+    float: right;
+    font-size: 12px;
+    /* font-family: sitka-banner; */
+    font-weight: bolder;
+    color: dimgray;
+    position: relative;
+    margin-top: -10px;
+}
