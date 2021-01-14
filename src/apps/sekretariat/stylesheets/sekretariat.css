@@ -157,7 +157,7 @@
 }
 
 .demo {
-    height: 100%;
+    height: fit-content !important;
     position: relative;
     width: 98%;
     margin-bottom: 100px;
@@ -355,9 +355,7 @@ color: black;
     justify-content: center;
 }
 
-.retieve-wochenplan-by-id{
-    width: 20%;
-    /* justify-self: center; */
+.retieve-wochenplan-by-id , .create-wochenplan-by-id{
     border: 1px solid #a9a9a9;
     line-height: 1;
     border-radius: 3px;
@@ -371,7 +369,16 @@ color: black;
     min-width: 150px;
 }
 
-.retieve-wochenplan-by-id:focus{
+.retieve-wochenplan-by-id {
+    width: 20%;
+}
+
+.create-wochenplan-by-id {
+    justify-self: center;
+    width: 40%;
+}
+
+.retieve-wochenplan-by-id:focus , .create-wochenplan-by-id:focus{
   border-color: cornflowerblue;
   outline: none ;
   box-shadow: 0px 0px 3px 0.3px #a9a9a9;
@@ -379,9 +386,8 @@ color: black;
 }
 
 
-.confirm-retrieve-wochenplan{
+.confirm-retrieve-wochenplan, .remove-hour-wochenplan{
     font-size: 12px;
-    background-color: #0084ff;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-transition: color .2s,background-color .2s,outline .2s,opacity .2s;
@@ -401,10 +407,21 @@ color: black;
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
+    outline: none;
+}
+
+.confirm-retrieve-wochenplan {
+    background-color: #0084ff;
+
 }
   
+.remove-hour-wochenplan {
+    background-color: red;
+
+}
+
   
-  .confirm-retrieve-wochenplan:hover {
+  .confirm-retrieve-wochenplan:hover, .remove-hour-wochenplan:hover {
       color: black;
   }
   
@@ -416,3 +433,35 @@ color: black;
 .Cell-dayOfWeek-43 {
     font-size: 1.25rem !important;
 }
+
+.editing-buttons {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    margin-top: -70px;
+    margin-bottom: 100px;
+    text-align: -webkit-center;
+}
+
+.create-stunde {
+    text-align: center;
+    display: grid;
+    place-content: center;
+    grid-auto-rows: 50px;
+}
+
+.create-hour-day {
+    font-size: 15px;
+    padding: .6em 1.4em .5em .8em;
+    -webkit-box-shadow: 0 1px 0 1px rgb(0 0 0 / 4%);
+    box-shadow: 0 1px 0 1px rgb(0 0 0 / 4%);
+    border-radius: .5em;
+    margin-top: 10px;
+    place-self: center;
+}
+
+.create-hour-day:focus  {
+    border-color: cornflowerblue;
+    outline: none ;
+    box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+  }

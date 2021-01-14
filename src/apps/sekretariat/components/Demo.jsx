@@ -7,36 +7,20 @@ import {
   Scheduler,
   Toolbar,
   WeekView,
-  ViewSwitcher,
   Appointments,
-  AppointmentTooltip,
   AppointmentForm,
-  DragDropProvider,
-  EditRecurrenceMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import LocationOn from '@material-ui/icons/LocationOn';
-import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
-import Grid from '@material-ui/core/Grid';
-import Room from '@material-ui/icons/Room';
-
-import { appointments } from './demo-data/tasks';
 
 const containerStyles = theme => ({
   container: {
@@ -335,8 +319,9 @@ class Demo extends React.PureComponent {
   }
   
 
-  formatScheduleData(data) {
+  formatScheduleData() {
     var appointments = [];
+    var data = this.state.data;
     data.map((element, index) => {
         switch(element.day){
             case "Montag":
@@ -344,7 +329,7 @@ class Demo extends React.PureComponent {
                 title:element.subject,
                 startDate: '2018-06-25T'+element.startTime.substring(0,5),
                 endDate: '2018-06-25T'+element.endTime.substring(0,5),        
-                id: index,
+                id: element.lessonId,
               }
               break;
             
@@ -355,7 +340,7 @@ class Demo extends React.PureComponent {
                 priorityId: 2,
                 startDate: '2018-06-26T'+element.startTime.substring(0,5),
                 endDate: '2018-06-26T'+element.endTime.substring(0,5),  
-                id: index                             
+                id: element.lessonId,
               }
               break;
             
@@ -365,7 +350,7 @@ class Demo extends React.PureComponent {
               priorityId: 2,
               startDate: '2018-06-27T'+element.startTime.substring(0,5),
               endDate: '2018-06-27T'+element.endTime.substring(0,5),           
-              id: index                    
+              id: element.lessonId,
             }
             break;
           case "Donnerstag":
@@ -374,7 +359,7 @@ class Demo extends React.PureComponent {
               priorityId: 2,
               startDate: '2018-06-28T'+element.startTime.substring(0,5),
               endDate: '2018-06-28T'+element.endTime.substring(0,5),     
-              id: index                          
+              id: element.lessonId,
             }            
           break;
             case "Freitag":
@@ -383,7 +368,7 @@ class Demo extends React.PureComponent {
                 priorityId: 2,
                 startDate: '2018-06-29T'+element.startTime.substring(0,5),
                 endDate: '2018-06-29T'+element.endTime.substring(0,5),        
-                id: index                       
+                id: element.lessonId,
               }
               break;
             
@@ -392,7 +377,6 @@ class Demo extends React.PureComponent {
     })  
     return appointments;
   }
-
 
 
   componentDidUpdate(prevProps) {
@@ -468,7 +452,9 @@ class Demo extends React.PureComponent {
   render() {
     const {
       currentDate,
+      data,
       confirmationVisible,
+      editingFormVisible,
       startDayHour,
     } = this.state;
     const { classes } = this.props;
@@ -477,7 +463,7 @@ class Demo extends React.PureComponent {
       <React.Fragment>
       <Paper>
         <Scheduler
-          data={this.state.data.length > 0 ? this.formatScheduleData(this.state.data) : void(0)}
+          data={this.state.data.length > 0 ? this.formatScheduleData() : void(0)}
           height={660}
         >
 
@@ -485,62 +471,21 @@ class Demo extends React.PureComponent {
             currentDate={currentDate}
           />
 
-          <EditingState
-            onCommitChanges={this.commitChanges}
-            onEditingAppointmentChange={this.onEditingAppointmentChange}
-            onAddedAppointmentChange={this.onAddedAppointmentChange}
-          />
           <WeekView
             excludedDays={[0, 6]}
             startDayHour={7.5}
             endDayHour={18}
           />
-          <Appointments />
-          <AppointmentTooltip
-            showCloseButton
-            showDeleteButton
-          />
+          <Appointments/>
+           <Toolbar />
           <AppointmentForm
             overlayComponent={this.appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={this.toggleEditingFormVisibility}
           />
         </Scheduler>
 
-        <Dialog
-          open={confirmationVisible}
-          onClose={this.cancelDelete}
-        >
-          <DialogTitle>
-            Delete Appointment
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this appointment?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
-              Cancel
-            </Button>
-            <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
 
-        <Fab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
       </Paper>
       </React.Fragment>
     );
