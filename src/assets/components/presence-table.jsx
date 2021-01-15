@@ -20,7 +20,7 @@ export default class PresenceTable extends React.Component {
     }
 
     async getPresenceForStudent() {
-        await fetch('http://localhost:10000/eltern/praesenz/44', {
+        await fetch('http://localhost:10000/eltern/praesenz/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

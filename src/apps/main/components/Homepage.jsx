@@ -225,15 +225,18 @@ export default class Homepage extends React.Component {
 
         // Method to send the register data (username, password, repeat password, email, register code, role ) to the backend as a HTTP request
         async handleRegister() {
-
+            var emailStructureInvalid= false;
+            var PasswordLengthInvalid= false;
+            var PasswordStructureInvalid = false;
             //soll Email auf Strukturelle Richtigkeit überprüfen.
             if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.registerEmail)){
                 this.setState({
-                    EmailStructureInvalid: false
+                    EmailStructureInvalid: emailStructureInvalid
                 })
             }else{
+                emailStructureInvalid = true
                 this.setState({
-                    EmailStructureInvalid:true
+                    EmailStructureInvalid:emailStructureInvalid
                 })
                 
             }
@@ -241,21 +244,23 @@ export default class Homepage extends React.Component {
             var val = document.getElementById('pw1').value;
              if(val.length >= 8){
                  this.setState({
-                     PasswordLengthInvalid: false
+                     PasswordLengthInvalid: PasswordLengthInvalid
                  })
              }else{
+                 PasswordLengthInvalid = true;
                  this.setState({
-                     PasswordLengthInvalid:true
+                     PasswordLengthInvalid:PasswordLengthInvalid
                  })
              }
 
             if (val.match(/\d{1,}/) && val.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && val.match(/\W/)){
                 this.setState({
-                    PasswordStructureInvalid: false
+                    PasswordStructureInvalid: PasswordStructureInvalid
                 })
             }else{
+                PasswordStructureInvalid = true;
                 this.setState({
-                    PasswordStructureInvalid: true
+                    PasswordStructureInvalid: PasswordStructureInvalid
                 })
             }
 
@@ -339,7 +344,7 @@ export default class Homepage extends React.Component {
 
              var conditionIfUserIsParent = this.state.roleCheckedInRegisterForm === "Eltern" && !this.familyId
 
-            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.familyId && this.state.roleCheckedInRegisterForm.length !== 0 && !conditionIfUserIsParent) {       
+            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.familyId && this.state.roleCheckedInRegisterForm.length !== 0 && !conditionIfUserIsParent && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid) {       
                 await fetch('http://localhost:10000/registration', {
                     method: 'POST',
                     headers: {

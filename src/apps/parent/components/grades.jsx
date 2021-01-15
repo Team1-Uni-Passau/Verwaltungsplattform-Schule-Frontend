@@ -20,7 +20,7 @@ export default class grades extends React.Component {
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">
-                        <div className="grades-title">Ansicht der Noten von: Max Mustermann</div>
+                        <div className="grades-title">Ansicht der Noten</div>
                         <GradesTable/>
                         <div className="grades-title">Notenschemas</div>
                         <GradingSchema/>
