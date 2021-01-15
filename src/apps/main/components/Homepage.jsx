@@ -322,7 +322,7 @@ export default class Homepage extends React.Component {
              }
 
             if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
-                await fetch('132.231.36.101:27017/Backend/registration', {
+                await fetch('132.231.36.101:27017/Backend/reg', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
