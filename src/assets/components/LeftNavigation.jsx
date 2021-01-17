@@ -68,17 +68,20 @@ export default class LeftNavigation extends React.Component {
                 break;
             case roles.LEHRENDE:
                 items = <div className="left-navigation-items-container">
-                    <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
-                    <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen"} />
-                    <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
-                    <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
-                    <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />
-                    </div>
+                            <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
+                            <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen"} />
+                            <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
+                            <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
+                            <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />
+                            
+                        </div>
+
+                break;
             case roles.LERNENDE:
                 items = <div className="left-navigation-items-container">
                     <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenplan" selected={this.props.selected === "Wochenplan"} />
-                    <LeftNavigationItem img={GradesIcon} title="Noten einsehen" selected={this.props.selected === "Noten"} />
+                    <LeftNavigationItem img={GradesIcon} title="Noten einsehen" selected={this.props.selected === "Noten einsehen"} />
                     {/* <LeftNavigationItem img={PresenceIcon} title="Präsenz anzeigen" selected={this.props.selected === "Anwesenheit"} />
                     <LeftNavigationItem img={SchemaIcon} title="Notenschema" selected={this.props.selected === "Schema"} /> */}
                 </div>

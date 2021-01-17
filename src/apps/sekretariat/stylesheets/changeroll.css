@@ -31,12 +31,13 @@
 .middle-panel{
     width: 100%;
     min-height: calc(100% - 50px);
+    background-color: #F1F1F1;
   }
 
   .create-user-box {
     height: fit-content;
     width: 500px;
-    background-color: #F1F1F1;
+    background-color: #ffffff;
     right: 30%;
     position: absolute;
     top: 300px;

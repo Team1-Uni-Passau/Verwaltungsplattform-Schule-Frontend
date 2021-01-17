@@ -1,9 +1,10 @@
 import React from 'react';
 import LeftNavigation from '../../../assets/components/LeftNavigation';
 import TopBar from '../../../assets/components/topBar';
-import "../stylesheets/teacher.css";
+import '../../parent/stylesheets/parents.css';
+import ScheduleComponent from './scheduleComponent';
 
-export default class startseite extends React.Component {
+export default class schedule extends React.Component {
     
     
     constructor (props){
@@ -16,12 +17,16 @@ export default class startseite extends React.Component {
 
 
     render() {
+
         return (
-            <div className="teacher-home">
-                <LeftNavigation selected="Wochenpläne" />
+            <div className="parents-home">
+                <LeftNavigation selected="Wochenplan" />
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">
+                        <div className="demo">
+                            <ScheduleComponent />
+                        </div>
                     </div>
                 </div>
             </div>

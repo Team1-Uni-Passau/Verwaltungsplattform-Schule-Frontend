@@ -27,11 +27,12 @@ export default class CreateUser extends React.Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
             },
             
             body: JSON.stringify({
                 eMail: this.eMail,
-                newRole: x,
+                newRole: document.getElementById('rolle').value,
             })
     })
 }
