@@ -15,6 +15,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
+import * as PATHS from './GlobalConstants';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
