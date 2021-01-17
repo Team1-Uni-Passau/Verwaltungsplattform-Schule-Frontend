@@ -460,6 +460,7 @@ export default class Homepage extends React.Component {
 
 
     render() {
+        console.log(process.env.REACT_APP_PATH_LOCAL)
         return (
             <div className="wrapper">
                 <ToastContainer 
