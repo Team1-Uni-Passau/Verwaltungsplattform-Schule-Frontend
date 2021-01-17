@@ -9,7 +9,7 @@ import {cross} from 'react-icons-kit/icomoon/cross'
 import {ic_menu} from 'react-icons-kit/md/ic_menu'
 import { ToastContainer, toast } from 'react-toastify';
 import '../stylesheets/ReactToastify.css';
-import * as PATHS from './GlobalConstants';
+import * as PATHS from '../../GlobalConstants';
 
 
 export default class Homepage extends React.Component {
