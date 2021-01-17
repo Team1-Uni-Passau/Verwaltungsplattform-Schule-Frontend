@@ -345,7 +345,7 @@ export default class Homepage extends React.Component {
              var conditionIfUserIsParent = this.state.roleCheckedInRegisterForm === "Eltern" && !this.familyId
 
             if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.familyId && this.state.roleCheckedInRegisterForm.length !== 0 && !conditionIfUserIsParent && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid) {       
-                await fetch('http://localhost:10000/registration', {
+                await fetch(isLocalhost ? process.env.REACT_APP_PATH_LOCAL : process.env.REACT_APP_PATH_PROD + '/register', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -423,7 +423,7 @@ export default class Homepage extends React.Component {
             })
         }
         if (this.username && this.password) {
-           await fetch('http://132.231.36.101:27017/login', {
+           await fetch(isLocalhost ? process.env.REACT_APP_PATH_LOCAL : process.env.REACT_APP_PATH_PROD + '/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -577,3 +577,16 @@ export default class Homepage extends React.Component {
 
 
 }
+
+
+
+// Method to check if localhost
+const isLocalhost = Boolean(
+    window.location.hostname === 'localhost' ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+        /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);

@@ -2,6 +2,15 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+const env = dotenv.config().parsed;
+  
+// reduce it to a nice object, the same as before
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -68,6 +77,7 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.DefinePlugin(envKeys)
     ]
 };
