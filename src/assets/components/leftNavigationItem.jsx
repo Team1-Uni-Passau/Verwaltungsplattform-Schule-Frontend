@@ -130,11 +130,7 @@ export default class leftNavigationItem extends React.Component {
                         window.location.href = "/admin/manageclass";
                         break;
                 }
-            default:
-                void (0);
-                break;
-
-           
+            
                 case roles.LERNENDE:
                     switch (this.props.title) {
                         case "Ankündigungen":
