@@ -82,7 +82,6 @@ export default class leftNavigationItem extends React.Component {
                     default:
                         void (0);
                 }
-                break;
 
             case roles.LEHRENDE:
                 switch (this.props.title) {
