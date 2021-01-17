@@ -24,7 +24,7 @@ export default class events extends React.Component {
                 passedTimeLimit: true,
             })
         } else {
-            await fetch('http://localhost:10000/eltern/krankmeldungen/neuekrankmeldung', {
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/eltern/krankmeldungen/neuekrankmeldung', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

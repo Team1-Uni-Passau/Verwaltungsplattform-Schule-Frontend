@@ -16,7 +16,7 @@ export default class startseite extends React.Component {
     
 
     async viewclass() {
-        await fetch('http://localhost:10000/lehrender/klassenliste/{classId}', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/lehrender/klassenliste/{classId}', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

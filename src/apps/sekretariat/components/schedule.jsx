@@ -52,7 +52,7 @@ export default class schedule extends React.Component {
 
         if(this.state.teacherIdEntered !== '' && this.state.classIdEntered !== '' && this.state.subjectEntered !== '' && this.state.startTimeEntered !== '' && this.state.dayEntered !== '') {
 
-            await fetch('http://localhost:10000/sekretariat/wochenplan/neuestunde', {
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/wochenplan/neuestunde', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -93,7 +93,7 @@ export default class schedule extends React.Component {
     async getWeeklySchedule() {
         if(this.state.enteredId !== '' && this.state.enteredId !== null) {
             if( this.isNumeric(this.state.enteredId)) {
-                await fetch('http://localhost:10000/sekretariat/wochenplan/'+this.state.enteredId, {
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/wochenplan/'+this.state.enteredId, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -111,7 +111,7 @@ export default class schedule extends React.Component {
                 })
         
             } else {
-                await fetch('http://localhost:10000/sekretariat/wochenplan/klasse/'+this.state.enteredId, {
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/wochenplan/klasse/'+this.state.enteredId, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -135,7 +135,7 @@ export default class schedule extends React.Component {
 
     async onDeleteHour() {
         if(this.state.hourToDelete !== '' && this.state.hourToDelete !== null) {
-            await fetch('http://localhost:10000/sekretariat/wochenplan/stunde/'+this.state.hourToDelete+'/loeschen/', {
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/wochenplan/stunde/'+this.state.hourToDelete+'/loeschen/', {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',

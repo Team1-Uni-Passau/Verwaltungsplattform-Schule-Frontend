@@ -59,7 +59,7 @@ export default class events extends React.Component {
 
 
     async getSicknotes() {
-        await fetch('http://localhost:10000/sekretariat/krankmeldungen', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/krankmeldungen', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

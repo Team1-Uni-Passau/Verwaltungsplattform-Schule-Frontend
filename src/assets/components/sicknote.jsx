@@ -26,7 +26,7 @@ export default class sicknote extends React.Component {
 
     // Krankmeldung ID sollte geschickt werden an dem Frontend
     async confirmSicknote() {
-        await fetch('http://localhost:10000/sekretariat/krankmeldungen/'+this.props.sicknoteId, {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/krankmeldungen/'+this.props.sicknoteId, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
