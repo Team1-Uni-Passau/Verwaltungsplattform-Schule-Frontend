@@ -60,6 +60,7 @@ export default class LeftNavigation extends React.Component {
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
                     <LeftNavigationItem img={AddUserIcon} title="Rolle zuweisen" selected={this.props.selected === "Rolle zuweisen"} />
                     <LeftNavigationItem img={AddUserIcon} title="Schüler Anlegen" selected={this.props.selected === "Schüler Anlegen"} />
+                    <LeftNavigationItem img={ClassroomIcon} title="Klassen verwalten" selected={this.props.selected === "Klassen verwalten"} />
                     
                 </div>
                 break;
@@ -70,6 +71,7 @@ export default class LeftNavigation extends React.Component {
                             <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
                             <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
                             <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />
+                            
                         </div>
 
                 break;
@@ -77,7 +79,7 @@ export default class LeftNavigation extends React.Component {
                 items = <div className="left-navigation-items-container">
                     <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenplan" selected={this.props.selected === "Wochenplan"} />
-                    <LeftNavigationItem img={GradesIcon} title="Noten einsehen" selected={this.props.selected === "Noten"} />
+                    <LeftNavigationItem img={GradesIcon} title="Noten einsehen" selected={this.props.selected === "Noten einsehen"} />
                     {/* <LeftNavigationItem img={PresenceIcon} title="Präsenz anzeigen" selected={this.props.selected === "Anwesenheit"} />
                     <LeftNavigationItem img={SchemaIcon} title="Notenschema" selected={this.props.selected === "Schema"} /> */}
                 </div>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server",
+    "start": "set PORT=8080 && webpack-dev-server --host 0.0.0.0 --port 8080" ,
     "build": "rimraf dist && webpack --config webpack.prod.config.js --progress --profile --color"
   },
   "author": "",

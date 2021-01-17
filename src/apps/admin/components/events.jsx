@@ -7,6 +7,7 @@ import {ic_search} from 'react-icons-kit/md/ic_search'
 import Icon from 'react-icons-kit';
 import Modal from '../../../assets/components/modal'
 import {cross} from 'react-icons-kit/icomoon/cross'
+import Events from '../../sekretariat/components/events'
 
 export default class events extends React.Component {
     
@@ -55,15 +56,7 @@ export default class events extends React.Component {
                         </div>
 
                         <div className="events-grid">
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
-                            <EventCard/>
+                            
                         </div>
 
                         <button className="create-event" onClick={this.displayModal}>+</button>

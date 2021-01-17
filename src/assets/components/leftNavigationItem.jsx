@@ -65,16 +65,16 @@ export default class leftNavigationItem extends React.Component {
                     default:
                         void (0);
                 }
-                case roles.LERNENDE:
+            case roles.LERNENDE:
                 switch (this.props.title) {
                     case "Ankündigungen":
                         window.location.href = "/student/events";
                         break;
                     case "Wochenplan":
-                        window.location.href = "/parent/schedule";
+                        window.location.href = "/student/schedule";
                         break;
                     case "Noten einsehen":
-                        window.location.href = "/parent/grades";
+                        window.location.href = "/student/grades";
                         break;
                     default:
                         void (0);
@@ -96,6 +96,9 @@ export default class leftNavigationItem extends React.Component {
                         break;
                     case "Schüler Anlegen":
                         window.location.href = "/admin/createstudent";
+                        break;
+                    case "Klassen verwalten":
+                        window.location.href = "/admin/manageclass"
                         break;
                     default:
                         void (0);
@@ -119,9 +122,9 @@ export default class leftNavigationItem extends React.Component {
                         window.location.href = "/teacher/viewclasses";
                         break;
                 }
-                    default:
-                        void (0);
-                        break;
+            default:
+                void (0);
+                break;
 
         }
     }

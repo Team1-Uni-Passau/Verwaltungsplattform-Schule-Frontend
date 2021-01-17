@@ -60,6 +60,7 @@ render() {
                             <td>{element.confirmation? "Ja" : "Nein"}</td>
                             <td>{element.date}</td>
                             <td style={{backgroundColor:element.colour}}></td>
+                            
                         </tr>
                     )
                   })}

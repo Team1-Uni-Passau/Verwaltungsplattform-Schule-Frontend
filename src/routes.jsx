@@ -9,7 +9,7 @@ import ParentsGrade from './apps/parent/components/grades';
 import ParentsPresence from './apps/parent/components/presence';
 import ParentsSchema from './apps/parent/components/schema';
 import ParentsSchedule from './apps/parent/components/schedule';
-import StartseiteStudent from './apps/student/components/startseite';
+
 import SekretariatEvents from './apps/sekretariat/components/events';
 import SekretariatSicknotes from './apps/sekretariat/components/sicknotes';
 import SekretariatSchedule from './apps/sekretariat/components/schedule';
@@ -24,18 +24,20 @@ import AdminEvents from './apps/sekretariat/components/events';
 import AdminSchedule from './apps/sekretariat/components/schedule';
 import AdminSicknotes from './apps/sekretariat/components/sicknotes';
 import AdminCreateStudent from './apps/admin/components/createstudent';
-import AdminChangeRoll  from './apps/admin/components/changeroll'
+import AdminChangeRoll  from './apps/admin/components/changeroll';
+import AdminManageClass from './apps/sekretariat/components/ManageClass';
 
 import TeacherEvents from './apps/teacher/components/events';
 import TeacherExams from './apps/teacher/components/exams';
 import TeacherSchedule from './apps/teacher/components/schedule';
 import TeacherSicknotes from './apps/teacher/components/sicknotes';
 import TeacherViewClasses from './apps/teacher/components/viewclasses';
+
 import StudentEvents from './apps/student/components/events';
-import StudentGrades from './apps/parent/components/grades';
-import StudentPresence from './apps/student/components/presence';
-import StudentSchedule from './apps/parent/components/schedule';
-import StudentSchema from './apps/parent/components/schema';
+import StudentGrades from './apps/student/components/grades';
+
+import StudentSchedule from './apps/student/components/schedule';
+
 
 const AllowedRoles = {
     TEACHER: 'Lehrender',
@@ -58,7 +60,7 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/parent/grades' allowedRole={AllowedRoles.PARENT} exact component={ParentsGrade}/>
             <AuthentificatedRoute exact path='/parent/presence' allowedRole={AllowedRoles.PARENT} exact component={ParentsPresence}/>
             <AuthentificatedRoute exact path='/parent/schema' allowedRole={AllowedRoles.PARENT} exact component={ParentsSchema}/>
-            <AuthentificatedRoute exact path='/startseite/student' allowedRole={AllowedRoles.STUDENT} exact component={StartseiteStudent}/>
+            
             <AuthentificatedRoute exact path='/sekretariat/events'  allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatEvents}/>
             <AuthentificatedRoute exact path='/sekretariat/sicknotes'  allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatSicknotes}/>
             <AuthentificatedRoute exact path='/sekretariat/schedule'   allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatSchedule}/>
@@ -77,12 +79,13 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/admin/sicknotes' allowedRole={AllowedRoles.ADMIN} exact component={AdminSicknotes}/>
             <AuthentificatedRoute exact path='/admin/createstudent' allowedRole={AllowedRoles.ADMIN} exact component={AdminCreateStudent}/>
             <AuthentificatedRoute exact path='/admin/changeroll' allowedRole={AllowedRoles.ADMIN} exact component={AdminChangeRoll}/>
+            <AuthentificatedRoute exact path='/admin/manageclass' allowedRole={AllowedRoles.ADMIN} exact component={AdminManageClass}/>
 
             <AuthentificatedRoute exact path='/student/events' allowedRole={AllowedRoles.STUDENT} exact component={StudentEvents}/>
             <AuthentificatedRoute exact path='/student/grades' allowedRole={AllowedRoles.STUDENT} exact component={StudentGrades}/>
-            <AuthentificatedRoute exact path='/student/presence' allowedRole={AllowedRoles.STUDENT} exact component={StudentPresence}/>
+            
             <AuthentificatedRoute exact path='/student/schedule' allowedRole={AllowedRoles.STUDENT} exact component={StudentSchedule}/>
-            <AuthentificatedRoute exact path='/student/schema' allowedRole={AllowedRoles.STUDENT} exact component={StudentSchema}/>
+            
             <Route  component={NotFound}/>
 
         </Switch >
