@@ -322,7 +322,7 @@ export default class Homepage extends React.Component {
              }
 
             if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
-                await fetch('132.231.36.101:27017/registration', {
+                await fetch('132.231.36.101:27017/backend/registration', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -399,7 +399,7 @@ export default class Homepage extends React.Component {
             })
         }
         if (this.username && this.password) {
-           await fetch('132.231.36.101:27017/login', {
+           await fetch('localhost:27017/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
