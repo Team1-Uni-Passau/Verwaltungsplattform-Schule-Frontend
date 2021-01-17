@@ -67,6 +67,7 @@ export default class Homepage extends React.Component {
         this.handleRegisterRepeatChange = this.handleRegisterRepeatPasswordChange.bind(this);
         this.handleRegisterRegisterCode = this.handleRegister_RegisterCodeChange.bind(this);
         this.handleRegisterFamilyKeyChange = this.handleRegisterFamilyKeyChange.bind(this);
+        this.handleFamilyIdEntered = this.handleFamilyIdEntered.bind(this)
     }
 
 
@@ -145,6 +146,10 @@ export default class Homepage extends React.Component {
         this.userId = e.target.value;
     }
 
+    handleFamilyIdEntered(e) {
+        this.familyId = e.target.value;
+    }
+
     
 
 
@@ -220,15 +225,18 @@ export default class Homepage extends React.Component {
 
         // Method to send the register data (username, password, repeat password, email, register code, role ) to the backend as a HTTP request
         async handleRegister() {
-
+            var emailStructureInvalid= false;
+            var PasswordLengthInvalid= false;
+            var PasswordStructureInvalid = false;
             //soll Email auf Strukturelle Richtigkeit überprüfen.
             if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.registerEmail)){
                 this.setState({
-                    EmailStructureInvalid: false
+                    EmailStructureInvalid: emailStructureInvalid
                 })
             }else{
+                emailStructureInvalid = true
                 this.setState({
-                    EmailStructureInvalid:true
+                    EmailStructureInvalid:emailStructureInvalid
                 })
                 
             }
@@ -236,21 +244,23 @@ export default class Homepage extends React.Component {
             var val = document.getElementById('pw1').value;
              if(val.length >= 8){
                  this.setState({
-                     PasswordLengthInvalid: false
+                     PasswordLengthInvalid: PasswordLengthInvalid
                  })
              }else{
+                 PasswordLengthInvalid = true;
                  this.setState({
-                     PasswordLengthInvalid:true
+                     PasswordLengthInvalid:PasswordLengthInvalid
                  })
              }
 
             if (val.match(/\d{1,}/) && val.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && val.match(/\W/)){
                 this.setState({
-                    PasswordStructureInvalid: false
+                    PasswordStructureInvalid: PasswordStructureInvalid
                 })
             }else{
+                PasswordStructureInvalid = true;
                 this.setState({
-                    PasswordStructureInvalid: true
+                    PasswordStructureInvalid: PasswordStructureInvalid
                 })
             }
 
@@ -321,8 +331,21 @@ export default class Homepage extends React.Component {
              })
              }
 
-            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.state.roleCheckedInRegisterForm.length !== 0) {       
-                await fetch('132.231.36.101:27017/backend/registration', {
+             if(!this.familyId && this.state.roleCheckedInRegisterForm ==="Eltern"){
+                 this.setState({
+                     familyIdIsInvalid: true
+                 })
+             } else {
+                this.setState({
+                    familyIdIsInvalid: false
+                })
+
+             }
+
+             var conditionIfUserIsParent = this.state.roleCheckedInRegisterForm === "Eltern" && !this.familyId
+
+            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.familyId && this.state.roleCheckedInRegisterForm.length !== 0 && !conditionIfUserIsParent && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid) {       
+                await fetch('http://localhost:10000/registration', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -336,6 +359,7 @@ export default class Homepage extends React.Component {
                         registerCode: this.registerCode,
                         roleCheckedInRegisterForm: this.state.roleCheckedInRegisterForm,
                         // userId: this.userId,
+                        familyId: this.familyId
                     })
                 }).then(response => {
                     if(response.status === 200){
@@ -479,6 +503,9 @@ export default class Homepage extends React.Component {
                         <input  className="register-input" type="text" placeholder="Registrierungscode" onChange={(e) => this.handleRegister_RegisterCodeChange(e)} style={this.state.RegisterRegisterCodeInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
                         <p className="form-validation-registration" style={this.state.RegisterRegisterCodeInvalid ? void(0) : {display:'none'}}>Registrierungscode ist ein Pflichtfeld.</p>
 
+                        <input  className="register-input" type="text" placeholder="FamilienID für Eltern" onChange={(e) => this.handleFamilyIdEntered(e)} style={this.state.familyIdIsInvalid ? {borderColor:'red' ,boxShadow:'none'} : void(0) }></input>
+                        <p className="form-validation-registration" style={this.state.roleCheckedInRegisterForm === "Eltern" && this.state.familyIdIsInvalid ? void(0) : {display:'none'}}>FamilienID ist ein Pflichtfeld bei Eltern.</p>
+
                         {/* <input className="register-input" type="text" placeholder="Familien ID" onChange={(e) => this.handleRegisterFamilyKeyChange(e)}></input> */}
                         {/* <input className="username" type="text" placeholder="Benutzername" onChange={this.handleRegisterUsernameChange}></input>
                         <input className="username" type="text" placeholder="E-Mail Adresse eingeben" onChange={this.handleRegisterEmailChange}></input>
@@ -488,7 +515,7 @@ export default class Homepage extends React.Component {
                         <div className="user-type"><b style={{fontSize:"15px"}}>Ich bin ein: </b> 
                             <div className="parent-or-child">
                                 <div className="parent"><input type="checkbox" id="parent" checked={this.state.roleCheckedInRegisterForm === "Eltern"} onChange={() => this.handleCheckboxChange("Eltern")}></input><label htmlFor="parent">Elternteil</label></div>
-                                <div className="child"><input type="checkbox" id="child" checked={this.state.roleCheckedInRegisterForm === "Lernender"} onChange={() => this.handleCheckboxChange("Lernender")}></input><label htmlFor="child">Schüler</label></div>
+                                {/* <div className="child"><input type="checkbox" id="child" checked={this.state.roleCheckedInRegisterForm === "Lernender"} onChange={() => this.handleCheckboxChange("Lernender")}></input><label htmlFor="child">Schüler</label></div> */}
                                 <div className="sekretariat"><input type="checkbox" id="sekretariat" checked={this.state.roleCheckedInRegisterForm === "Sekretariat"} onChange={() => this.handleCheckboxChange("Sekretariat")}></input><label htmlFor="sekretariat">Sekretaria</label></div>
                                 <div className="teacher"><input type="checkbox" id="lehrer" checked={this.state.roleCheckedInRegisterForm === "Lehrer"} onChange={() => this.handleCheckboxChange("Lehrer")}></input><label htmlFor="lehrer">Lehrer</label></div>
                             </div>

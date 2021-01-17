@@ -68,6 +68,20 @@ export default class leftNavigationItem extends React.Component {
                     default:
                         void (0);
                 }
+                case roles.LERNENDE:
+                switch (this.props.title) {
+                    case "Ankündigungen":
+                        window.location.href = "/student/events";
+                        break;
+                    case "Wochenplan":
+                        window.location.href = "/parent/schedule";
+                        break;
+                    case "Noten einsehen":
+                        window.location.href = "/parent/grades";
+                        break;
+                    default:
+                        void (0);
+                }
                 break;
 
             case roles.LEHRENDE:

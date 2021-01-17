@@ -21,7 +21,7 @@ export default class presence extends React.Component {
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">
-                        <div className="grades-title">Ansicht der letzten Präsenz Einträge Max Mustermann</div>
+                        <div className="grades-title">Ansicht der letzten Präsenz Einträge</div>
 
                         {/* <div className="legend">
                             <p style={{color:'green'}}>Nicht anwesend, Krankmeldung eingereicht</p>

@@ -146,6 +146,7 @@ export default class restorePassword extends React.Component {
                  EmailInvalid: false
          })
          }
+
          if (this.EmailInvalid && this.EmailStructureInvalid  !== 0) {       
                 await fetch('http://localhost:10000/restorePassword', {
                     method: 'POST',
