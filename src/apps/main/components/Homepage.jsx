@@ -399,7 +399,7 @@ export default class Homepage extends React.Component {
             })
         }
         if (this.username && this.password) {
-           await fetch('http://132.231.36.101:27017/', {
+           await fetch('http://132.231.36.101:27017/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
