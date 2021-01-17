@@ -2,7 +2,7 @@ import React from 'react';
 import '../stylesheets/sicknoteform.css';
 import DatePicker from 'react-datepicker';
 import '../stylesheets/react-datepicker.css';
-import * as PATHS from '../../GlobalConstants';
+
 
 
 

@@ -1,7 +1,7 @@
 import { TramRounded } from '@material-ui/icons';
 import React from 'react';
 import '../stylesheets/sicknote.css';
-import * as PATHS from '../../GlobalConstants';
+import * as PATHS from '../../apps/GlobalConstants';
 
 export default class sicknote extends React.Component {
     

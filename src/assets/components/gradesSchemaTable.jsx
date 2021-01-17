@@ -1,6 +1,6 @@
 import React from 'react';
 import '../stylesheets/gradingscheme.css';
-import * as PATHS from '../../GlobalConstants';
+import * as PATHS from '../../apps/GlobalConstants';
 export default class PresenceTable extends React.Component {
 
     constructor(props){
