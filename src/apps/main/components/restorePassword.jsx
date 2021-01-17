@@ -3,6 +3,7 @@ import React from 'react';
 import '../stylesheets/restorePassword.css';
 import {cross} from 'react-icons-kit/icomoon/cross'
 import Icon from 'react-icons-kit';
+import * as PATHS from '../../GlobalConstants';
 export default class restorePassword extends React.Component {
     
     
@@ -221,3 +222,13 @@ export default class restorePassword extends React.Component {
 
 
 }
+// Method to check if localhost
+const isLocalhost = Boolean(
+    window.location.hostname === 'localhost' ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+        /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
