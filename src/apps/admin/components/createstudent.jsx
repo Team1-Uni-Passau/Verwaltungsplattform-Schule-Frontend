@@ -45,7 +45,7 @@ export default class CreateUser extends React.Component {
         
         
 
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/neuerlernender', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neuerlernender' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neuerlernender', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',

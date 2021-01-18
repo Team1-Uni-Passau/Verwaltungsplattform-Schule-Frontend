@@ -42,11 +42,12 @@ export default class events extends React.Component {
         
         
 
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/klassenliste/keineklasse/klassehinzufuegen', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/klassenliste/keineklasse/klassehinzufuegen' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/klassenliste/keineklasse/klassehinzufuegen', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
+                        'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
                     },
                     body: JSON.stringify({
                         studentId: this.NutzerID,
@@ -56,6 +57,7 @@ export default class events extends React.Component {
               
             })
     })
+  
 }
 
 

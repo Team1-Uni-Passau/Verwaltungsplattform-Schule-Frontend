@@ -19,7 +19,7 @@ export default class GradesTable extends React.Component {
     }
 
     async getGradesForStudent() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/eltern/noten/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/eltern/noten/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/eltern/noten/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

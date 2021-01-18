@@ -21,7 +21,7 @@ export default class grades extends React.Component {
     render() {
         return (
             <div className="parents-home">
-                <LeftNavigation selected="Noten" />
+                <LeftNavigation selected="Noten einsehen" />
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">

@@ -108,7 +108,7 @@ export default class events extends React.Component {
 
     async handleCreateOrEditEvent () {
         if(this.state.modificationStatus){
-            await fetch('http://localhost:10000/sekretariat/ankuendigungen/edit/'+this.state.eventToModify[0].idNotification, {
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/ankuendigungen/edit/' + this.state.eventToModify[0].idNotification :PATHS.REACT_APP_PATH_PROD + '/sekretariat/ankuendigungen/edit/' + this.state.eventToModify[0].idNotification, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -135,7 +135,7 @@ export default class events extends React.Component {
 
         } else {
             if(this.state.newEventSelectedRole == 'Alle') {
-                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungallgemein', {
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neueankuendigungallgemein' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungallgemein', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -160,7 +160,7 @@ export default class events extends React.Component {
             }
 
             if(this.state.newEventSelectedRole == 'Lehrender' || this.state.newEventSelectedRole == 'Lernender' || this.state.newEventSelectedRole == 'Eltern' || this.state.newEventSelectedRole == 'Sekretariat'){
-                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungrolle', {
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neueankuendigungrolle' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungrolle', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -194,7 +194,7 @@ export default class events extends React.Component {
 
 
     async fetchEvents() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/alleankuendigungen', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/alleankuendigungen' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/alleankuendigungen', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -276,7 +276,7 @@ export default class events extends React.Component {
 
         this.closeDialog();
 
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/sekretariat/ankuendigungloeschen/'+this.state.eventIdToDelete, {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/ankuendigungloeschen/'+this.state.eventIdToDelete : PATHS.REACT_APP_PATH_PROD + '/sekretariat/ankuendigungloeschen/'+this.state.eventIdToDelete, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',

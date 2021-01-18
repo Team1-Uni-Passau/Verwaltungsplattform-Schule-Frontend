@@ -347,7 +347,7 @@ export default class Homepage extends React.Component {
              var conditionIfUserIsParent = this.state.roleCheckedInRegisterForm === "Eltern" && !this.familyId
 
             if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.familyId && this.state.roleCheckedInRegisterForm.length !== 0 && !conditionIfUserIsParent && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid) {       
-                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/registration', {
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/registration' : PATHS.REACT_APP_PATH_PROD + '/registration', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -425,7 +425,7 @@ export default class Homepage extends React.Component {
             })
         }
         if (this.username && this.password) {
-           await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/login', {
+           await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/login' : PATHS.REACT_APP_PATH_PROD + '/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

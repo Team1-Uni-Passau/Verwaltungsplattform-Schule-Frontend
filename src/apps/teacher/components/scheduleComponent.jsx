@@ -343,7 +343,7 @@ class Demo extends React.PureComponent {
 
 
 async getWeeklySchedule() {
-    await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/lehrender/wochenplan/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+    await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/wochenplan/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/lehrender/wochenplan/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

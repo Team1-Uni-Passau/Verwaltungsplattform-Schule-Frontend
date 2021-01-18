@@ -4,7 +4,7 @@ import LeftNavigation from '../../../assets/components/LeftNavigation';
 import TopBar from '../../../assets/components/topBar';
 import "../stylesheets/teacher.css";
 import * as PATHS from '../../GlobalConstants';
-export default class startseite extends React.Component {
+export default class viewClass extends React.Component {
 
 
     constructor(props) {
@@ -14,12 +14,13 @@ export default class startseite extends React.Component {
         }
 
         this.viewclass = this.viewclass.bind(this);
-        this.getClass = this.getClass.bind(this);
+        // this.getClass = this.getClass.bind(this);
     }
     
 
     async viewclass() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/lehrender/klassenliste/{classId}', {
+        var x = document.getElementById("classId").value
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/klassenliste/' + x  : PATHS.REACT_APP_PATH_PROD + '/lehrender/klassenliste/{classId}', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -29,8 +30,11 @@ export default class startseite extends React.Component {
         }).then(response => response.json())
           .then(data =>{
               console.log(data)
+              this.setState({
+                class: data
 
         })
+    })
     }
 
 
@@ -45,7 +49,7 @@ export default class startseite extends React.Component {
                         <p className="viewclasses-top">Klassen einsehen</p>
                         <input className="searchclass" id="classId" placeholder="Klasse suchen" ></input>
                         <div align="center">
-                        <button className="input-button" onClick={this.getClass}>Klasse anzeigen</button>
+                        <button className="input-button" onClick={this.viewclass}>Klasse anzeigen</button>
                         </div>
                         <table className="styled-table">
                             <thead>

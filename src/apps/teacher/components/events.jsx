@@ -2,7 +2,7 @@ import React from 'react';
 import LeftNavigation from '../../../assets/components/LeftNavigation';
 import TopBar from '../../../assets/components/topBar';
 import EventCard from '../../../assets/components/eventCard'; 
-
+import * as PATHS from '../../GlobalConstants';
 
 export default class events extends React.Component {
     
@@ -23,7 +23,7 @@ export default class events extends React.Component {
     }
 
     async fetchEvents() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/lehrender/ankuendigungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/ankuendigungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/lehrender/ankuendigungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

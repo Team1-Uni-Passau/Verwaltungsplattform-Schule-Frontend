@@ -22,7 +22,7 @@ export default class CreateUser extends React.Component {
 
     async confirm(){
         var x = document.getElementById('rolle').value
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/admin/changerole', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/admin/changerole' : PATHS.REACT_APP_PATH_PROD + '/admin/changerole', {
             
             method: 'PUT',
             headers: {

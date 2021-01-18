@@ -24,7 +24,7 @@ export default class events extends React.Component {
     }
 
     async fetchEvents() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/ankuendigungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/eltern/ankuendigungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/eltern/ankuendigungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
