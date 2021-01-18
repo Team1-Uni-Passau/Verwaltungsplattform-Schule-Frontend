@@ -541,7 +541,7 @@ export default class Homepage extends React.Component {
                 </header>
 
                 
-                <div className="middle-panel">
+                <div className="middle-panel-homepage">
                             <div className="wrapper-picture-loginBox">
                                     <div className="homepage-picture">
                                         <img  src={HomepagePicture}/>
