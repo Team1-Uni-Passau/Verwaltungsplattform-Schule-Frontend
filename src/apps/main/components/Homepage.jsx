@@ -230,6 +230,8 @@ export default class Homepage extends React.Component {
             var emailStructureInvalid= false;
             var PasswordLengthInvalid= false;
             var PasswordStructureInvalid = false;
+            var familyIdInvalid = false;
+
             //soll Email auf Strukturelle Richtigkeit überprüfen.
             if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.registerEmail)){
                 this.setState({
@@ -334,19 +336,21 @@ export default class Homepage extends React.Component {
              }
 
              if(!this.familyId && this.state.roleCheckedInRegisterForm ==="Eltern"){
+                familyIdInvalid = true;
                  this.setState({
-                     familyIdIsInvalid: true
+                     familyIdIsInvalid: familyIdInvalid
                  })
              } else {
                 this.setState({
-                    familyIdIsInvalid: false
+                    familyIdIsInvalid: familyIdInvalid
                 })
 
              }
 
              var conditionIfUserIsParent = this.state.roleCheckedInRegisterForm === "Eltern" && !this.familyId
 
-            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode  && this.familyId && this.state.roleCheckedInRegisterForm.length !== 0 && !conditionIfUserIsParent && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid) {       
+            if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode && this.state.roleCheckedInRegisterForm.length !== 0  && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid && !familyIdInvalid) {       
+                console.log("test")
                 await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/registration' : PATHS.REACT_APP_PATH_PROD + '/registration', {
                     method: 'POST',
                     headers: {
@@ -462,7 +466,7 @@ export default class Homepage extends React.Component {
 
 
     render() {
-        console.log(PATHS.REACT_APP_PATH_PROD)
+        console.log(PATHS.REACT_APP_PATH_LOCAL)
         return (
             <div className="wrapper">
                 <ToastContainer 
