@@ -347,7 +347,6 @@ export default class Homepage extends React.Component {
 
              }
 
-             var conditionIfUserIsParent = this.state.roleCheckedInRegisterForm === "Eltern" && !this.familyId
 
             if (this.registerName &&this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode && this.state.roleCheckedInRegisterForm.length !== 0  && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid && !familyIdInvalid) {       
                 console.log("test")
