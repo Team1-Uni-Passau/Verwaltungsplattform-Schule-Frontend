@@ -173,9 +173,9 @@ export default class Homepage extends React.Component {
                     roleCheckedInRegisterForm: "Sekretariat"
                 })
             break;
-            case "Lehrer": 
+            case "Lehrender": 
                 this.setState({
-                    roleCheckedInRegisterForm: "Lehrer"
+                    roleCheckedInRegisterForm: "Lehrender"
                 })
             break;
             
@@ -524,7 +524,7 @@ export default class Homepage extends React.Component {
                                 <div className="parent"><input type="checkbox" id="parent" checked={this.state.roleCheckedInRegisterForm === "Eltern"} onChange={() => this.handleCheckboxChange("Eltern")}></input><label htmlFor="parent">Elternteil</label></div>
                                 {/* <div className="child"><input type="checkbox" id="child" checked={this.state.roleCheckedInRegisterForm === "Lernender"} onChange={() => this.handleCheckboxChange("Lernender")}></input><label htmlFor="child">Schüler</label></div> */}
                                 <div className="sekretariat"><input type="checkbox" id="sekretariat" checked={this.state.roleCheckedInRegisterForm === "Sekretariat"} onChange={() => this.handleCheckboxChange("Sekretariat")}></input><label htmlFor="sekretariat">Sekretaria</label></div>
-                                <div className="teacher"><input type="checkbox" id="lehrer" checked={this.state.roleCheckedInRegisterForm === "Lehrer"} onChange={() => this.handleCheckboxChange("Lehrer")}></input><label htmlFor="lehrer">Lehrer</label></div>
+                                <div className="teacher"><input type="checkbox" id="Lehrender" checked={this.state.roleCheckedInRegisterForm === "Lehrender"} onChange={() => this.handleCheckboxChange("Lehrender")}></input><label htmlFor="lehrer">Lehrer</label></div>
                             </div>
                         </div>
                         <button className="confirm-registration" onClick={this.handleRegister}>Registrieren</button>
