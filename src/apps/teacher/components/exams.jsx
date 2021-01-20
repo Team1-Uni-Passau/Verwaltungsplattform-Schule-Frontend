@@ -16,11 +16,12 @@ export default class Exams extends React.Component {
         super(props);
         this.state = {
             displayModal: false,
-            date: null,
+            date: new Date(),
             class: '',
             hour: '',
             subject: '',
-            type: 'Schriftlich'
+            type: 'Schriftlich',
+            exams: []
         }
 
         this.displayModal = this.displayModal.bind(this)
@@ -30,11 +31,35 @@ export default class Exams extends React.Component {
         this.onHourChange = this.onHourChange.bind(this)
         this.onExamTypeChange = this.onExamTypeChange.bind(this)
         this.createExam = this.createExam.bind(this)
+        this.fetchExams = this.fetchExams.bind(this);
+
 
     }
 
 
+     convertDate = str => {
+        str = str.toString();
+        let parts = str.split(" ");
+        let months = {
+          Jan: "01",
+          Feb: "02",
+          Mar: "03",
+          Apr: "04",
+          May: "05",
+          Jun: "06",
+          Jul: "07",
+          Aug: "08",
+          Sep: "09",
+          Oct: "10",
+          Nov: "11",
+          Dec: "12"
+        };
+        return parts[3] + "-" + months[parts[1]] + "-" + parts[2];
+      };
+      
+
     async createExam () {
+        console.log(this.convertDate(this.state.date))
             await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/neuepruefung' : PATHS.REACT_APP_PATH_PROD + '/lehrender/neuepruefung', {
                 method: 'POST',
                 headers: {
@@ -43,21 +68,48 @@ export default class Exams extends React.Component {
                     'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
                 },
                 body: JSON.stringify({
-                    teacherId: 26,
+                    teacherId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                     classId: this.state.class,
                     subject: this.state.subject,
                     hour: this.state.hour,
-                    date: this.state.date,
+                    date: this.convertDate(this.state.date),
                     type: this.state.type
 
                 })
 
             }).then(response => response.json())
               .then(data =>{
-                  console.log(data)
+                let exams = this.state.exams;
+                var newExamsList = exams.concat(data);
+                this.setState({
+                    exams: newExamsList
+                })
 
             })     
     }
+
+
+    componentDidMount() {
+        this.fetchExams();
+    }
+
+    async fetchExams() {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/pruefungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/lehrender/pruefungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+        }).then(response => response.json())
+          .then(data =>{
+              console.log(data)
+            this.setState({
+                exams: data
+            })
+        })
+    }
+
 
     undisplayModal() {
         this.setState({
@@ -119,7 +171,7 @@ export default class Exams extends React.Component {
                     <div className="create-stunde" style={{textAlign:'center'}}>
                         <input className="create-wochenplan-by-id" placeholder="ID der Klasse" onChange={(e) => this.onClassIdChange(e)}></input>
                         <input className="create-wochenplan-by-id" placeholder="Stunde" onChange={(e) => this.onHourChange(e)}></input>
-                        <input className="create-wochenplan-by-id" placeholder="Fach"  onChange={(e) => this.onSubjectChange(e)}></input>
+                        {/* <input className="create-wochenplan-by-id" placeholder="Fach"  onChange={(e) => this.onSubjectChange(e)}></input> */}
                         <DatePicker
                                 className="datepicker-create-event" 
                                 placeholderText='YYYY-MM-DD'
@@ -147,7 +199,7 @@ export default class Exams extends React.Component {
                     <TopBar/>
                     <div className="middle-panel-container">
                         <p className="grades-title">Erstellte Prüfungen</p>
-                        <ExamsTable/>
+                        <ExamsTable exams={this.state.exams}/>
                         <button className="create-event" onClick={this.displayModal} >+</button>
                     </div>
                 </div>

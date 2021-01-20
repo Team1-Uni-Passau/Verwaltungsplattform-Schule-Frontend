@@ -9,31 +9,10 @@ export default class ExamsTable extends React.Component {
         super(props);
 
         this.state = {
-            exams: []
         }
-        this.fetchExams = this.fetchExams.bind(this);
 
     }
 
-    componentDidMount() {
-        this.fetchExams();
-    }
-
-    async fetchExams() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/pruefungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/lehrender/pruefungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-            },
-        }).then(response => response.json())
-          .then(data =>{
-            this.setState({
-                exams: data
-            })
-        })
-    }
 
 
 
@@ -44,7 +23,6 @@ export default class ExamsTable extends React.Component {
               <thead>
                   <tr>
                       <th>Fach</th>
-                      <th>Tag</th>
                       <th>Datum</th>
                       <th>Typ</th>
                       <th>Stunde</th>
@@ -52,18 +30,17 @@ export default class ExamsTable extends React.Component {
                   </tr>
               </thead>
               <tbody>
-                  {this.state.exams.map((element,index) => {
+                  {this.props.exams.length > 0 ? this.props.exams.map((element,index) => {
                     return(
                         <tr key={index}>
                             <td>{element.subject}</td>
-                            <td>{element.day}</td>
                             <td>{element.date}</td>
                             <td>{element.type}</td>
                             <td>{element.hour}</td>
                             <td>{element.classId}</td>
                         </tr>
                     )
-                  })}
+                  }) : void(0)}
               </tbody>
             </table>
         );
