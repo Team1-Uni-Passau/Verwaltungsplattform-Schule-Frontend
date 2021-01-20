@@ -21,7 +21,8 @@ export default class Exams extends React.Component {
             hour: '',
             subject: '',
             type: 'Schriftlich',
-            exams: []
+            exams: [],
+            idToDelete: ''
         }
 
         this.displayModal = this.displayModal.bind(this)
@@ -32,9 +33,42 @@ export default class Exams extends React.Component {
         this.onExamTypeChange = this.onExamTypeChange.bind(this)
         this.createExam = this.createExam.bind(this)
         this.fetchExams = this.fetchExams.bind(this);
+        this.onIdEntered = this.onIdEntered.bind(this);
+        this.deleteExam = this.deleteExam.bind(this);
+
 
 
     }
+
+
+    
+    async deleteExam() {
+        if(this.state.idToDelete !== '' && this.state.idToDelete !== null) {
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/pruefung/delete/'+this.state.idToDelete : PATHS.REACT_APP_PATH_PROD + '/lehrender/pruefung/delete'+this.state.idToDelete, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                },
+            }).then(response => response.text())
+              .then(data =>{
+                  console.log(data)
+                const oldExams = this.state.exams
+                const newExams = oldExams.filter((item) => {
+                     return item.examId !== Number(this.state.idToDelete);
+                })
+
+                this.setState({
+                    displayModal: false,
+                    exams: newExams,
+                })
+            })
+    
+        }
+    }
+
+
 
 
      convertDate = str => {
@@ -82,9 +116,10 @@ export default class Exams extends React.Component {
                 let exams = this.state.exams;
                 var newExamsList = exams.concat(data);
                 this.setState({
-                    exams: newExamsList
+                    exams: newExamsList,
+                    displayModal: false
                 })
-
+                
             })     
     }
 
@@ -162,6 +197,11 @@ export default class Exams extends React.Component {
         })
     }
 
+    onIdEntered(e){
+        this.setState({
+            idToDelete: e.target.value
+        })
+    }
 
     render() {
         return (
@@ -201,6 +241,11 @@ export default class Exams extends React.Component {
                         <p className="grades-title">Erstellte Prüfungen</p>
                         <ExamsTable exams={this.state.exams}/>
                         <button className="create-event" onClick={this.displayModal} >+</button>
+                        <div className="retrieve-wochenplan-container">
+                          <input className="retieve-wochenplan-by-id" placeholder="ID der zu löschenden Prüfung" onChange={(e) => this.onIdEntered(e)}></input>
+                          <button className="confirm-retrieve-wochenplan" onClick={this.deleteExam}>Prüfung löschen</button>          
+                      </div>
+
                     </div>
                 </div>
             </div>
