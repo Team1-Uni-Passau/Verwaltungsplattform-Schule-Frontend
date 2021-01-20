@@ -71,6 +71,7 @@
   border: 0;
   width: fit-content;
   justify-self: center;
+  z-index: 10;
 }
 
 .react-datepicker {

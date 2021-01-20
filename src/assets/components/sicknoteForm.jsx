@@ -37,7 +37,7 @@ export default class sicknoteForm extends React.Component {
                 </div>
                 <button className="submit-button-sicknote" onClick={this.sendSicknote}>SENDEN</button>
                 <div style={this.props.passedTimeLimit ? {color: 'red', marginBottom:'10px'} : {display:'none'}}>{this.props.passedTimeLimit ? "Sie können eine Krankmeldung nach 09:00 uhr nicht erstellen." : void(0)}</div>
-                <div style={this.props.sickNoteCreated ? {color: 'green', marginBottom:'10px'} : {display:'none'}}>{this.props.sickNoteCreated ? "Krankmeldung wurde erfolgreich erstellt." : void(0)}</div>    
+                <div style={this.props.sickNoteCreated ? {color: 'green', marginBottom:'10px'} : {display:'none'}}>{this.props.sickNoteCreated ? "Krankmeldung wurde erfolgreich erstellt." : "Unbekannter Fehler, versuchen Sie es bitte erneut"}</div>    
             </div>
         )
     }

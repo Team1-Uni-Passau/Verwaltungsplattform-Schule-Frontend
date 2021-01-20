@@ -20,7 +20,7 @@ export default class Modal extends React.Component {
                         transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
                         opacity: this.props.show ? '1' : '0',
                         maxHeight: '70%',
-                        overflow: 'auto'
+                        // overflow: 'auto'
                      }}
                     >
                     {this.props.children}

@@ -32,11 +32,11 @@ export default class events extends React.Component {
                     'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
                 },
                 body: JSON.stringify({
-                    parentId: 44,
+                    parentId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                 })
             }).then(response => response.text())
               .then(data =>{
-                if(data.affectedUserId !== null){
+                if(data.affectedUserId !== null && data.affectedUserId !== undefined){
                     this.setState({
                         sickNoteCreated: true,
                         passedTimeLimit: false

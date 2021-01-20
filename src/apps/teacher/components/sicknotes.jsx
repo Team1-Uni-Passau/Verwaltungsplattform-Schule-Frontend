@@ -25,7 +25,7 @@ export default class events extends React.Component {
                 passedTimeLimit: true,
             })
         } else {
-            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL : PATHS.REACT_APP_PATH_PROD + '/lehrender/krankmeldungen/neuekrankmeldung', {
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/krankmeldungen/neuekrankmeldung' : PATHS.REACT_APP_PATH_PROD + '/lehrender/krankmeldungen/neuekrankmeldung', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -33,11 +33,12 @@ export default class events extends React.Component {
                     'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
                 },
                 body: JSON.stringify({
-                    teacherId: 44,
+                    teacherId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                 })
             }).then(response => response.text())
               .then(data =>{
-                if(data.affectedUserId !== null){
+                  console.log(data.affectedUserId)
+                if(data.affectedUserId != "undefined"){
                     this.setState({
                         sickNoteCreated: true,
                         passedTimeLimit: false

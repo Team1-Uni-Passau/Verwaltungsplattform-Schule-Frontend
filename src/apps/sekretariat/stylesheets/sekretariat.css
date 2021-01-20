@@ -320,6 +320,11 @@ min-width: fit-content;
 color: black;
 }
 
+.confirm-create-event:focus {
+    outline:none;
+    }
+    
+
 .create-event-dates-container {
     text-align: center;
     padding: 10px; 
@@ -333,6 +338,13 @@ color: black;
     border-radius: 5px;
     text-align: center;
     margin: 10px;
+}
+
+.datepicker-create-event:focus {
+    border-color: cornflowerblue;
+    outline: none ;
+    box-shadow: 0px 0px 3px 0.3px #a9a9a9;
+  
 }
 
 .create-event-role {
