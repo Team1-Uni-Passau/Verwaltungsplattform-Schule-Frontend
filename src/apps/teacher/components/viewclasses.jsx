@@ -20,7 +20,7 @@ export default class viewClass extends React.Component {
 
     async viewclass() {
         var x = document.getElementById("classId").value
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/klassenliste/' + x  : PATHS.REACT_APP_PATH_PROD + '/lehrender/klassenliste/{classId}', {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/klassenliste/' + x  : PATHS.REACT_APP_PATH_PROD + '/lehrender/klassenliste/' + x, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
