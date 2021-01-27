@@ -38,7 +38,7 @@ export default class LeftNavigation extends React.Component {
         switch (JSON.parse(localStorage.getItem("loggedIn")).role) {
             case roles.SEKRETARIAT:
                 items = <div className="left-navigation-items-container">
-                    <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
+                    <LeftNavigationItem img={EventsIcon} title="Ankündigung" selected={this.props.selected === "Ankündigung"} />
                     <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen"} />
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
                     <LeftNavigationItem img={ClassroomIcon} title="Klassen verwalten" selected={this.props.selected === "Klassen verwalten"} />
@@ -57,7 +57,7 @@ export default class LeftNavigation extends React.Component {
                 break;
             case roles.ADMIN:
                 items = <div className="left-navigation-items-container">
-                    <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
+                    <LeftNavigationItem img={EventsIcon} title="Ankündigung" selected={this.props.selected === "Ankündigung"} />
                     <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen"} />
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
                     <LeftNavigationItem img={ManageRollIcon} title="Rolle ändern" selected={this.props.selected === "Rolle ändern"} />
@@ -69,7 +69,7 @@ export default class LeftNavigation extends React.Component {
             case roles.LEHRENDE:
                 items = <div className="left-navigation-items-container">
                             <LeftNavigationItem img={EventsIcon} title="Ankündigungen" selected={this.props.selected === "Ankündigung"} />
-                            <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldung erfassen"} />
+                            <LeftNavigationItem img={SicknessIcon} title="Krankmeldungen" selected={this.props.selected === "Krankmeldungen erfassen"} />
                             <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenplan"} />
                             <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
                             <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />

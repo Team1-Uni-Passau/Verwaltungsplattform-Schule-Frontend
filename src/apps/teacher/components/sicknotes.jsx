@@ -20,7 +20,7 @@ export default class events extends React.Component {
 
     async createNewSicknote() {
         var dateNow = new Date();
-        if(dateNow.getHours() >= 9 && dateNow.getHours() < 22) {
+        if(dateNow.getHours() >= 22 && dateNow.getHours() < 24) {
             this.setState({
                 passedTimeLimit: true,
             })

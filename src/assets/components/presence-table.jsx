@@ -47,7 +47,7 @@ render() {
           <thead>
               <tr>
                   <th>Anwesend</th>
-                  <th>Kranmeldung eingereicht</th>
+                  <th>Krankmeldung eingereicht</th>
                   <th>Datum</th>
                   <th>Status</th>
               </tr>

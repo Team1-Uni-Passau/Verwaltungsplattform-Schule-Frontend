@@ -59,7 +59,7 @@ export default class CreateUser extends React.Component {
 
         return (
             <div className="admin-home">
-                <LeftNavigation selected="Nutzeranlegen" />
+                <LeftNavigation selected="Rolle ändern" />
                 <div className="flex-right-container">
                     <TopBar />
                     <div className="middle-panel">
