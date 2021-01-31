@@ -16,12 +16,20 @@ export default class CreateUser extends React.Component {
         this.confirm = this.confirm.bind(this);
         
     }
+
+
     handleEMailChange(e){
         this.eMail = e.target.value;
     }
 
+    handleSelectChange(e){
+        this.selectedRole = e.target.value;
+    }
+
+    
+
     async confirm(){
-        var x = document.getElementById('rolle').value
+
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/admin/changerole' : PATHS.REACT_APP_PATH_PROD + '/admin/changerole', {
             
             method: 'PUT',
@@ -33,27 +41,18 @@ export default class CreateUser extends React.Component {
             
             body: JSON.stringify({
                 eMail: this.eMail,
-                newRole: document.getElementById('rolle').value,
+                newRole: this.selectedRole,
             })
+    }).then(response => response.json())
+    .then(data =>{
+        console.log(data.roleRegisterCodeMapper.role)
+        if(data.roleRegisterCodeMapper.role === this.selectedRole){
+            alert("Success")
+        } else {
+            alert("Failure")
+        }
     })
 }
-// async confirm(){
-//     var x = document.getElementById('rolle').value
-//     await fetch('http://localhost:10000/admin/changerole', {
-        
-//         method: 'PUT',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json',
-//         },
-        
-//         body: JSON.stringify({
-//             eMail: this.eMail,
-//             newRole: x,
-//         })
-// })
-// }
-
 
     render() {
 
@@ -69,10 +68,8 @@ export default class CreateUser extends React.Component {
                                 {/* <input className="create-user-input" type="text" placeholder="Vorname" onChange={(e) => this.handleFirstNameChange(e)}></input>
                                 <input className="create-user-input" type="text" placeholder="Nachname" onChange={(e) => this.handleNameChange(e)}></input> */}
                                 <input className="change-roll-mail" type="text" placeholder="E-mail" onChange={(e) => this.handleEMailChange(e)}></input>
-                                {/* <input className="create-user-input" type="text" placeholder="Klasse"></input> */}
-                                <form name="terminauswahl">
-                                    
-                                    <select className="changeroll" id="rolle" >
+                                {/* <input className="create-user-input" type="text" placeholder="Klasse"></input> */}                                    
+                                    <select className="changeroll" id="rolle"  onChange={(e) => this.handleSelectChange(e)}>
                                         <option value="--">Bitte wählen:</option>
                                         <option value="Sekretariat">Sekretariat</option>
                                         <option value="Lehrender">Lehrer</option>
@@ -81,7 +78,6 @@ export default class CreateUser extends React.Component {
                                         
                                     </select>
                                     <button className="confirm-button" onClick={this.confirm}> Bestätigen</button>
-                                </form>
                             </div>
                         </div>
                     </div>

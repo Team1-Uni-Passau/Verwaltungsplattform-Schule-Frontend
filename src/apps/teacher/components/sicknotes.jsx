@@ -35,10 +35,9 @@ export default class events extends React.Component {
                 body: JSON.stringify({
                     teacherId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                 })
-            }).then(response => response.text())
+            }).then(response => response.json())
               .then(data =>{
-                  console.log(data.affectedUserId)
-                if(data.affectedUserId != "undefined"){
+                if(data.affectedUserId != null){
                     this.setState({
                         sickNoteCreated: true,
                         passedTimeLimit: false

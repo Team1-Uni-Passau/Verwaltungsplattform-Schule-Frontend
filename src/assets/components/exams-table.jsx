@@ -27,6 +27,7 @@ export default class ExamsTable extends React.Component {
                       <th>Typ</th>
                       <th>Stunde</th>
                       <th>Klasse</th>
+                      <th>ExamId</th>
                   </tr>
               </thead>
               <tbody>
@@ -38,6 +39,8 @@ export default class ExamsTable extends React.Component {
                             <td>{element.type}</td>
                             <td>{element.hour}</td>
                             <td>{element.classId}</td>
+                            <td>{element.examId}</td>
+
                         </tr>
                     )
                   }) : void(0)}

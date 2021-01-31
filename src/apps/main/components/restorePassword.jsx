@@ -104,7 +104,14 @@ export default class restorePassword extends React.Component {
                     eMail: this.email,
 
                 })
+            }).then(res => {
+                if(res.status === 200){
+                    alert('success')
+                } else {
+                    alert('failure')
+                }
             })
+
             this.displayModal();
 
         }
@@ -113,7 +120,7 @@ export default class restorePassword extends React.Component {
             var val = this.validationKey
             
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword/code'  : PATHS.REACT_APP_PATH_PROD + '/restorePassword/code' , {
-            method: 'Put',
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -122,24 +129,17 @@ export default class restorePassword extends React.Component {
                 frontendCode: this.validationKey,
 
             })
-        
-
-
         })
             .then(response => response.json())
             .then(data => {
                 console.log(data)
                 this.setState({
-                    code: data
-
-
-                    
+                    code: data              
                 })
-                
             })
             if(this.code = true){
                 await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword/changePassword'  : PATHS.REACT_APP_PATH_PROD + '/restorePassword/changePassword' , {
-                    method: 'Put',
+                    method: 'PUT',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
@@ -148,7 +148,14 @@ export default class restorePassword extends React.Component {
                         newPassword: this.Password,
                     })
                 })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+    
             }
+
+            this.undisplayModal();
         
     }
     render() {
