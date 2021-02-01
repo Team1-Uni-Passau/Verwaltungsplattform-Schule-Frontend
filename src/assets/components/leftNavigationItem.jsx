@@ -26,7 +26,7 @@ export default class leftNavigationItem extends React.Component {
         switch (JSON.parse(localStorage.getItem("loggedIn")).role) {
             case roles.SEKRETARIAT:
                 switch (this.props.title) {
-                    case "Ankündigungen":
+                    case "Ankündigung":
                         window.location.href = "/sekretariat/events";
                         break;
                     case "Krankmeldungen":

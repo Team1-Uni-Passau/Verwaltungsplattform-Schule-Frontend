@@ -10,7 +10,30 @@ export default class UsersList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        }        
+            users: []
+        }      
+        this.getUsers = this.getUsers.bind(this);  
+    }
+
+    componentDidMount() {
+        this.getUsers();
+    }
+
+    async getUsers() {
+        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/userslist' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/userslist', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+            },
+        }).then(response => response.json())
+          .then(data =>{
+              console.log(data)
+            this.setState({
+                users: data
+            })
+        })
     }
 
     render() {
@@ -22,8 +45,8 @@ export default class UsersList extends React.Component {
                     <TopBar />
                     <div className="middle-panel">
                     </div>
-                </div>
             </div>
+        </div>
         )
     }
 
