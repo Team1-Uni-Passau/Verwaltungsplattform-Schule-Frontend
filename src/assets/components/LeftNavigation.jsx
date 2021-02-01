@@ -11,6 +11,7 @@ import AddUserIcon from '../images/users.png';
 import ExamIcon from '../images/Exam.png';
 import ClassroomIcon from '../images/Classroom.png';
 import ManageRollIcon from '../images/RoleManagement.png'
+import UsersList from '../images/usersicon.png'
 
 
 const roles = {
@@ -43,6 +44,7 @@ export default class LeftNavigation extends React.Component {
                     <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenpläne"} />
                     <LeftNavigationItem img={ClassroomIcon} title="Klassen verwalten" selected={this.props.selected === "Klassen verwalten"} />
                     <LeftNavigationItem img={ManageRollIcon} title="Rolle ändern" selected={this.props.selected === "Rolle ändern"} />
+                    <LeftNavigationItem img={UsersList} title="Benutzerliste" selected={this.props.selected === "Benutzer Anzeigen"} />
                 </div>
                 break;
             case roles.ELTERN:

@@ -143,7 +143,7 @@ export default class events extends React.Component {
                         'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
                     },
                     body: JSON.stringify({
-                        userId: 26,
+                        userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                         startDate: this.state.startDate,
                         endDate: this.state.endDate,
                         content: this.state.newEventText
@@ -168,7 +168,7 @@ export default class events extends React.Component {
                         'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
                     },
                     body: JSON.stringify({
-                        userId: 26,
+                        userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                         startDate: this.state.startDate,
                         endDate: this.state.endDate,
                         role: this.state.newEventSelectedRole,

@@ -17,6 +17,7 @@ import SekretariatManageClass from './apps/sekretariat/components/ManageClass';
 import SekretariatChangeRoll from './apps/sekretariat/components/changeroll';
 import SekretariatCreateStudent from './apps/admin/components/createstudent';
 import AuthentificatedRoute from './AuthentificatedRoutes/AuthentificatedRoute';
+import SekretariatUsersList from './apps/sekretariat/components/userslist';
 // import StartseiteTeacher from './apps/teacher/components/startseite';
 import NotFound from '../src/apps/main/components/notFound';
 
@@ -67,6 +68,7 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/sekretariat/manageclass' allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatManageClass}/>
             <AuthentificatedRoute exact path='/sekretariat/changeroll' allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatChangeRoll}/>
             <AuthentificatedRoute exact path='/sekretariat/createstudent' allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatCreateStudent}/>
+            <AuthentificatedRoute exact path='/sekretariat/userslist' allowedRole={AllowedRoles.SECRETARIAT} component={SekretariatUsersList}/>
 
             <AuthentificatedRoute exact path='/teacher/events' allowedRole={AllowedRoles.TEACHER} exact component={TeacherEvents}/>
             <AuthentificatedRoute exact path='/teacher/exams' allowedRole={AllowedRoles.TEACHER} exact component={TeacherExams}/>
