@@ -46,8 +46,13 @@ export default class viewClass extends React.Component {
               console.log(data)
               this.setState({
                 class: data
+                
 
         })
+        if(data.length == 0){
+            console.log("fehler")
+            alert("Die von ihnen gewählte Klasse enthält keine Schüler oder existiert nicht.")
+        }
     })
     }
 

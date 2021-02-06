@@ -212,8 +212,10 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               <Create className={classes.icon} color="action" />
               <TextField
                 {...textEditorProps('title')}
+                
               />
             </div>
+            
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
               <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -352,6 +354,7 @@ async getWeeklySchedule() {
         },
     }).then(response => response.json())
       .then(data =>{
+        console.log(data),
         this.setState({
             data: data
         })
@@ -369,7 +372,8 @@ async getWeeklySchedule() {
                 title:element.subject,
                 priorityId: 2,
                 startDate: '2018-06-25T'+element.startTime.substring(0,5),
-                endDate: '2018-06-25T'+element.endTime.substring(0,5),                    
+                endDate: '2018-06-25T'+element.endTime.substring(0,5),    
+                               
               }
               break;
             

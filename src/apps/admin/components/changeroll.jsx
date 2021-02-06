@@ -10,6 +10,8 @@ export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            EmailInvalid: false,
+            RoleInvalid: false,
         }
 
         this.handleEMailChange =this.handleEMailChange.bind(this);
@@ -29,8 +31,30 @@ export default class CreateUser extends React.Component {
     
 
     async confirm(){
-
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/admin/changerole' : PATHS.REACT_APP_PATH_PROD + '/admin/changerole', {
+        if (!this.eMail) {
+            this.setState({
+                EmailInvalid: true
+            })
+        } else {
+            this.setState({
+                EmailInvalid: false
+            })
+        }
+        if(this.selectedRole == "--"){
+            this.setState({
+                RoleInvalid: true
+            })
+        }else{
+            this.setState({
+                RoleInvalid: false
+            })
+        }
+        
+        
+        
+        if(this.eMail && !this.state.RoleInvalid){
+            console.log("1")
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/admin/changerole' : PATHS.REACT_APP_PATH_PROD + '/admin/changerole', {
             
             method: 'PUT',
             headers: {
@@ -43,16 +67,19 @@ export default class CreateUser extends React.Component {
                 eMail: this.eMail,
                 newRole: this.selectedRole,
             })
-    }).then(response => response.json())
-    .then(data =>{
-        console.log(data.roleRegisterCodeMapper.role)
-        if(data.roleRegisterCodeMapper.role === this.selectedRole){
-            alert("Success")
-        } else {
-            alert("Failure")
+    }).then(response => response.text())
+    .then(text =>{
+        console.log(text)
+        if(text == ""){
+            alert("Fehler")
+        }
+        else{
+            alert(text)
+            location.reload()
         }
     })
 }
+    }
 
     render() {
 
@@ -67,9 +94,10 @@ export default class CreateUser extends React.Component {
                             <div className="create-user-input-container">
                                 {/* <input className="create-user-input" type="text" placeholder="Vorname" onChange={(e) => this.handleFirstNameChange(e)}></input>
                                 <input className="create-user-input" type="text" placeholder="Nachname" onChange={(e) => this.handleNameChange(e)}></input> */}
-                                <input className="change-roll-mail" type="text" placeholder="E-mail" onChange={(e) => this.handleEMailChange(e)}></input>
+                                <input className="change-roll-mail" type="text" placeholder="E-mail" onChange={(e) => this.handleEMailChange(e)} style={this.state.EmailInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
+                                <p className="form-validation-registration" style={this.state.EmailInvalid ? void (0) : { display: 'none' }}>Email ist ein Pflichtfeld.</p>
                                 {/* <input className="create-user-input" type="text" placeholder="Klasse"></input> */}                                    
-                                    <select className="changeroll" id="rolle"  onChange={(e) => this.handleSelectChange(e)}>
+                                    <select className="changeroll" id="rolle"  onChange={(e) => this.handleSelectChange(e)}style={this.state.RoleInvalid ? { borderColor: 'red', boxShadow: 'none' } : void(0)}>
                                         <option value="--">Bitte wählen:</option>
                                         <option value="Sekretariat">Sekretariat</option>
                                         <option value="Lehrender">Lehrer</option>
@@ -77,6 +105,7 @@ export default class CreateUser extends React.Component {
                                         <option value="Eltern">Eltern</option>
                                         
                                     </select>
+                                    {/* <p className="form-validation-registration" style={this.state.RoleInvalid ? { borderColor: 'red', boxShadow: 'none' } : void(0)}>Bitte wählen sie eine Rolle.</p> */}
                                     <button className="confirm-button" onClick={this.confirm}> Bestätigen</button>
                             </div>
                         </div>
