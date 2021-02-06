@@ -41,9 +41,6 @@ export default class leftNavigationItem extends React.Component {
                     case "Rolle ändern":
                         window.location.href = "/sekretariat/changeroll";
                         break;
-                    case "Benutzerliste":
-                        window.location.href = "/sekretariat/userslist";
-                        break;
                     case "Schüler Anlegen":
                         window.location.href = "/admin/createstudent";
                         break;

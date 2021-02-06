@@ -75,7 +75,9 @@ export default class restorePassword extends React.Component {
 
     async handleSendMail() {
         var val = document.getElementById('email').value;
+        let emailValid= false;
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+            emailValid= true;
             this.setState({
                 EmailStructureValid: true
             })
@@ -94,7 +96,7 @@ export default class restorePassword extends React.Component {
             })
         }
 
-        if(this.email && this.state.EmailStructureValid ){
+        if(this.email && emailValid ){
             await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword' : PATHS.REACT_APP_PATH_PROD + '/restorePassword', {
                 method: 'PUT',
                 headers: {
@@ -107,8 +109,9 @@ export default class restorePassword extends React.Component {
 
                 })
             }).then(res => {
+                console.log(res)
                 if(res.status === 200){
-                    
+                
                     this.displayModal();
                 } else {
                     alert('Leider konnten wir ihnen keine Mail zukommen lassen. Bitte versuchen sie es erneut')

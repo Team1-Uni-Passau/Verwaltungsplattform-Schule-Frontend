@@ -96,6 +96,7 @@ export default class eventCard extends React.Component {
                 case "Lehrender":
                     return(
                         <div>
+                            <p className="dates-display">Von {this.props.startDate} bis {this.props.endDate}</p>
                             <p className="event-card-title">Ankündigung</p>
                             <div className="event-card-text">
                                 {this.props.text.length > this.state.MAX_LENGTH ? (
