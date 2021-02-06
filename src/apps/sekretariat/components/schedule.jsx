@@ -26,6 +26,8 @@ export default class schedule extends React.Component {
             subjectEntered: '',
             startTimeEntered: '',
             dayEntered: 'Montag',
+            error: false,
+            hourAlreadyExists: false
         }
 
         this.getWeeklySchedule = this.getWeeklySchedule.bind(this);
@@ -50,43 +52,66 @@ export default class schedule extends React.Component {
 
 
     async createUnterricht() {
+        let hourAlreadyExists = false;
+        let schedule = this.state.fetchedWochenplan;
 
-        if(this.state.teacherIdEntered !== '' && this.state.classIdEntered !== '' && this.state.subjectEntered !== '' && this.state.startTimeEntered !== '' && this.state.dayEntered !== '') {
-
-            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/wochenplan/neuestunde' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/wochenplan/neuestunde', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-                },
-                body: JSON.stringify({
-                    teacherId: this.state.teacherIdEntered,
-                    classId: this.state.classIdEntered,
-                    subject: this.state.subjectEntered,
-                    startTime: this.state.startTimeEntered,
-                    endTime: this.state.endTimeEntered,
-                    day: this.state.dayEntered
+        if(this.state.teacherIdEntered !== '' && this.state.classIdEntered !== '' && this.state.subjectEntered !== '' && this.state.startTimeEntered !== '' && this.state.dayEntered !== '' && !hourAlreadyExists) {
+            if(this.state.fetchedWochenplan.length > 0) {
+                schedule.map((element) => {
+                    if (element.day === this.state.dayEntered && element.startTime.includes(this.state.startTimeEntered) && element.classid === this.state.classIdEntered){
+                        hourAlreadyExists = true;
+                    }
+                })    
+            }
+            if(hourAlreadyExists) {
+                this.setState({
+                    error: false,
+                    hourAlreadyExists: true
                 })
-            }).then(response => response.json())
-              .then(data =>{
-                  console.log(data)
-                if(this.state.teacherIdEntered === this.state.enteredId || this.state.classIdEntered === this.state.enteredId) {
-                    var newSchedule = this.state.fetchedWochenplan;
-                    newSchedule = newSchedule.concat(data);
-                    this.setState({
-                        fetchedWochenplan: newSchedule,
-                        displayModal: false
+            } else {
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/wochenplan/neuestunde' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/wochenplan/neuestunde', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                    },
+                    body: JSON.stringify({
+                        teacherId: this.state.teacherIdEntered,
+                        classId: this.state.classIdEntered,
+                        subject: this.state.subjectEntered,
+                        startTime: this.state.startTimeEntered,
+                        endTime: this.state.endTimeEntered,
+                        day: this.state.dayEntered
                     })
+                }).then(response => response.json())
+                  .then(data =>{
+                      console.log(data)
+                    if(this.state.teacherIdEntered === this.state.enteredId || this.state.classIdEntered === this.state.enteredId) {
+                        var newSchedule = this.state.fetchedWochenplan;
+                        newSchedule = newSchedule.concat(data);
+                        this.setState({
+                            fetchedWochenplan: newSchedule,
+                            displayModal: false,
+                            error: false,
+                            hourAlreadyExists: false
+                        })
+        
+                    }   else {
+                        this.setState({
+                            displayModal: false,
+                            error: false,
+                            hourAlreadyExists: false
+                        })
     
-                }   else {
-                    this.setState({
-                        displayModal: false
-                    })
+                    }              
+                })    
+            }
 
-                }              
-            })
-
+        } else {
+                this.setState({
+                    error: true
+                })
         }
 
     }
@@ -121,6 +146,7 @@ export default class schedule extends React.Component {
                     },
                 }).then(response => response.json())
                   .then(data =>{
+                      console.log(data)
                     this.setState({
                         fetchedWochenplan: data,
                         fetchedFor: "class",
@@ -270,6 +296,7 @@ export default class schedule extends React.Component {
                                         <input className="create-wochenplan-by-id" placeholder="Fach"  onChange={(e) => this.onSubjectEntered(e)}></input>
                                         <label htmlFor="startTime"  style={{marginRight: '5px'}}>Start: </label>
                                         <input type="time" placeholder="Start" id="startTime"  onChange={(e) => this.onStartTimeEntered(e)}></input>
+                                        <p className="form-validation-registration" style={this.state.hourAlreadyExists ?  void (0) : { display: 'none' }}>Es existiert bereits eine Unterricht an dieser Uhrzeit.</p>
 
                                         <select className="create-hour-day" id="day" onChange={(e) => this.onSelectedDayEntered(e)} >
                                             <option value="Montag">Montag</option>
@@ -278,6 +305,7 @@ export default class schedule extends React.Component {
                                             <option value="Donnerstag">Donnerstag</option>
                                             <option value="Freitag">Freitag</option>
                                         </select>
+                                        <p className="form-validation-registration" style={this.state.error ?  void (0) : { display: 'none' }}>Bitte füllen Sie alle Eingaben ein.</p>
                                         <button className="confirm-retrieve-wochenplan" style={{justifySelf:'center',marginTop:'10px'}} onClick={this.createUnterricht}>Stunde erstellen</button>          
 
                                     </div>      

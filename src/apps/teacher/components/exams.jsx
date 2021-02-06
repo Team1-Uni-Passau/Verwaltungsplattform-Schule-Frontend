@@ -6,6 +6,7 @@ import ExamsTable from '../../../assets/components/exams-table';
 import Modal from '../../../assets/components/modal'
 import DatePicker from 'react-datepicker';
 import * as PATHS from '../../GlobalConstants';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -22,7 +23,8 @@ export default class Exams extends React.Component {
             subject: '',
             type: 'Schriftlich',
             exams: [],
-            idToDelete: ''
+            idToDelete: '',
+            error: false
         }
 
         this.displayModal = this.displayModal.bind(this)
@@ -94,6 +96,7 @@ export default class Exams extends React.Component {
 
     async createExam () {
         console.log(this.convertDate(this.state.date))
+        if(this.state.class.length> 0 && this.state.hour.length > 0 && this.state.date && this.state.type){
             await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/neuepruefung' : PATHS.REACT_APP_PATH_PROD + '/lehrender/neuepruefung', {
                 method: 'POST',
                 headers: {
@@ -113,14 +116,29 @@ export default class Exams extends React.Component {
 
             }).then(response => response.json())
               .then(data =>{
-                let exams = this.state.exams;
-                var newExamsList = exams.concat(data);
-                this.setState({
-                    exams: newExamsList,
-                    displayModal: false
-                })
-                
+                  console.log(data)
+                  if(data.classId){
+                      console.log("Added")
+                      toast.success("Prüfung erfolgreich angelegt, die Seite wird geladen.")
+                    this.reloadPage();
+                    } else {
+                      this.setState({
+                          error: false,
+                          displayModal: false,
+                      })
+                      toast.error("Etwas ist schiefgelaufen.")
+                  }                
             })     
+        } else {
+            this.setState({
+                error: true
+            })
+        }
+
+    }
+
+    reloadPage(){
+        window.location.href = "/teacher/exams";
     }
 
 
@@ -129,6 +147,7 @@ export default class Exams extends React.Component {
     }
 
     async fetchExams() {
+        console.log(JSON.parse(localStorage.getItem("loggedIn")).userId)
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/pruefungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId : PATHS.REACT_APP_PATH_PROD + '/lehrender/pruefungen/'+JSON.parse(localStorage.getItem("loggedIn")).userId, {
             method: 'GET',
             headers: {
@@ -138,7 +157,7 @@ export default class Exams extends React.Component {
             },
         }).then(response => response.json())
           .then(data =>{
-              console.log(data)
+            console.log(data)
             this.setState({
                 exams: data
             })
@@ -206,6 +225,14 @@ export default class Exams extends React.Component {
     render() {
         return (
             <div className="teacher-home">
+                <ToastContainer
+                    position="top-center"
+                    newestOnTop={false}
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    pauseOnHover={false}
+                />
+
                 <Modal show={this.state.displayModal} modalClosed={() => this.undisplayModal()}>
                     <h1 className="create-event-title">Prüfung erstellen</h1>
                     <div className="create-stunde" style={{textAlign:'center'}}>
@@ -227,7 +254,7 @@ export default class Exams extends React.Component {
                                         <option value="Schriftlich">Schriftlich</option>
                                         <option value="Mündlich">Mündlich</option>
                         </select>
-
+                        <p className="form-validation-registration" style={this.state.error ?  void (0) : { display: 'none' }}>Bitte füllen Sie alle Eingaben ein.</p>
                         <button className="confirm-create-event" style={{marginTop:"20px"}} onClick={this.createExam}>Prüfung erstellen</button>
 
                     </div>

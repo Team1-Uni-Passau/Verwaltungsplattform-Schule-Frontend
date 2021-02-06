@@ -19,7 +19,8 @@ export default class events extends React.Component {
             startDate: null,
             endDate: null,
             newEventText: '',
-            klasse: ''
+            klasse: '',
+            error: false
         }
 
         this.fetchEvents = this.fetchEvents.bind(this);
@@ -55,37 +56,44 @@ export default class events extends React.Component {
     }
 
     async createClassEvent() {
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/neueankuendigungklasse' : PATHS.REACT_APP_PATH_PROD + '/lehrender/neueankuendigungklasse', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-            },
-            body: JSON.stringify({
-                userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
-                startDate: this.state.startDate,
-                endDate: this.state.endDate,
-                content: this.state.newEventText,
-                classId: this.state.klasse
-            })
+        if(this.state.startDate !== null && this.state.endDate !== null && this.state.newEventText.length > 0 && this.state.klasse && this.state.startDate < this.state.endDate){
 
-        }).then(response => response.json())
-        .then(data => {
-            var alreadyExistingEvents = this.state.events;
-            alreadyExistingEvents.push(data);
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/neueankuendigungklasse' : PATHS.REACT_APP_PATH_PROD + '/lehrender/neueankuendigungklasse', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                },
+                body: JSON.stringify({
+                    userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
+                    startDate: this.state.startDate,
+                    endDate: this.state.endDate,
+                    content: this.state.newEventText,
+                    classId: this.state.klasse
+                })
+
+            }).then(response => response.json())
+            .then(data => {
+                var alreadyExistingEvents = this.state.events;
+                alreadyExistingEvents.push(data);
+                this.setState({
+                    events: alreadyExistingEvents,
+                    displayModal: false
+                })  
+            })
+        } else {
             this.setState({
-                events: alreadyExistingEvents,
-                displayModal: false
-            })  
-        })
+                error: true
+            })
+        }
 
     }
 
     renderEvents() {
         return (
             <div className="events-grid">
-                {this.state.events ? (
+                {this.state.events.length > 0 ? (
                     this.state.events.map((event) => {
                         return <EventCard 
                                     key={event.idNotification} 
@@ -178,7 +186,9 @@ onEndDateChange(e) {
                                 placeholderText= "Enddatum"
                                 
                             />
+                        <p className="form-validation-registration" style={this.state.error && (this.state.endDate < this.state.startDate) ?  void (0) : { display: 'none' }}>Startdatum muss nach dem Enddatum liegen.</p>
                         </div>
+                        <p className="form-validation-registration" style={this.state.error ?  void (0) : { display: 'none' }}>Bitte füllen Sie alle Eingaben ein.</p>
                         <button className="confirm-create-event" onClick={this.createClassEvent}>Erstellen</button>
                     </div>
                 </Modal>

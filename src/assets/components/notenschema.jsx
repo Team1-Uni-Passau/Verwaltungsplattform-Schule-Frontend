@@ -38,6 +38,7 @@ export default class Notenschema extends React.Component {
     }
     
     async submitSchema() {
+        console.log(JSON.parse(localStorage.getItem("loggedIn")).userId)
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/noten/neuesnotenschema' : PATHS.REACT_APP_PATH_PROD + '/lehrender/noten/neuesnotenschema', {
             method: 'POST',
             headers: {
@@ -58,7 +59,7 @@ export default class Notenschema extends React.Component {
             if(data.includes("Das Notenschema wurde angelegt")){
                 toast.success("Notenschema erfolgreich angelegt.")
             } else {
-                toast.error("Etwas ist schiefgelaufen.")
+                toast.error("Sie haben schon eine Notenschema für diese Klasse erstellt")
             }
         })
     }
