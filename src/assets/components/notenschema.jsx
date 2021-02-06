@@ -8,6 +8,7 @@ export default class Notenschema extends React.Component {
     constructor (props){
         super(props);
         this.state = {
+            error: false
         }
 
         this.submitSchema = this.submitSchema.bind(this)
@@ -39,29 +40,38 @@ export default class Notenschema extends React.Component {
     
     async submitSchema() {
         console.log(JSON.parse(localStorage.getItem("loggedIn")).userId)
-        await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/noten/neuesnotenschema' : PATHS.REACT_APP_PATH_PROD + '/lehrender/noten/neuesnotenschema', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-            },
-            body: JSON.stringify({
-                teacherId: JSON.parse(localStorage.getItem("loggedIn")).userId,
-                classId: this.classId,
-                writtenNumber: this.writtenGrade,
-                writtenEvaluation: this.writtenEvaluation,
-                oralNumber: this.oralGrade,
-                oralEvaluation: this.oralEvaluation,
+        if(this.classId && this.writtenGrade && this.writtenEvaluation && this.oralGrade && this.oralEvaluation){
+            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/lehrender/noten/neuesnotenschema' : PATHS.REACT_APP_PATH_PROD + '/lehrender/noten/neuesnotenschema', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                },
+                body: JSON.stringify({
+                    teacherId: JSON.parse(localStorage.getItem("loggedIn")).userId,
+                    classId: this.classId,
+                    writtenNumber: this.writtenGrade,
+                    writtenEvaluation: this.writtenEvaluation,
+                    oralNumber: this.oralGrade,
+                    oralEvaluation: this.oralEvaluation,
+                })
+            }).then(response => response.text())
+              .then(data =>{
+                if(data.includes("Das Notenschema wurde angelegt")){
+                    toast.success("Notenschema erfolgreich angelegt.")
+                } else {
+                    toast.error("Sie haben schon eine Notenschema für diese Klasse erstellt")
+                }
+                this.setState({
+                    error: false
+                })
+            })    
+        } else {
+            this.setState({
+                error: true
             })
-        }).then(response => response.text())
-          .then(data =>{
-            if(data.includes("Das Notenschema wurde angelegt")){
-                toast.success("Notenschema erfolgreich angelegt.")
-            } else {
-                toast.error("Sie haben schon eine Notenschema für diese Klasse erstellt")
-            }
-        })
+        }
     }
 
 
@@ -87,6 +97,7 @@ export default class Notenschema extends React.Component {
                     <input className="sicknote-form-input" placeholder="Mündliche Note" onChange ={(e) => this.onOralGradeChange(e)}></input>
                     <input className="sicknote-form-input" placeholder="Mündliche Evaluierung" onChange ={(e) => this.onOralEvaluationChange(e)}></input>
                 </div>
+                <p className="form-validation-registration" style={this.state.error ?  void (0) : { display: 'none' }}>Bitte füllen Sie alle Felder ein.</p>
                 <button className="submit-button-sicknote" onClick={this.submitSchema}>SENDEN</button>
             </div>
         )
