@@ -11,7 +11,7 @@ import AddUserIcon from '../images/users.png';
 import ExamIcon from '../images/Exam.png';
 import ClassroomIcon from '../images/Classroom.png';
 import ManageRollIcon from '../images/RoleManagement.png'
-import UsersList from '../images/usersicon.png'
+import Schema from '../images/schema.png'
 
 
 const roles = {
@@ -76,7 +76,7 @@ export default class LeftNavigation extends React.Component {
                             <LeftNavigationItem img={ScheduleIcon} title="Wochenpläne" selected={this.props.selected === "Wochenplan"} />
                             <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
                             <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />
-                            
+                            <LeftNavigationItem img={Schema} title="Notenschema erstellen" selected={this.props.selected === "Notenshema erstellen"} />
                         </div>
 
                 break;

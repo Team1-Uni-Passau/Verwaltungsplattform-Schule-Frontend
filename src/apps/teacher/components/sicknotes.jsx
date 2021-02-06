@@ -60,7 +60,7 @@ export default class events extends React.Component {
             <div className="parents-home">
          
 
-                <LeftNavigation selected="Krankmeldung erfassen" />
+                <LeftNavigation selected="Krankmeldungen erfassen" />
                 <div className="flex-right-container">
                     <TopBar/>
                     <div className="middle-panel-container">

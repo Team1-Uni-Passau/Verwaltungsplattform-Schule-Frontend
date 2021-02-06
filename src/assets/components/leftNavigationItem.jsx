@@ -44,9 +44,9 @@ export default class leftNavigationItem extends React.Component {
                     case "Benutzerliste":
                         window.location.href = "/sekretariat/userslist";
                         break;
-                        case "Schüler Anlegen":
-                            window.location.href = "/admin/createstudent";
-                            break;
+                    case "Schüler Anlegen":
+                        window.location.href = "/admin/createstudent";
+                        break;
                     default:
                         void (0);
                 }
@@ -109,6 +109,9 @@ export default class leftNavigationItem extends React.Component {
                         break;
                     case "Klassen verwalten":
                         window.location.href = "/admin/manageclass"
+                        break;
+                    case "Notenschema erstellen":
+                        window.location.href = "/teacher/schema";
                         break;
                     default:
                         void (0);
