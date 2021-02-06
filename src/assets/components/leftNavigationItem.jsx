@@ -68,6 +68,7 @@ export default class leftNavigationItem extends React.Component {
                     case "Notenschema":
                         window.location.href = "/parent/schema";
                         break;
+                    
                     default:
                         void (0);
                 }
@@ -110,6 +111,9 @@ export default class leftNavigationItem extends React.Component {
                     case "Notenschema erstellen":
                         window.location.href = "/teacher/schema";
                         break;
+                        case "Noten eintragen":
+                            window.location.href = "/teacher/grades"
+                            break;
                     default:
                         void (0);
                 }

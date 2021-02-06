@@ -76,6 +76,7 @@ export default class LeftNavigation extends React.Component {
                             <LeftNavigationItem img={ExamIcon} title="Prüfungen" selected={this.props.selected === "Prüfungen"} />
                             <LeftNavigationItem img={ClassroomIcon} title="Klassen einsehen" selected={this.props.selected === "Klassen einsehen"} />
                             <LeftNavigationItem img={Schema} title="Notenschema erstellen" selected={this.props.selected === "Notenshema erstellen"} />
+                            <LeftNavigationItem img={GradesIcon} title="Noten eintragen" selected={this.props.selected === "Noten eintragen"} />
                         </div>
 
                 break;

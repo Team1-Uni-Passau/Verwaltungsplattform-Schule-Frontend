@@ -62,11 +62,13 @@ export default class CreateUser extends React.Component {
     }).then(response => response.text())
     .then(text =>{
         console.log(text)
-        // if(data.roleRegisterCodeMapper.role === this.selectedRole){
-        //     alert("Die Nutzerrolle wurde erfolgreich zu " +this.selectedRole +" geändert")
-        // } else {
-        //     alert("Leider ist ein Fehler aufgetreten. Bitte versuchen sie es erneut!")
-        // }
+        if(text == ""){
+            alert("Fehler")
+        }
+        else{
+            alert(text)
+            location.reload()
+        }
     })
 }
     }

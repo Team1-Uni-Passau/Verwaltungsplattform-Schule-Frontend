@@ -33,6 +33,7 @@ import TeacherExams from './apps/teacher/components/exams';
 import TeacherSchedule from './apps/teacher/components/schedule';
 import TeacherSicknotes from './apps/teacher/components/sicknotes';
 import TeacherViewClasses from './apps/teacher/components/viewclasses';
+import TeacherGrades from './apps/teacher/components/grades';
 
 import StudentEvents from './apps/student/components/events';
 import StudentGrades from './apps/student/components/grades';
@@ -75,6 +76,7 @@ function AppRouter() {
             <AuthentificatedRoute exact path='/teacher/sicknotes' allowedRole={AllowedRoles.TEACHER} exact component={TeacherSicknotes}/>
             <AuthentificatedRoute exact path='/teacher/viewclasses' allowedRole={AllowedRoles.TEACHER} exact component={TeacherViewClasses}/>
             <AuthentificatedRoute exact path='/teacher/schema' allowedRole={AllowedRoles.TEACHER} component={Notenschema}/>
+            <AuthentificatedRoute exact path='/teacher/grades' allowedRole={AllowedRoles.TEACHER} exact component={TeacherGrades}/>
 
             <AuthentificatedRoute exact path='/admin/events' allowedRole={AllowedRoles.ADMIN} exact component={AdminEvents}/>
             <AuthentificatedRoute exact path='/admin/schedule' allowedRole={AllowedRoles.ADMIN} exact component={AdminSchedule}/>
