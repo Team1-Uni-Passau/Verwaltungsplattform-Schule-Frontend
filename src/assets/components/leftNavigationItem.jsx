@@ -42,7 +42,7 @@ export default class leftNavigationItem extends React.Component {
                         window.location.href = "/sekretariat/changeroll";
                         break;
                     case "Schüler Anlegen":
-                        window.location.href = "/admin/createstudent";
+                        window.location.href = "/sekretariat/createstudent";
                         break;
                     default:
                         void (0);

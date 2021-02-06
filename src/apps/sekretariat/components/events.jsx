@@ -38,7 +38,8 @@ export default class events extends React.Component {
             openDialog: false,
             eventIdToDelete: null,
             eventToModify: null,
-            modificationStatus: false
+            modificationStatus: false,
+            error: false
         }
 
         this.displayModal = this.displayModal.bind(this);
@@ -107,36 +108,11 @@ export default class events extends React.Component {
 
 
     async handleCreateOrEditEvent () {
-        if(this.state.modificationStatus){
-            await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/ankuendigungen/edit/' + this.state.eventToModify[0].idNotification :PATHS.REACT_APP_PATH_PROD + '/sekretariat/ankuendigungen/edit/' + this.state.eventToModify[0].idNotification, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-                },
-                body: JSON.stringify({
-                    userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
-                    startDate: this.state.startDate,
-                    endDate: this.state.endDate,
-                    content: this.state.newEventText,
-                    role: this.state.newEventSelectedRole,
-                    notificationId: this.state.eventToModify[0].idNotification
-
-                })
-
-            }).then(response => response.json())
-              .then(data =>{
-                var modifiedEventList = this.findAndReplaceById(data.idNotification, data);
-                this.setState({
-                    events: modifiedEventList
-                })
-            })     
-
-        } else {
-            if(this.state.newEventSelectedRole == 'Alle') {
-                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neueankuendigungallgemein' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungallgemein', {
-                    method: 'POST',
+        console.log()
+        if(this.state.startDate !== null && this.state.endDate !== null && this.state.newEventText.length > 0 && this.state.newEventSelectedRole && this.state.startDate < this.state.endDate){
+            if(this.state.modificationStatus){
+                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/ankuendigungen/edit/' + this.state.eventToModify[0].idNotification :PATHS.REACT_APP_PATH_PROD + '/sekretariat/ankuendigungen/edit/' + this.state.eventToModify[0].idNotification, {
+                    method: 'PUT',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
@@ -146,49 +122,82 @@ export default class events extends React.Component {
                         userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
                         startDate: this.state.startDate,
                         endDate: this.state.endDate,
-                        content: this.state.newEventText
-                    })
-    
-                }).then(response => response.json())
-                  .then(data =>{
-                    var alreadyExistingEvents = this.state.events;
-                    alreadyExistingEvents.push(data);
-                    this.setState({
-                        events: alreadyExistingEvents
-                    })  
-                })     
-            }
-
-            if(this.state.newEventSelectedRole == 'Lehrender' || this.state.newEventSelectedRole == 'Lernender' || this.state.newEventSelectedRole == 'Eltern' || this.state.newEventSelectedRole == 'Sekretariat'){
-                await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neueankuendigungrolle' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungrolle', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
-                    },
-                    body: JSON.stringify({
-                        userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
-                        startDate: this.state.startDate,
-                        endDate: this.state.endDate,
+                        content: this.state.newEventText,
                         role: this.state.newEventSelectedRole,
-                        content: this.state.newEventText
-    
+                        notificationId: this.state.eventToModify[0].idNotification
                     })
     
                 }).then(response => response.json())
                   .then(data =>{
-                    var alreadyExistingEvents = this.state.events;
-                    alreadyExistingEvents.push(data);
+                    var modifiedEventList = this.findAndReplaceById(data.idNotification, data);
                     this.setState({
-                        events: alreadyExistingEvents
-                    })  
+                        events: modifiedEventList
+                    })
                 })     
-
+    
+            } else {
+                if(this.state.newEventSelectedRole == 'Alle') {
+                    await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neueankuendigungallgemein' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungallgemein', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                        },
+                        body: JSON.stringify({
+                            userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
+                            startDate: this.state.startDate,
+                            endDate: this.state.endDate,
+                            content: this.state.newEventText
+                        })
+        
+                    }).then(response => response.json())
+                      .then(data =>{
+                        var alreadyExistingEvents = this.state.events;
+                        alreadyExistingEvents.push(data);
+                        this.setState({
+                            events: alreadyExistingEvents,
+                            error: false
+                        })  
+                    })     
+                }
+    
+                if(this.state.newEventSelectedRole == 'Lehrender' || this.state.newEventSelectedRole == 'Lernender' || this.state.newEventSelectedRole == 'Eltern' || this.state.newEventSelectedRole == 'Sekretariat'){
+                    await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/sekretariat/neueankuendigungrolle' : PATHS.REACT_APP_PATH_PROD + '/sekretariat/neueankuendigungrolle', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': "Bearer "+JSON.parse(localStorage.getItem("loggedIn")).token,
+                        },
+                        body: JSON.stringify({
+                            userId: JSON.parse(localStorage.getItem("loggedIn")).userId,
+                            startDate: this.state.startDate,
+                            endDate: this.state.endDate,
+                            role: this.state.newEventSelectedRole,
+                            content: this.state.newEventText
+        
+                        })
+        
+                    }).then(response => response.json())
+                      .then(data =>{
+                        var alreadyExistingEvents = this.state.events;
+                        alreadyExistingEvents.push(data);
+                        this.setState({
+                            events: alreadyExistingEvents,
+                            error: false
+                        })  
+                    })     
+    
+                }
             }
+            this.undisplayModal();            
+        } else {
+            this.setState({
+                error: true
+            })
         }
 
-        this.undisplayModal();            
     }
 
 
@@ -318,7 +327,7 @@ export default class events extends React.Component {
 
 
     render() {
-
+        console.log(this.state.error)
         return (
             <div className="sekretariat-home">
 
@@ -352,7 +361,7 @@ export default class events extends React.Component {
                                 
                             />
                         </div>
-                        
+                        <p className="form-validation-registration" style={this.state.error && (this.state.endDate < this.state.startDate) ?  void (0) : { display: 'none' }}>Startdatum muss nach dem Enddatum liegen.</p>
                         <select className="create-event-role" id="rolle" onChange = {(e) => this.onNewEventRoleChange(e)}>
                                         <option value="--">{this.state.modificationStatus ? this.state.eventToModify[0].rolle : "Sichtbar für:"}</option>
                                         <option value="Sekretariat" style={this.state.modificationStatus && this.state.eventToModify[0].rolle =="Sekretariat" ? {display:'none'} : void(0)}>Sekretariat</option>
@@ -362,7 +371,7 @@ export default class events extends React.Component {
                                         <option value="Alle">Alle</option>
                         </select>
 
-
+                        <p className="form-validation-registration" style={this.state.error ?  void (0) : { display: 'none' }}>Bitte füllen Sie alle Eingaben ein.</p>
                         <button className="confirm-create-event" onClick={this.handleCreateOrEditEvent}>{this.state.modificationStatus ? "Speichern": "Erstellen"}</button>
 
 
