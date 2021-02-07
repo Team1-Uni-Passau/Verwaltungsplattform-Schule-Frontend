@@ -381,7 +381,7 @@ export default class Homepage extends React.Component {
         })
 
         console.log("1")
-        if( this.registerName && this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode && this.state.roleCheckedInRegisterForm.length !== 0 && this.state.PasswordRepeatInvalid  && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid && !familyIdInvalid) {
+        if( this.registerName && this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && this.registerCode && this.state.roleCheckedInRegisterForm.length !== 0 && this.state.PasswordRepeatInvalid  && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid ) {
             console.log("test")
             await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/registration' : PATHS.REACT_APP_PATH_PROD + '/registration', {
                 method: 'POST',
