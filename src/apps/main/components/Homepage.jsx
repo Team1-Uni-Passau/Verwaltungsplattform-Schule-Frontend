@@ -603,8 +603,8 @@ export default class Homepage extends React.Component {
                                 <p className="login-failed" style={this.state.logginFailed && !this.state.passwordInvalid && !this.state.usernameInvalid ? void (0) : { display: 'none' }}>Falsche Anmeldedaten, Versuchen Sie es erneut.</p>
 
                                 <div className="username-input-container" style={this.state.usernameInvalid ? { height: '70px' } : void (0)}>
-                                    <input type="text" className="username" placeholder="Benutzername" onChange={(e) => this.handleUsernameChange(e)} style={this.state.usernameInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
-                                    <p className="form-validation-username" style={this.state.usernameInvalid ? void (0) : { display: 'none' }}>Benutzername is ein Pflichtfeld.</p>
+                                    <input type="text" className="username" placeholder="Email" onChange={(e) => this.handleUsernameChange(e)} style={this.state.usernameInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
+                                    <p className="form-validation-username" style={this.state.usernameInvalid ? void (0) : { display: 'none' }}>Email is ein Pflichtfeld.</p>
                                 </div>
                                 <div className="password-container-homepage">
                                     <input type={this.state.type} className="password" onChange={(e) => this.handlePasswordChange(e)} placeholder="Passwort" style={this.state.passwordInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
