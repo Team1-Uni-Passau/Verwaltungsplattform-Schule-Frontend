@@ -74,7 +74,7 @@ export default class Grades extends React.Component {
                     'Authorization': "Bearer " + JSON.parse(localStorage.getItem("loggedIn")).token,
                 },
                 body: JSON.stringify({
-                    affectedUserId: this.userId,
+                    userId: this.userId,
                     examId: this.examId,
                     grade: this.grade,
 
