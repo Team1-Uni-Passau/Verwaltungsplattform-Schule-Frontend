@@ -380,8 +380,20 @@ export default class Homepage extends React.Component {
             RegistrationConfirmed: true
         })
 
-        console.log("1")
-        if( this.registerName && this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && (this.registerPassword == this.registerRepeatPassword) && this.registerCode && this.state.roleCheckedInRegisterForm.length !== 0 && this.state.PasswordRepeatInvalid  && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid && !familyIdInvalid) {
+        console.log(this.registerName)
+        console.log(this.registerFirstName)
+        console.log(this.registerEmail)
+        console.log(this.registerPassword)
+        console.log(this.registerRepeatPassword)
+        console.log(this.registerPassword == this.registerRepeatPassword)
+        console.log(this.registerCode)
+        console.log(this.state.roleCheckedInRegisterForm.length !== 0)
+        console.log(this.state.PasswordRepeatInvalid)
+        console.log(!PasswordStructureInvalid)
+        console.log(!PasswordLengthInvalid)
+        console.log(!emailStructureInvalid)
+        console.log(!familyIdInvalid)
+        if( this.registerName && this.registerFirstName && this.registerEmail && this.registerPassword && this.registerRepeatPassword && (this.registerPassword == this.registerRepeatPassword) && this.registerCode && this.state.roleCheckedInRegisterForm.length !== 0   && !PasswordStructureInvalid && !PasswordLengthInvalid && !emailStructureInvalid && !familyIdInvalid) {
             console.log("test")
             await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/registration' : PATHS.REACT_APP_PATH_PROD + '/registration', {
                 method: 'POST',
