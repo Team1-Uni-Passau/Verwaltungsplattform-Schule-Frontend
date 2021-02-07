@@ -163,7 +163,11 @@ export default class restorePassword extends React.Component {
                 })
             }
             console.log("1")
-        if(this.Password && this.validationKey && this.PasswordRepeat && !this.state.PasswordStructureValid){
+            console.log(this.Password)
+            console.log(this.validationKey)
+            console.log(this.PasswordRepeat)
+            console.log(!this.state.PasswordStructureValid)
+        if(this.Password && this.validationKey && this.PasswordRepeat){
             console.log("2")
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword/code'  : PATHS.REACT_APP_PATH_PROD + '/restorePassword/code' , {
             method: 'PUT',
