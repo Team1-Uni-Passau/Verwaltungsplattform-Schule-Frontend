@@ -125,6 +125,7 @@ export default class restorePassword extends React.Component {
         
         async handleRestorePassword (){
             var pw = document.getElementById('pw').value;
+
             if (pw.match(/\d{1,}/) && pw.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && pw.match(/\W/)) {
                 this.setState({
                     PasswordStructureValid: true
@@ -166,8 +167,8 @@ export default class restorePassword extends React.Component {
             console.log(this.Password)
             console.log(this.validationKey)
             console.log(this.PasswordRepeat)
-            console.log(!this.state.PasswordStructureValid)
-        if(this.Password && this.validationKey && this.PasswordRepeat){
+            console.log(this.state.PasswordStructureValid)
+        if(this.Password && this.validationKey && this.PasswordRepeat && this.state.PasswordStructureValid && (this.Password == this.PasswordRepeat)){
             console.log("2")
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword/code'  : PATHS.REACT_APP_PATH_PROD + '/restorePassword/code' , {
             method: 'PUT',
