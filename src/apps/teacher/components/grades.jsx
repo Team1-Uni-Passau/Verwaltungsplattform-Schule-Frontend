@@ -84,7 +84,7 @@ export default class Grades extends React.Component {
                     .then(text => {
                         console.log(text)
                         if (text == "") {
-                            alert("Fehler")
+                            alert("Es ist ein Fehler aufgetreten. Bitte Kontrollieren sie die Eingabe")
                         }
                         else {
                             alert(text)
@@ -109,9 +109,12 @@ export default class Grades extends React.Component {
                         <div className="create-user-box">
                             <p className="create-user-top">Note eintragen</p>
                             <div className="create-user-input-container">
-                                <input className="create-user-input" type="text" placeholder="User Id" onChange={(e) => this.handleUserIdChange(e)}></input>
-                                <input className="create-user-input" type="text" placeholder="Prüfungs Nr." onChange={(e) => this.handleExamIdChange(e)}></input>
-                                <input className="create-user-input" type="text" placeholder="Note" onChange={(e) => this.handlegradeChange(e)}></input>
+                                <input className="create-user-input" type="text" placeholder="User Id" onChange={(e) => this.handleUserIdChange(e)} style={this.state.UserIdInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
+                                <p className="form-validation-registration" style={this.state.UserIdInvalid ? void (0) : { display: 'none' }}>Bitte geben sie eine ID ein.</p>
+                                <input className="create-user-input" type="text" placeholder="Prüfungs Nr." onChange={(e) => this.handleExamIdChange(e)} style={this.state.ExamIdInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
+                                <p className="form-validation-registration" style={this.state.ExamIdInvalid ? void (0) : { display: 'none' }}>Bitte geben sie eine Prüfungsnummer ein.</p>
+                                <input className="create-user-input" type="text" placeholder="Note" onChange={(e) => this.handlegradeChange(e)} style={this.state.GradeInvalid ? { borderColor: 'red', boxShadow: 'none' } : void (0)}></input>
+                                <p className="form-validation-registration" style={this.state.GradeInvalid ? void (0) : { display: 'none' }}>Bitte geben sie eine Note ein.</p>
                                 <button className="confirm-button" onClick={this.grades}>Bestätigen</button>
                             </div>
                         </div>

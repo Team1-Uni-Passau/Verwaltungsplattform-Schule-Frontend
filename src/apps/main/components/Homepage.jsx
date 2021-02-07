@@ -582,8 +582,8 @@ export default class Homepage extends React.Component {
                     <div className="wrapper-picture-loginBox">
                         <div className="homepage-picture">
                             <img src={HomepagePicture} />
-                            <p className="picture-text">Neue Wege, um das Lernen zu verwalten</p>
-                            <p className="picture-sub-text">Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text.</p>
+                            {/* <p className="picture-text">Neue Wege, um das Lernen zu verwalten</p>
+                            <p className="picture-sub-text">Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text.</p> */}
                         </div>
                         <div className="login-box">
                             <p className="login-text">Anmelden</p>
