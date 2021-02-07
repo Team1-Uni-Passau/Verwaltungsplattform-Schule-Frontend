@@ -162,9 +162,9 @@ export default class restorePassword extends React.Component {
                     validationKeyInvalid: false
                 })
             }
-            
+            console.log("1")
         if(this.Password && this.validationKey && this.PasswordRepeat && !this.state.PasswordStructureValid){
-            
+            console.log("2")
         await fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword/code'  : PATHS.REACT_APP_PATH_PROD + '/restorePassword/code' , {
             method: 'PUT',
             headers: {
@@ -178,9 +178,10 @@ export default class restorePassword extends React.Component {
         })
             .then(response => response.json())
             .then(data => {
+                console.log("3")
                 console.log(data)
                 if(data){
-                    console.log("1")
+                    console.log("4")
                      fetch(isLocalhost ? PATHS.REACT_APP_PATH_LOCAL + '/restorePassword/changePassword'  : PATHS.REACT_APP_PATH_PROD + '/restorePassword/changePassword' , {
                         method: 'PUT',
                         headers: {
@@ -193,6 +194,7 @@ export default class restorePassword extends React.Component {
                     })
                     .then(response => response.json())
                     .then(data => {
+                        console.log("5")
                         console.log(data)
                         if(data.Password = this.Password){
                             alert("Das Passwort wurde erfolgreich geändert.")
