@@ -163,6 +163,15 @@ export default class restorePassword extends React.Component {
                     validationKeyInvalid: false
                 })
             }
+            if (this.PasswordRepeat != this.Password) {
+                this.setState({
+                    PasswordEqualInvalid: true
+                })
+            } else {
+                this.setState({
+                    PasswordEqualInvalid: false
+                })
+            }
             console.log("1")
             console.log(this.Password)
             console.log(this.validationKey)
